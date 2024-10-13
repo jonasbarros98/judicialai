@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ documento.titulo }}</title>
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+            font-size: 12pt;
+            margin: 40px;
+            line-height: 1.6;
+        }
+
+        p {
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        .document-content {
+            white-space: pre-wrap;
+            /* Garante que as quebras de linha no conteúdo do banco sejam respeitadas */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Título do documento -->
+    <h1>{{ documento.titulo }}</h1>
+
+    <!-- Conteúdo do documento (formatado conforme salvo no banco) -->
+    <div class="document-content">
+        {{ documento.conteudo | safe }}
+        <!-- O filtro |safe garante que o HTML no conteúdo seja renderizado corretamente -->
+    </div>
+
+</body>
+
+</html>

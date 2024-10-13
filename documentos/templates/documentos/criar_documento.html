@@ -1,0 +1,135 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Criar Petição Inicial{% endblock %}
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <!-- jQuery completo -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Inputmask script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+{% endblock %}
+{% block content %}
+
+    <div class="">
+        <h2 class="text-center">Gere a sua Petição Inicial em minutos</h2>
+        <form method="post" action="{% url 'criar_documento' %}" id="documento-form">
+            {% csrf_token %}
+            <!-- 
+            <div class="form-group">
+                <label for="tipo">Tipo de Documento:</label>
+                <select class="form-control" name="tipo" id="tipo" required>
+                    <option value="">Selecione o Tipo de Documento</option>
+                    <option value="peticao_inicial">Petição Inicial</option>
+                    <option value="contestacao">Contestação</option>
+                </select>
+            </div>-->
+            <input type="hidden" name="tipo" value="peticao_inicial">
+            <div class="form-group">
+                <label for="tipo_acao">Tipo de Ação:</label>
+                <input type="text" class="form-control" name="tipo_acao" id="tipo_acao"
+                    placeholder="Ex: Ação de Alimentos" required>
+            </div>
+
+            <div class="form-group">
+                <label for="valor_causa">Valor da Causa:</label>
+                <input type="text" class="form-control" name="valor_causa" id="valor_causa"
+                    placeholder="Ex: R$ 50.000,00" required>
+            </div>
+
+            <div class="form-group">
+                <label for="juizo_competente">Juízo Competente:</label>
+                <input type="text" class="form-control" name="juizo_competente" id="juizo_competente"
+                    placeholder="Ex: Vara de Família" required>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="descricao_fatos">Descreva os fatos relevantes do Caso:</label>
+                <textarea class="form-control" name="descricao_fatos" id="descricao_fatos" rows="6" maxlength="2500" 
+                placeholder = "Ex: Tobias Sarmento da Cruz, menor de idade, é filho de Magda Almerinda Pereira e Eronaldo Arcângelo Nogueira. Após a separação dos pais, Eronaldo deixou de prestar alimentos ao autor, obrigando a mãe a arcar sozinha com todas as despesas do filho, como educação, saúde e moradia. Diante da situação financeira atual, Magda não consegue mais sustentar o menor sem a devida contribuição do requerido, que possui condições de colaborar. Por isso, a presente ação requer a fixação de alimentos mensais."
+                required></textarea>
+                <small class="form-text text-muted">Limite de 2500 caracteres.</small>
+                
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" name="justica_gratis" id="justica_gratis">
+                <label class="form-check-label" for="justica_gratis">Adicionar pedido de justiça gratuita</label>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="adicionar-partes" onclick="togglePartesEnvolvidas()">
+                <label class="form-check-label" for="adicionar-partes">Adicionar Partes Envolvidas</label>
+            </div>
+
+
+            <div id="partes-envolvidas" style="display: none;">
+                <div class="form-group">
+                    <label for="dados_requerente">Dados do Requerente:</label>
+                    <textarea class="form-control" name="dados_requerente" id="dados_requerente" rows="2"
+                        placeholder="Ex: Nome, CPF, Endereço, Profissão, Estado Civil, etc."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dados_requerido">Dados do Requerido:</label>
+                    <textarea class="form-control" name="dados_requerido" id="dados_requerido" rows="2"
+                        placeholder="Ex: Nome, CPF, Endereço, Profissão, Estado Civil, etc."></textarea>
+                </div>
+            </div>
+
+            <!-- Botão de envio -->
+            <button type="submit" class="btn btn-primary btn-block btn-centralizado" id="btn-gerar-documento">Gerar Documento</button>
+            
+        </form>
+        <!-- Loader de espera enquanto o documento é gerado -->
+        <div id="loader" style="display: none; text-align: center;">
+            <h3>Aguarde enquanto estamos gerando o seu documento...</h3>
+            <img src="/static/img/loader.gif" alt="Loading..." />
+        </div>
+    </div>
+
+        <!-- Scripts para a máscara e o loader -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            // Função para exibir o loader
+            document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('documento-form').addEventListener('submit', function (event) {
+                    event.preventDefault();  // Previne o envio imediato do formulário
+    
+                    // Oculta o formulário e mostra o loader
+                    document.getElementById("documento-form").style.display = "none";
+                    document.getElementById("loader").style.display = "block";
+    
+                    // Aguarda um pequeno tempo para mostrar o loader e então submete o formulário
+                    setTimeout(() => {
+                        this.submit();  // Agora o formulário é enviado
+                    }, 500);  // Pausa de 500ms para garantir que o loader aparece
+                });
+            });
+    
+    // Aplicação da máscara de moeda
+            $(document).ready(function () {
+                // Aplicando a máscara de moeda no campo de valor da causa
+                $('#valor_causa').inputmask({
+                    alias: 'currency',
+                    prefix: 'R$ ',
+                    groupSeparator: '.',
+                    radixPoint: ',',
+                    autoGroup: true,
+                    digits: 2,
+                    rightAlign: false
+                });
+            });
+
+                        // Função para exibir/ocultar os campos de partes envolvidas
+            function togglePartesEnvolvidas() {
+                var partesEnvolvidas = document.getElementById('partes-envolvidas');
+                if (document.getElementById('adicionar-partes').checked) {
+                    partesEnvolvidas.style.display = 'block';
+                } else {
+                    partesEnvolvidas.style.display = 'none';
+                }
+            }
+        </script>
+
+
+{% endblock %}

@@ -1,0 +1,280 @@
+/* Background acinzentado para a página */
+body {
+    background-color: #F5F5F5;
+    margin: 0;
+    /* Remove a margem padrão do body */
+    padding: 0;
+    /* Remove o preenchimento padrão do body */
+}
+
+.menu-lateral {
+    position: absolute;
+    height: 80%;
+    z-index: 10;
+    overflow-y: auto;
+}
+
+/* Ajustes para as divs com sombra e bordas arredondadas */
+.collapse-header {
+    cursor: pointer;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Outros estilos comuns */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin: 0;
+    /* Remove a margem padrão do h2 */
+    padding: 0;
+    /* Remove o preenchimento padrão do h2 */
+}
+
+h3,
+h4,
+h1 {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin-top: 20px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+p {
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+p b {
+    color: #000;
+    font-weight: bold;
+}
+
+.editable-content {
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.action-links {
+    text-align: center;
+}
+
+.action-links {
+    text-align: center;
+}
+
+/* Estilos para a sidebar fixa */
+.sidebar {
+    position: absolute;
+    top: 80px;
+    bottom: 40;
+    left: 25;
+    width: 330px;
+    /* Define a largura da sidebar */
+    height: 80vh;
+    /* Define a altura da sidebar como 100% da altura da viewport */
+    padding: 15px;
+    background-color: #f8f9fa;
+    overflow-y: auto;
+    box-shadow: 2px 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h4 {
+    margin-top: 0;
+}
+
+.sidebar .list-group {
+    margin-bottom: 0;
+}
+
+.sidebar .list-group-item {
+    width: 100%;
+    /* Faz os itens da lista ocuparem toda a largura da sidebar */
+    box-sizing: border-box;
+    /* Inclui padding e border na largura total */
+}
+
+.main-content {
+    margin-left: 500px;
+    /* Reduz a margem esquerda para centralizar mais o conteúdo */
+    margin-top: 0;
+    /* Adiciona uma margem superior para mover o conteúdo para cima */
+    padding: 0px;
+    max-width: 800px;
+    /* Reduz a largura máxima para centralizar mais o conteúdo */
+    margin: 20px auto;
+    /* Centraliza o conteúdo horizontalmente */
+
+}
+
+/* Estilos para os botões de download */
+.download-buttons {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    width: 250px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.download-buttons h4 {
+    margin-top: 0;
+}
+
+.download-buttons .btn {
+    width: 100%;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 30px;
+    width: 90%;
+    /* Ajuste a largura conforme necessário */
+    max-width: 1200px;
+    /* Defina um valor máximo para a largura */
+    margin-left: auto;
+    /* Centralize o container horizontalmente */
+    margin-right: auto;
+    /* Centralize o container horizontalmente */
+    padding: 20px;
+    /* Adicione padding para espaçamento interno */
+}
+
+.balloon-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    /* Espaçamento entre os balões */
+}
+
+.balloon {
+    width: 200px;
+    /* Aumente a largura dos balões */
+    height: 100px;
+    /* Ajuste para tornar mais retangular */
+    border-radius: 20px;
+    /* Bordas arredondadas para um visual mais futurista */
+    background-color: #fcfffe8f;
+    color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    /* Espaçamento entre os balões */
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(144, 10, 161, 0.473);
+}
+
+.balloon:hover {
+    background-color: #5495f73f;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.balloon:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-centralizado {
+    display: block;
+
+    /* Ajuste a largura conforme necessário */
+    margin: 20px auto;
+    /* Centraliza o botão horizontalmente */
+    padding: 10px 20px;
+    /* Ajuste o padding conforme necessário */
+    font-size: 16px;
+    /* Ajuste o tamanho da fonte conforme necessário */
+    height: auto;
+}
+
+.container-ajustado {
+    max-width: 900px;
+    /* Ajuste a largura conforme necessário */
+    margin: 20px auto 20px auto;
+    /* Suba o container e centraliza horizontalmente */
+    padding: 20px;
+    /* Adicione padding para espaçamento interno */
+
+    background-color: #f5f5f521;
+    /* Fundo branco com 80% de opacidade */
+    border-radius: 8px;
+    /* Bordas arredondadas para um visual mais suave */
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.1);
+    /* Sombra para dar profundidade */
+}
+
+#container-ajustado {
+    max-width: 900px;
+    /* Ajuste a largura conforme necessário */
+    margin: 10px auto 20px auto;
+    /* Suba o container e centraliza horizontalmente */
+    padding: 20px;
+    /* Adicione padding para espaçamento interno */
+
+    background-color: #f5f5f521;
+    /* Fundo branco com 80% de opacidade */
+    border-radius: 8px;
+    /* Bordas arredondadas para um visual mais suave */
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.1);
+    /* Sombra para dar profundidade */
+}
+
+.container-custom {
+    max-width: 1500px;
+    /* Define uma largura máxima mais estreita */
+    margin: 0 auto;
+    /* Centraliza o conteúdo */
+}
+
+/* Ajuste a altura da barra de navegação para ser menor */
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+/* O logo da empresa (navbar-brand) totalmente fixado à esquerda */
+.navbar-brand-left {
+    position: absolute;
+    left: 30px;
+    /* Posiciona o nome totalmente à esquerda */
+    padding-left: 15px;
+    /* Ajusta o espaçamento para a borda */
+}
+
+/* Remove o excesso de margem nos links */
+.navbar-nav .nav-item .nav-link {
+    margin: 0 10px;
+}
+
+.required-field::after {
+    content: " *";
+    color: red;
+}

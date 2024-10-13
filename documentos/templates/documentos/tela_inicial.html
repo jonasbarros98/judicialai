@@ -1,0 +1,30 @@
+{% extends 'documentos/base.html' %}
+
+{% load static %}
+
+{% block title %}Tela Inicial{% endblock %}
+
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="container">
+        <h2 class="text-center">Escolha a Peça Jurídica</h2>
+
+        <div class="balloon-container">
+            <div class="balloon" onclick="window.location.href='{% url 'criar_documento' %}'">Petição Inicial</div>
+            <div class="balloon" onclick="window.location.href='{% url 'criar_contestacao' %}'">Contestação</div>
+            <div class="balloon" onclick="window.location.href='#'">Apelação</div>
+            <div class="balloon" onclick="window.location.href='#'">Embargos</div>
+            <div class="balloon" onclick="window.location.href='#'">Recurso Extraordinário</div>
+            <div class="balloon" onclick="window.location.href='#'">Mandado de Segurança</div>
+            <div class="balloon" onclick="window.location.href='#'">Habeas Corpus</div>
+            <div class="balloon" onclick="window.location.href='#'">Ação Rescisória</div>
+            <div class="balloon" onclick="window.location.href='#'">Agravo de Instrumento</div>
+            <div class="balloon" onclick="window.location.href='#'">Execução Fiscal</div>
+        </div>
+    </div>
+{% endblock %}

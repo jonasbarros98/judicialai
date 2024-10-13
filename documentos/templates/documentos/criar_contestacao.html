@@ -1,0 +1,197 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Criar Contestação{% endblock %}
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <!-- jQuery completo -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Inputmask script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+{% endblock %}
+{% block content %}
+
+<div>
+    <h2 class="text-center"><strong>Gere a sua Contestação</strong></h2>
+    <br>
+    <form method="post" action="{% url 'criar_contestacao' %}" id="documento-form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Primeira Etapa -->
+        <div id="etapa-1">
+            <input type="hidden" name="tipo" value="contestacao">
+
+            <div class="form-group text-center">
+                <label for="anexar_documentos">Anexar PDF da Petição Inicial (Opcional):</label>
+                <div class="d-flex justify-content-center ">
+                    <input type="file" name="anexar_documentos" id="anexar_documentos">
+                </div>
+                <small class="form-text text-muted">Você pode anexar o PDF da Petição Inicial para desenvolver sua contestação</small>
+            </div>
+
+            <div class="form-group">
+                <label for="processo_numero">Número do Processo: (Opcional)</label>
+                <input type="text" class="form-control" name="processo_numero" id="processo_numero"
+                    placeholder="Ex: XXXXXXX-XX.2024.1.23.4567">
+            </div>
+
+            <div class="form-group" >
+                <label for="tipo_acao" class="required-field">Tipo de Ação: (Opcional)</label>
+                <input type="text" class="form-control" name="tipo_acao" id="tipo_acao"
+                    placeholder="Ex: Ação de Danos Morais" >
+            </div>
+
+            <div class="form-group">
+                <label for="fundamentacao_fatos" class="required-field">Fundamentação Fática:</label>
+                <textarea class="form-control" name="fundamentacao_fatos" id="fundamentacao_fatos" rows="5" maxlength="2500"
+                placeholder="Ex: O réu alega que não é responsável pelos danos alegados..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="fundamentacao_direito">Fundamentação Jurídica: (Opcional)</label>
+                <textarea class="form-control" name="fundamentacao_direito" id="fundamentacao_direito" rows="5" maxlength="2500" 
+                placeholder="Ex: O réu fundamenta sua defesa com base no artigo 186 do Código Civil..."></textarea>
+            </div>
+
+            <!-- Botão para avançar -->
+            <button type="button" class="btn btn-primary" id="btn-avancar">Avançar</button>
+        </div>
+
+        <!-- Segunda Etapa -->
+        <div id="etapa-2" style="display: none;">
+            <div class="form-group">
+                <label for="valor_causa">Valor da Causa: (Opcional)</label>
+                <input type="text" class="form-control" name="valor_causa" id="valor_causa"
+                    placeholder="Ex: R$ 50.000,00">
+            </div>
+
+            <div class="form-group">
+                <label for="juizo_competente">Juízo Competente: (Opcional)</label>
+                <input type="text" class="form-control" name="juizo_competente" id="juizo_competente"
+                    placeholder="Ex: Vara Cível">
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="adicionar-partes" onclick="togglePartesEnvolvidas()">
+                <label class="form-check-label" for="adicionar-partes">Adicionar Partes Envolvidas</label>
+            </div>
+
+            <div id="partes-envolvidas" style="display: none;">
+                <div class="form-group">
+                    <label for="dados_requerente">Dados do Requerente:</label>
+                    <textarea class="form-control" name="dados_requerente" id="dados_requerente" rows="2"
+                        placeholder="Ex: Nome, CPF, Endereço, Profissão, Estado Civil, etc."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dados_requerido">Dados do Requerido:</label>
+                    <textarea class="form-control" name="dados_requerido" id="dados_requerido" rows="2"
+                        placeholder="Ex: Nome, CPF, Endereço, Profissão, Estado Civil, etc."></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="provas">Provas que sustentam a contestação:</label>
+                <textarea class="form-control" name="provas" id="provas" rows="3" 
+                placeholder="Ex: Conversas no WhatsApp, e-mails, fotos, vídeos, testemunhas, etc."></textarea>
+            </div>
+
+            <!-- Botão para voltar e para enviar -->
+            <button type="button" class="btn btn-secondary" id="btn-voltar">Voltar</button>
+            <button type="submit" class="btn btn-primary">Gerar Contestação</button>
+        </div>   
+        </form>
+    </div>
+        <!-- Loader de espera enquanto o documento é gerado -->
+        <div id="loader" style="display: none; text-align: center;">
+            <h3>Aguarde enquanto estamos gerando o seu documento...</h3>
+            <img src="/static/img/loader.gif" alt="Loading..." />
+        </div>
+
+        <!-- ... Seu código HTML anterior ... -->
+
+<!-- Scripts para a máscara e o loader -->
+<!-- Certifique-se de que jQuery é carregado antes deste script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        console.log('Document ready function executada.');
+
+        // Manipulador para o botão "Avançar"
+        $('#btn-avancar').click(function () {
+            // Verifica se todos os campos obrigatórios estão preenchidos
+            let isValid = true;
+            $('#etapa-1 input[required], #etapa-1 textarea[required]').each(function() {
+                if ($(this).val() === '') {
+                    isValid = false;
+                    $(this).addClass('is-invalid');
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            if (isValid) {
+                $('#etapa-1').hide();
+                $('#etapa-2').show();
+            } else {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+            }
+        });
+
+        // Manipulador para o botão "Voltar"
+        $('#btn-voltar').click(function () {
+            $('#etapa-2').hide();
+            $('#etapa-1').show();
+        });
+
+        // Aplicação da máscara de moeda
+        $('#valor_causa').inputmask({
+            alias: 'currency',
+            prefix: 'R$ ',
+            groupSeparator: '.',
+            radixPoint: ',',
+            autoGroup: true,
+            digits: 2,
+            rightAlign: false
+        });
+
+        // Manipulador para o botão "Voltar"
+        $('#btn-voltar').click(function () {
+            console.log('Botão Voltar clicado!');
+            $('#etapa-2').hide();
+            $('#etapa-1').show();
+        });
+
+        // Função para exibir o loader ao enviar o formulário
+        $('#documento-form').submit(function (event) {
+            event.preventDefault();  // Previne o envio imediato do formulário
+
+            // Oculta o formulário e mostra o loader
+            $('#documento-form').hide();
+            $('#loader').show();
+
+            // Aguarda um pequeno tempo para mostrar o loader e então submete o formulário
+            setTimeout(() => {
+                this.submit();  // Agora o formulário é enviado
+            }, 500);  // Pausa de 500ms para garantir que o loader aparece
+        });
+    });
+
+    function togglePartesEnvolvidas() {
+        var partesEnvolvidas = document.getElementById('partes-envolvidas');
+        if (document.getElementById('adicionar-partes').checked) {
+            partesEnvolvidas.style.display = 'block';
+        } else {
+            partesEnvolvidas.style.display = 'none';
+        }
+    }
+</script>
+
+<!-- ... Resto do seu código ... -->
+
+
+        <!-- Scripts para a máscara e o loader -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        
+
+{% endblock %}

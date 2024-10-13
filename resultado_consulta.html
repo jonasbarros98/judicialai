@@ -1,0 +1,5235 @@
+<html lang="pt-br" translate="no">
+ <head>
+  <meta charset="utf-8"/>
+  <link href="/favicon.ico" rel="shortcut icon"/>
+  <meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name="viewport"/>
+  <meta content="#000000" name="theme-color"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+  <link href="/manifest.json" rel="manifest"/>
+  <title>
+   Pesquisa de jurisprudência
+  </title>
+  <link href="/static/css/2.9057fe88.chunk.css" rel="stylesheet"/>
+  <link href="/static/css/main.81033e86.chunk.css" rel="stylesheet"/>
+  <style data-jss="" data-meta="MuiTouchRipple">
+   .jss298 {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  position: absolute;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.jss299 {
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  position: absolute;
+}
+.jss300 {
+  opacity: 0.3;
+  transform: scale(1);
+  animation: mui-ripple-enter 550ms cubic-bezier(0.4, 0, 0.2, 1);
+  animation-name: $mui-ripple-enter;
+}
+.jss301 {
+  animation-duration: 200ms;
+}
+.jss302 {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  display: block;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+.jss303 {
+  opacity: 0;
+  animation: mui-ripple-exit 550ms cubic-bezier(0.4, 0, 0.2, 1);
+  animation-name: $mui-ripple-exit;
+}
+.jss304 {
+  top: 0;
+  left: 0;
+  position: absolute;
+  animation: mui-ripple-pulsate 2500ms cubic-bezier(0.4, 0, 0.2, 1) 200ms infinite;
+  animation-name: $mui-ripple-pulsate;
+}
+@-webkit-keyframes mui-ripple-enter {
+  0% {
+    opacity: 0.1;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes mui-ripple-exit {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes mui-ripple-pulsate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+  </style>
+  <style data-jss="" data-meta="MuiButtonBase">
+   .jss105 {
+  color: inherit;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  display: inline-flex;
+  outline: none;
+  padding: 0;
+  position: relative;
+  align-items: center;
+  user-select: none;
+  border-radius: 0;
+  vertical-align: middle;
+  justify-content: center;
+  -moz-appearance: none;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.jss105::-moz-focus-inner {
+  border-style: none;
+}
+.jss105.jss106 {
+  cursor: default;
+  pointer-events: none;
+}
+  </style>
+  <style data-jss="" data-meta="MuiButton">
+   .jss305 {
+  color: rgba(0, 0, 0, 0.87);
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  min-width: 64px;
+  box-sizing: border-box;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  line-height: 1.75;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+.jss305:hover {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.jss305.jss325 {
+  color: rgba(0, 0, 0, 0.26);
+}
+@media (hover: none) {
+  .jss305:hover {
+    background-color: transparent;
+  }
+}
+.jss305:hover.jss325 {
+  background-color: transparent;
+}
+.jss306 {
+  width: 100%;
+  display: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+}
+.jss307 {
+  padding: 6px 8px;
+}
+.jss308 {
+  color: #01579b;
+}
+.jss308:hover {
+  background-color: rgba(1, 87, 155, 0.08);
+}
+@media (hover: none) {
+  .jss308:hover {
+    background-color: transparent;
+  }
+}
+.jss309 {
+  color: #b71c1c;
+}
+.jss309:hover {
+  background-color: rgba(183, 28, 28, 0.08);
+}
+@media (hover: none) {
+  .jss309:hover {
+    background-color: transparent;
+  }
+}
+.jss313 {
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  padding: 5px 16px;
+}
+.jss313.jss325 {
+  border: 1px solid rgba(0, 0, 0, 0.26);
+}
+.jss314 {
+  color: #01579b;
+  border: 1px solid rgba(1, 87, 155, 0.5);
+}
+.jss314:hover {
+  border: 1px solid #01579b;
+  background-color: rgba(1, 87, 155, 0.08);
+}
+@media (hover: none) {
+  .jss314:hover {
+    background-color: transparent;
+  }
+}
+.jss315 {
+  color: #b71c1c;
+  border: 1px solid rgba(183, 28, 28, 0.5);
+}
+.jss315:hover {
+  border: 1px solid #b71c1c;
+  background-color: rgba(183, 28, 28, 0.08);
+}
+.jss315.jss325 {
+  border: 1px solid rgba(0, 0, 0, 0.26);
+}
+@media (hover: none) {
+  .jss315:hover {
+    background-color: transparent;
+  }
+}
+.jss316 {
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 3px 1px -2px rgba(0,0,0,0.12);
+  background-color: #e0e0e0;
+}
+.jss316.jss324 {
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+}
+.jss316:active {
+  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+}
+.jss316.jss325 {
+  color: rgba(0, 0, 0, 0.26);
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+.jss316:hover {
+  background-color: #d5d5d5;
+}
+@media (hover: none) {
+  .jss316:hover {
+    background-color: #e0e0e0;
+  }
+}
+.jss316:hover.jss325 {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+.jss317 {
+  color: #fff;
+  background-color: #01579b;
+}
+.jss317:hover {
+  background-color: #bbdefb;
+}
+@media (hover: none) {
+  .jss317:hover {
+    background-color: #01579b;
+  }
+}
+.jss318 {
+  color: #fff;
+  background-color: #b71c1c;
+}
+.jss318:hover {
+  background-color: #7f0000;
+}
+@media (hover: none) {
+  .jss318:hover {
+    background-color: #b71c1c;
+  }
+}
+.jss322 {
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  min-width: 0;
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+  border-radius: 50%;
+}
+.jss322:active {
+  box-shadow: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12);
+}
+.jss323 {
+  width: auto;
+  height: 48px;
+  padding: 0 16px;
+  min-width: 48px;
+  border-radius: 24px;
+}
+.jss326 {
+  color: inherit;
+  border-color: currentColor;
+}
+.jss327 {
+  width: 40px;
+  height: 40px;
+}
+.jss328 {
+  padding: 4px 8px;
+  min-width: 64px;
+  font-size: 0.8125rem;
+}
+.jss329 {
+  padding: 8px 24px;
+  font-size: 0.9375rem;
+}
+.jss330 {
+  width: 100%;
+}
+  </style>
+  <style data-jss="" data-meta="MuiPaper">
+   .jss31 {
+  background-color: #fff;
+}
+.jss32 {
+  border-radius: 4px;
+}
+.jss33 {
+  box-shadow: none;
+}
+.jss34 {
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 2px 1px -1px rgba(0,0,0,0.12);
+}
+.jss35 {
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 3px 1px -2px rgba(0,0,0,0.12);
+}
+.jss36 {
+  box-shadow: 0px 1px 8px 0px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 3px 3px -2px rgba(0,0,0,0.12);
+}
+.jss37 {
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+.jss38 {
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12);
+}
+.jss39 {
+  box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+}
+.jss40 {
+  box-shadow: 0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12);
+}
+.jss41 {
+  box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12);
+}
+.jss42 {
+  box-shadow: 0px 5px 6px -3px rgba(0,0,0,0.2),0px 9px 12px 1px rgba(0,0,0,0.14),0px 3px 16px 2px rgba(0,0,0,0.12);
+}
+.jss43 {
+  box-shadow: 0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12);
+}
+.jss44 {
+  box-shadow: 0px 6px 7px -4px rgba(0,0,0,0.2),0px 11px 15px 1px rgba(0,0,0,0.14),0px 4px 20px 3px rgba(0,0,0,0.12);
+}
+.jss45 {
+  box-shadow: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12);
+}
+.jss46 {
+  box-shadow: 0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12);
+}
+.jss47 {
+  box-shadow: 0px 7px 9px -4px rgba(0,0,0,0.2),0px 14px 21px 2px rgba(0,0,0,0.14),0px 5px 26px 4px rgba(0,0,0,0.12);
+}
+.jss48 {
+  box-shadow: 0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12);
+}
+.jss49 {
+  box-shadow: 0px 8px 10px -5px rgba(0,0,0,0.2),0px 16px 24px 2px rgba(0,0,0,0.14),0px 6px 30px 5px rgba(0,0,0,0.12);
+}
+.jss50 {
+  box-shadow: 0px 8px 11px -5px rgba(0,0,0,0.2),0px 17px 26px 2px rgba(0,0,0,0.14),0px 6px 32px 5px rgba(0,0,0,0.12);
+}
+.jss51 {
+  box-shadow: 0px 9px 11px -5px rgba(0,0,0,0.2),0px 18px 28px 2px rgba(0,0,0,0.14),0px 7px 34px 6px rgba(0,0,0,0.12);
+}
+.jss52 {
+  box-shadow: 0px 9px 12px -6px rgba(0,0,0,0.2),0px 19px 29px 2px rgba(0,0,0,0.14),0px 7px 36px 6px rgba(0,0,0,0.12);
+}
+.jss53 {
+  box-shadow: 0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12);
+}
+.jss54 {
+  box-shadow: 0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12);
+}
+.jss55 {
+  box-shadow: 0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12);
+}
+.jss56 {
+  box-shadow: 0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12);
+}
+.jss57 {
+  box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12);
+}
+  </style>
+  <style data-jss="" data-meta="MuiCard">
+   .jss233 {
+  overflow: hidden;
+}
+  </style>
+  <style data-jss="" data-meta="MuiCardContent">
+   .jss245 {
+  padding: 16px;
+}
+.jss245:last-child {
+  padding-bottom: 24px;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTypography">
+   .jss62 {
+  margin: 0;
+  display: block;
+}
+.jss63 {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 7rem;
+  font-weight: 300;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.14286em;
+  margin-left: -.04em;
+  letter-spacing: -.04em;
+}
+.jss64 {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 3.5rem;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.30357em;
+  margin-left: -.02em;
+  letter-spacing: -.02em;
+}
+.jss65 {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 2.8125rem;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.13333em;
+  margin-left: -.02em;
+}
+.jss66 {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 2.125rem;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.20588em;
+}
+.jss67 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.35417em;
+}
+.jss68 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1.3125rem;
+  font-weight: 500;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.16667em;
+}
+.jss69 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.5em;
+}
+.jss70 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.875rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.01071em;
+}
+.jss71 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+}
+.jss72 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.75rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+}
+.jss73 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.875rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+.jss74 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 6rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.01562em;
+}
+.jss75 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 3.75rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.00833em;
+}
+.jss76 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 3rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: 0em;
+}
+.jss77 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 2.125rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.17;
+  letter-spacing: 0.00735em;
+}
+.jss78 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1.5rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.33;
+  letter-spacing: 0em;
+}
+.jss79 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1.25rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+}
+.jss80 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+}
+.jss81 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.875rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.57;
+  letter-spacing: 0.00714em;
+}
+.jss82 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.75rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 2.66;
+  letter-spacing: 0.08333em;
+  text-transform: uppercase;
+}
+.jss83 {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  overflow: hidden;
+}
+.jss84 {
+  text-align: left;
+}
+.jss85 {
+  text-align: center;
+}
+.jss86 {
+  text-align: right;
+}
+.jss87 {
+  text-align: justify;
+}
+.jss88 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.jss89 {
+  margin-bottom: 0.35em;
+}
+.jss90 {
+  margin-bottom: 16px;
+}
+.jss91 {
+  color: inherit;
+}
+.jss92 {
+  color: #01579b;
+}
+.jss93 {
+  color: #b71c1c;
+}
+.jss94 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.jss95 {
+  color: rgba(0, 0, 0, 0.54);
+}
+.jss96 {
+  color: #f44336;
+}
+.jss97 {
+  display: inline;
+}
+  </style>
+  <style data-jss="" data-meta="MuiCardHeader">
+   .jss234 {
+  display: flex;
+  padding: 16px;
+  align-items: center;
+}
+.jss235 {
+  flex: 0 0 auto;
+  margin-right: 16px;
+}
+.jss236 {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  margin-top: -8px;
+  margin-right: -8px;
+}
+.jss237 {
+  flex: 1 1 auto;
+}
+  </style>
+  <style data-jss="" data-meta="MuiIconButton">
+   .jss99 {
+  flex: 0 0 auto;
+  color: rgba(0, 0, 0, 0.54);
+  padding: 12px;
+  overflow: visible;
+  font-size: 1.5rem;
+  text-align: center;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 50%;
+}
+.jss99:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.jss99.jss103 {
+  color: rgba(0, 0, 0, 0.26);
+}
+@media (hover: none) {
+  .jss99:hover {
+    background-color: transparent;
+  }
+}
+.jss99:hover.jss103 {
+  background-color: transparent;
+}
+.jss100 {
+  color: inherit;
+}
+.jss101 {
+  color: #01579b;
+}
+.jss101:hover {
+  background-color: rgba(1, 87, 155, 0.08);
+}
+@media (hover: none) {
+  .jss101:hover {
+    background-color: transparent;
+  }
+}
+.jss102 {
+  color: #b71c1c;
+}
+.jss102:hover {
+  background-color: rgba(183, 28, 28, 0.08);
+}
+@media (hover: none) {
+  .jss102:hover {
+    background-color: transparent;
+  }
+}
+.jss104 {
+  width: 100%;
+  display: flex;
+  align-items: inherit;
+  justify-content: inherit;
+}
+  </style>
+  <style data-jss="" data-meta="MuiPrivateSwitchBase">
+   .jss350 {
+  display: inline-flex;
+  transition: none;
+  align-items: center;
+}
+.jss350:hover {
+  background-color: transparent;
+}
+.jss353 {
+  top: 0;
+  left: 0;
+  width: 100%;
+  cursor: inherit;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+}
+  </style>
+  <style data-jss="" data-meta="MuiSvgIcon">
+   .jss108 {
+  fill: currentColor;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  font-size: 24px;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  user-select: none;
+  flex-shrink: 0;
+}
+.jss109 {
+  color: #01579b;
+}
+.jss110 {
+  color: #b71c1c;
+}
+.jss111 {
+  color: rgba(0, 0, 0, 0.54);
+}
+.jss112 {
+  color: #f44336;
+}
+.jss113 {
+  color: rgba(0, 0, 0, 0.26);
+}
+.jss114 {
+  font-size: inherit;
+}
+.jss115 {
+  font-size: 20px;
+}
+.jss116 {
+  font-size: 35px;
+}
+  </style>
+  <style data-jss="" data-meta="MuiCheckbox">
+   .jss354 {
+  color: rgba(0, 0, 0, 0.54);
+}
+.jss358.jss355 {
+  color: #01579b;
+}
+.jss358.jss356 {
+  color: rgba(0, 0, 0, 0.26);
+}
+.jss359.jss355 {
+  color: #b71c1c;
+}
+.jss359.jss356 {
+  color: rgba(0, 0, 0, 0.26);
+}
+  </style>
+  <style data-jss="" data-meta="MuiCircularProgress">
+   .jss1 {
+  display: inline-block;
+  line-height: 1;
+}
+.jss2 {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.jss3 {
+  animation: mui-progress-circular-rotate 1.4s linear infinite;
+  animation-name: $mui-progress-circular-rotate;
+}
+.jss4 {
+  color: #01579b;
+}
+.jss5 {
+  color: #b71c1c;
+}
+.jss7 {
+  stroke: currentColor;
+}
+.jss8 {
+  transition: stroke-dashoffset 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.jss9 {
+  animation: mui-progress-circular-dash 1.4s ease-in-out infinite;
+  animation-name: $mui-progress-circular-dash;
+  stroke-dasharray: 80px, 200px;
+  stroke-dashoffset: 0px;
+}
+@-webkit-keyframes mui-progress-circular-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes mui-progress-circular-dash {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0px;
+  }
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px;
+  }
+  100% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -125px;
+  }
+}
+.jss10 {
+  animation: none;
+}
+  </style>
+  <style data-jss="" data-meta="MuiCollapse">
+   .jss333 {
+  height: 0;
+  overflow: hidden;
+  transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.jss334 {
+  height: auto;
+  overflow: visible;
+}
+.jss335 {
+  display: flex;
+}
+.jss336 {
+  width: 100%;
+}
+  </style>
+  <style data-jss="" data-meta="MuiModal">
+   .jss131 {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1300;
+  position: fixed;
+}
+.jss132 {
+  visibility: hidden;
+}
+  </style>
+  <style data-jss="" data-meta="MuiDialog">
+   .jss118 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.jss119 {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.jss120 {
+  height: 100%;
+  outline: none;
+}
+.jss121 {
+  margin: 48px;
+  display: flex;
+  position: relative;
+  overflow-y: auto;
+  flex-direction: column;
+}
+.jss122 {
+  flex: 0 1 auto;
+  max-height: calc(100% - 96px);
+}
+.jss123 {
+  margin: 48px auto;
+}
+.jss124 {
+  max-width: 360px;
+}
+@media (max-width:455.95px) {
+  .jss124.jss123 {
+    margin: 48px;
+  }
+}
+.jss125 {
+  max-width: 600px;
+}
+@media (max-width:695.95px) {
+  .jss125.jss123 {
+    margin: 48px;
+  }
+}
+.jss126 {
+  max-width: 960px;
+}
+@media (max-width:1055.95px) {
+  .jss126.jss123 {
+    margin: 48px;
+  }
+}
+.jss127 {
+  max-width: 1280px;
+}
+@media (max-width:1375.95px) {
+  .jss127.jss123 {
+    margin: 48px;
+  }
+}
+.jss128 {
+  max-width: 1920px;
+}
+@media (max-width:2015.95px) {
+  .jss128.jss123 {
+    margin: 48px;
+  }
+}
+.jss129 {
+  width: 100%;
+}
+.jss130 {
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  max-width: 100%;
+  max-height: none;
+  border-radius: 0;
+}
+.jss130.jss123 {
+  margin: 0;
+}
+  </style>
+  <style data-jss="" data-meta="MuiDivider">
+   .jss240 {
+  height: 1px;
+  margin: 0;
+  border: none;
+  flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+.jss241 {
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+}
+.jss242 {
+  margin-left: 72px;
+}
+.jss243 {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.jss244 {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTable">
+   .jss434 {
+  width: 100%;
+  display: table;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTableBody">
+   .jss455 {
+  display: table-row-group;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTableCell">
+   .jss443 {
+  display: table-cell;
+  padding: 4px 56px 4px 24px;
+  text-align: left;
+  border-bottom: 1px solid
+    rgba(224, 224, 224, 1);
+  vertical-align: inherit;
+}
+.jss443:last-child {
+  padding-right: 24px;
+}
+.jss444 {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.jss445 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+.jss446 {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.75rem;
+  border-bottom: 0;
+}
+.jss447 {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+.jss448 {
+  padding-right: 24px;
+}
+.jss449 {
+  padding: 0 12px;
+}
+.jss449:last-child {
+  padding-right: 12px;
+}
+.jss450 {
+  padding: 0;
+}
+.jss450:last-child {
+  padding: 0;
+}
+.jss451 {
+  text-align: left;
+}
+.jss452 {
+  text-align: center;
+}
+.jss453 {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+.jss454 {
+  text-align: justify;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTableHead">
+   .jss437 {
+  display: table-header-group;
+}
+  </style>
+  <style data-jss="" data-meta="MuiInputBase">
+   .jss281 {
+  color: rgba(0, 0, 0, 0.87);
+  cursor: text;
+  display: inline-flex;
+  font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.1875em;
+  align-items: center;
+}
+.jss281.jss284 {
+  color: rgba(0, 0, 0, 0.38);
+  cursor: default;
+}
+.jss289 {
+  padding: 6px 0 7px;
+}
+.jss290 {
+  width: 100%;
+}
+.jss291 {
+  font: inherit;
+  color: currentColor;
+  width: 100%;
+  border: 0;
+  margin: 0;
+  padding: 6px 0 7px;
+  display: block;
+  min-width: 0;
+  box-sizing: content-box;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.jss291::-webkit-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.jss291::-moz-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.jss291:-ms-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.jss291::-ms-input-placeholder {
+  color: currentColor;
+  opacity: 0.42;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.jss291:focus {
+  outline: 0;
+}
+.jss291:invalid {
+  box-shadow: none;
+}
+.jss291::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+.jss291.jss284 {
+  opacity: 1;
+}
+label[data-shrink=false] + .jss282 .jss291::-webkit-input-placeholder {
+  opacity: 0;
+}
+label[data-shrink=false] + .jss282 .jss291::-moz-placeholder {
+  opacity: 0;
+}
+label[data-shrink=false] + .jss282 .jss291:-ms-input-placeholder {
+  opacity: 0;
+}
+label[data-shrink=false] + .jss282 .jss291::-ms-input-placeholder {
+  opacity: 0;
+}
+label[data-shrink=false] + .jss282 .jss291:focus::-webkit-input-placeholder {
+  opacity: 0.42;
+}
+label[data-shrink=false] + .jss282 .jss291:focus::-moz-placeholder {
+  opacity: 0.42;
+}
+label[data-shrink=false] + .jss282 .jss291:focus:-ms-input-placeholder {
+  opacity: 0.42;
+}
+label[data-shrink=false] + .jss282 .jss291:focus::-ms-input-placeholder {
+  opacity: 0.42;
+}
+.jss292 {
+  padding-top: 3px;
+}
+.jss293 {
+  resize: none;
+  padding: 0;
+}
+.jss294 {
+  height: 1.1875em;
+}
+.jss295 {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+}
+  </style>
+  <style data-jss="" data-meta="MuiPopover">
+   .jss433 {
+  outline: none;
+  position: absolute;
+  min-width: 16px;
+  max-width: calc(100% - 32px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 16px;
+  max-height: calc(100% - 32px);
+}
+  </style>
+  <style data-jss="" data-meta="MuiMenu">
+   .jss432 {
+  max-height: calc(100% - 96px);
+  -webkit-overflow-scrolling: touch;
+}
+  </style>
+  <style data-jss="" data-meta="MuiInput">
+   .jss268 {
+  position: relative;
+}
+label + .jss269 {
+  margin-top: 16px;
+}
+.jss272:after {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  transform: scaleX(0);
+  transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+  border-bottom: 2px solid #bbdefb;
+  pointer-events: none;
+}
+.jss272.jss270:after {
+  transform: scaleX(1);
+}
+.jss272.jss273:after {
+  transform: scaleX(1);
+  border-bottom-color: #f44336;
+}
+.jss272:before {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "\00a0";
+  position: absolute;
+  transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  pointer-events: none;
+}
+.jss272:hover:not(.jss271):not(.jss270):not(.jss273):before {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.87);
+}
+.jss272.jss271:before {
+  border-bottom-style: dotted;
+}
+@media (hover: none) {
+  .jss272:hover:not(.jss271):not(.jss270):not(.jss273):before {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  }
+}
+  </style>
+  <style data-jss="" data-meta="MuiSelect">
+   .jss425 {
+  width: 100%;
+  position: relative;
+}
+.jss426 {
+  width: calc(100% - 32px);
+  height: 1.1875em;
+  cursor: pointer;
+  min-width: 16px;
+  user-select: none;
+  padding-right: 32px;
+  border-radius: 0;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+.jss426:focus {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.jss426::-ms-expand {
+  display: none;
+}
+.jss426.jss430 {
+  cursor: default;
+}
+.jss426[multiple] {
+  height: auto;
+}
+.jss426:not([multiple]) option, .jss426:not([multiple]) optgroup {
+  background-color: #fff;
+}
+.jss427 {
+  width: calc(100% - 44px);
+}
+.jss428 {
+  width: calc(100% - 46px);
+  border-radius: 4px;
+}
+.jss429 {
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  min-height: 1.1875em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.jss431 {
+  top: calc(50% - 12px);
+  right: 0;
+  color: rgba(0, 0, 0, 0.54);
+  position: absolute;
+  pointer-events: none;
+}
+  </style>
+  <style data-jss="" data-meta="MuiToolbar">
+   .jss58 {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+.jss59 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+@media (min-width:600px) {
+  .jss59 {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+.jss60 {
+  min-height: 56px;
+}
+@media (min-width:0px) and (orientation: landscape) {
+  .jss60 {
+    min-height: 48px;
+  }
+}
+@media (min-width:600px) {
+  .jss60 {
+    min-height: 64px;
+  }
+}
+.jss61 {
+  min-height: 48px;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTablePagination">
+   .jss415 {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 0.75rem;
+}
+.jss415:last-child {
+  padding: 0;
+}
+.jss416 {
+  height: 56px;
+  min-height: 56px;
+  padding-right: 2px;
+}
+.jss417 {
+  flex: 1 1 100%;
+}
+.jss418 {
+  flex-shrink: 0;
+}
+.jss419 {
+  margin-left: 8px;
+  margin-right: 32px;
+}
+.jss420 {
+  padding-left: 8px;
+  padding-right: 16px;
+}
+.jss421 {
+  top: 1px;
+}
+.jss422 {
+  color: inherit;
+  font-size: inherit;
+  flex-shrink: 0;
+}
+.jss424 {
+  flex-shrink: 0;
+  margin-left: 20px;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTableRow">
+   .jss438 {
+  color: inherit;
+  height: 48px;
+  display: table-row;
+  outline: none;
+  vertical-align: middle;
+}
+.jss438.jss439 {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.jss438.jss440:hover {
+  background-color: rgba(0, 0, 0, 0.07);
+}
+.jss441 {
+  height: 56px;
+}
+.jss442 {
+  height: 56px;
+}
+  </style>
+  <style data-jss="" data-meta="MuiFormLabel">
+   .jss261 {
+  color: rgba(0, 0, 0, 0.54);
+  padding: 0;
+  font-size: 1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1;
+  font-weight: bold;
+}
+.jss261.jss262 {
+  color: #bbdefb;
+}
+.jss261.jss263 {
+  color: rgba(0, 0, 0, 0.38);
+}
+.jss261.jss264 {
+  color: #f44336;
+}
+.jss262.jss262 {
+  color: #01579b;
+  font-weight: bold;
+}
+.jss267.jss264 {
+  color: #f44336;
+}
+  </style>
+  <style data-jss="" data-meta="MuiInputLabel">
+   .jss250 {
+  transform-origin: top left;
+}
+.jss255 {
+  top: 0;
+  left: 0;
+  position: absolute;
+  transform: translate(0, 24px) scale(1);
+}
+.jss256 {
+  transform: translate(0, 21px) scale(1);
+}
+.jss257 {
+  transform: translate(0, 1.5px) scale(0.75);
+  transform-origin: top left;
+}
+.jss258 {
+  transition: color 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms,transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+}
+.jss259 {
+  z-index: 1;
+  transform: translate(12px, 20px) scale(1);
+  pointer-events: none;
+}
+.jss259.jss256 {
+  transform: translate(12px, 17px) scale(1);
+}
+.jss259.jss257 {
+  transform: translate(12px, 10px) scale(0.75);
+}
+.jss259.jss257.jss256 {
+  transform: translate(12px, 7px) scale(0.75);
+}
+.jss260 {
+  z-index: 1;
+  transform: translate(14px, 20px) scale(1);
+  pointer-events: none;
+}
+.jss260.jss256 {
+  transform: translate(14px, 17px) scale(1);
+}
+.jss260.jss257 {
+  transform: translate(14px, -6px) scale(0.75);
+}
+  </style>
+  <style data-jss="" data-meta="MuiFormControl">
+   .jss246 {
+  margin: 0;
+  border: 0;
+  display: inline-flex;
+  padding: 0;
+  position: relative;
+  min-width: 0;
+  flex-direction: column;
+  vertical-align: top;
+}
+.jss247 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+.jss248 {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+.jss249 {
+  width: 100%;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTooltip">
+   .jss459 {
+  z-index: 1500;
+  opacity: 0.9;
+  pointer-events: none;
+}
+.jss460 {
+  pointer-events: auto;
+}
+.jss461 {
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 0.625rem;
+  max-width: 300px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.4em;
+  border-radius: 4px;
+  background-color: #616161;
+}
+.jss462 {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  line-height: 1.14286em;
+}
+.jss463 {
+  margin: 0 24px ;
+  transform-origin: right center;
+}
+@media (min-width:600px) {
+  .jss463 {
+    margin: 0 14px;
+  }
+}
+.jss464 {
+  margin: 0 24px;
+  transform-origin: left center;
+}
+@media (min-width:600px) {
+  .jss464 {
+    margin: 0 14px;
+  }
+}
+.jss465 {
+  margin: 24px 0;
+  transform-origin: center bottom;
+}
+@media (min-width:600px) {
+  .jss465 {
+    margin: 14px 0;
+  }
+}
+.jss466 {
+  margin: 24px 0;
+  transform-origin: center top;
+}
+@media (min-width:600px) {
+  .jss466 {
+    margin: 14px 0;
+  }
+}
+  </style>
+  <style data-jss="" data-meta="MuiAppBar">
+   .jss22 {
+  width: 100%;
+  display: flex;
+  z-index: 1100;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.jss23 {
+  top: 0;
+  left: auto;
+  right: 0;
+  position: fixed;
+}
+.jss24 {
+  top: 0;
+  left: auto;
+  right: 0;
+  position: absolute;
+}
+.jss25 {
+  top: 0;
+  left: auto;
+  right: 0;
+  position: sticky;
+}
+.jss26 {
+  position: static;
+}
+.jss27 {
+  position: relative;
+}
+.jss28 {
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #f5f5f5;
+}
+.jss29 {
+  color: #fff;
+  background-color: #01579b;
+}
+.jss30 {
+  color: #fff;
+  background-color: #b71c1c;
+}
+  </style>
+  <style data-jss="" data-meta="MuiGrid">
+   .jss133 {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.jss134 {
+  margin: 0;
+  box-sizing: border-box;
+}
+.jss135 {
+  min-width: 0;
+}
+.jss136 {
+  flex-direction: column;
+}
+.jss137 {
+  flex-direction: column-reverse;
+}
+.jss138 {
+  flex-direction: row-reverse;
+}
+.jss139 {
+  flex-wrap: nowrap;
+}
+.jss140 {
+  flex-wrap: wrap-reverse;
+}
+.jss141 {
+  align-items: center;
+}
+.jss142 {
+  align-items: flex-start;
+}
+.jss143 {
+  align-items: flex-end;
+}
+.jss144 {
+  align-items: baseline;
+}
+.jss145 {
+  align-content: center;
+}
+.jss146 {
+  align-content: flex-start;
+}
+.jss147 {
+  align-content: flex-end;
+}
+.jss148 {
+  align-content: space-between;
+}
+.jss149 {
+  align-content: space-around;
+}
+.jss150 {
+  justify-content: center;
+}
+.jss151 {
+  justify-content: flex-end;
+}
+.jss152 {
+  justify-content: space-between;
+}
+.jss153 {
+  justify-content: space-around;
+}
+.jss154 {
+  justify-content: space-evenly;
+}
+.jss155 {
+  width: calc(100% + 8px);
+  margin: -4px;
+}
+.jss155 > .jss134 {
+  padding: 4px;
+}
+.jss156 {
+  width: calc(100% + 16px);
+  margin: -8px;
+}
+.jss156 > .jss134 {
+  padding: 8px;
+}
+.jss157 {
+  width: calc(100% + 24px);
+  margin: -12px;
+}
+.jss157 > .jss134 {
+  padding: 12px;
+}
+.jss158 {
+  width: calc(100% + 32px);
+  margin: -16px;
+}
+.jss158 > .jss134 {
+  padding: 16px;
+}
+.jss159 {
+  width: calc(100% + 40px);
+  margin: -20px;
+}
+.jss159 > .jss134 {
+  padding: 20px;
+}
+.jss160 {
+  flex-grow: 0;
+  max-width: none;
+  flex-basis: auto;
+}
+.jss161 {
+  flex-grow: 1;
+  max-width: 100%;
+  flex-basis: 0;
+}
+.jss162 {
+  flex-grow: 0;
+  max-width: 8.333333%;
+  flex-basis: 8.333333%;
+}
+.jss163 {
+  flex-grow: 0;
+  max-width: 16.666667%;
+  flex-basis: 16.666667%;
+}
+.jss164 {
+  flex-grow: 0;
+  max-width: 25%;
+  flex-basis: 25%;
+}
+.jss165 {
+  flex-grow: 0;
+  max-width: 33.333333%;
+  flex-basis: 33.333333%;
+}
+.jss166 {
+  flex-grow: 0;
+  max-width: 41.666667%;
+  flex-basis: 41.666667%;
+}
+.jss167 {
+  flex-grow: 0;
+  max-width: 50%;
+  flex-basis: 50%;
+}
+.jss168 {
+  flex-grow: 0;
+  max-width: 58.333333%;
+  flex-basis: 58.333333%;
+}
+.jss169 {
+  flex-grow: 0;
+  max-width: 66.666667%;
+  flex-basis: 66.666667%;
+}
+.jss170 {
+  flex-grow: 0;
+  max-width: 75%;
+  flex-basis: 75%;
+}
+.jss171 {
+  flex-grow: 0;
+  max-width: 83.333333%;
+  flex-basis: 83.333333%;
+}
+.jss172 {
+  flex-grow: 0;
+  max-width: 91.666667%;
+  flex-basis: 91.666667%;
+}
+.jss173 {
+  flex-grow: 0;
+  max-width: 100%;
+  flex-basis: 100%;
+}
+@media (min-width:600px) {
+  .jss174 {
+    flex-grow: 0;
+    max-width: none;
+    flex-basis: auto;
+  }
+  .jss175 {
+    flex-grow: 1;
+    max-width: 100%;
+    flex-basis: 0;
+  }
+  .jss176 {
+    flex-grow: 0;
+    max-width: 8.333333%;
+    flex-basis: 8.333333%;
+  }
+  .jss177 {
+    flex-grow: 0;
+    max-width: 16.666667%;
+    flex-basis: 16.666667%;
+  }
+  .jss178 {
+    flex-grow: 0;
+    max-width: 25%;
+    flex-basis: 25%;
+  }
+  .jss179 {
+    flex-grow: 0;
+    max-width: 33.333333%;
+    flex-basis: 33.333333%;
+  }
+  .jss180 {
+    flex-grow: 0;
+    max-width: 41.666667%;
+    flex-basis: 41.666667%;
+  }
+  .jss181 {
+    flex-grow: 0;
+    max-width: 50%;
+    flex-basis: 50%;
+  }
+  .jss182 {
+    flex-grow: 0;
+    max-width: 58.333333%;
+    flex-basis: 58.333333%;
+  }
+  .jss183 {
+    flex-grow: 0;
+    max-width: 66.666667%;
+    flex-basis: 66.666667%;
+  }
+  .jss184 {
+    flex-grow: 0;
+    max-width: 75%;
+    flex-basis: 75%;
+  }
+  .jss185 {
+    flex-grow: 0;
+    max-width: 83.333333%;
+    flex-basis: 83.333333%;
+  }
+  .jss186 {
+    flex-grow: 0;
+    max-width: 91.666667%;
+    flex-basis: 91.666667%;
+  }
+  .jss187 {
+    flex-grow: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}
+@media (min-width:960px) {
+  .jss188 {
+    flex-grow: 0;
+    max-width: none;
+    flex-basis: auto;
+  }
+  .jss189 {
+    flex-grow: 1;
+    max-width: 100%;
+    flex-basis: 0;
+  }
+  .jss190 {
+    flex-grow: 0;
+    max-width: 8.333333%;
+    flex-basis: 8.333333%;
+  }
+  .jss191 {
+    flex-grow: 0;
+    max-width: 16.666667%;
+    flex-basis: 16.666667%;
+  }
+  .jss192 {
+    flex-grow: 0;
+    max-width: 25%;
+    flex-basis: 25%;
+  }
+  .jss193 {
+    flex-grow: 0;
+    max-width: 33.333333%;
+    flex-basis: 33.333333%;
+  }
+  .jss194 {
+    flex-grow: 0;
+    max-width: 41.666667%;
+    flex-basis: 41.666667%;
+  }
+  .jss195 {
+    flex-grow: 0;
+    max-width: 50%;
+    flex-basis: 50%;
+  }
+  .jss196 {
+    flex-grow: 0;
+    max-width: 58.333333%;
+    flex-basis: 58.333333%;
+  }
+  .jss197 {
+    flex-grow: 0;
+    max-width: 66.666667%;
+    flex-basis: 66.666667%;
+  }
+  .jss198 {
+    flex-grow: 0;
+    max-width: 75%;
+    flex-basis: 75%;
+  }
+  .jss199 {
+    flex-grow: 0;
+    max-width: 83.333333%;
+    flex-basis: 83.333333%;
+  }
+  .jss200 {
+    flex-grow: 0;
+    max-width: 91.666667%;
+    flex-basis: 91.666667%;
+  }
+  .jss201 {
+    flex-grow: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}
+@media (min-width:1280px) {
+  .jss202 {
+    flex-grow: 0;
+    max-width: none;
+    flex-basis: auto;
+  }
+  .jss203 {
+    flex-grow: 1;
+    max-width: 100%;
+    flex-basis: 0;
+  }
+  .jss204 {
+    flex-grow: 0;
+    max-width: 8.333333%;
+    flex-basis: 8.333333%;
+  }
+  .jss205 {
+    flex-grow: 0;
+    max-width: 16.666667%;
+    flex-basis: 16.666667%;
+  }
+  .jss206 {
+    flex-grow: 0;
+    max-width: 25%;
+    flex-basis: 25%;
+  }
+  .jss207 {
+    flex-grow: 0;
+    max-width: 33.333333%;
+    flex-basis: 33.333333%;
+  }
+  .jss208 {
+    flex-grow: 0;
+    max-width: 41.666667%;
+    flex-basis: 41.666667%;
+  }
+  .jss209 {
+    flex-grow: 0;
+    max-width: 50%;
+    flex-basis: 50%;
+  }
+  .jss210 {
+    flex-grow: 0;
+    max-width: 58.333333%;
+    flex-basis: 58.333333%;
+  }
+  .jss211 {
+    flex-grow: 0;
+    max-width: 66.666667%;
+    flex-basis: 66.666667%;
+  }
+  .jss212 {
+    flex-grow: 0;
+    max-width: 75%;
+    flex-basis: 75%;
+  }
+  .jss213 {
+    flex-grow: 0;
+    max-width: 83.333333%;
+    flex-basis: 83.333333%;
+  }
+  .jss214 {
+    flex-grow: 0;
+    max-width: 91.666667%;
+    flex-basis: 91.666667%;
+  }
+  .jss215 {
+    flex-grow: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}
+@media (min-width:1920px) {
+  .jss216 {
+    flex-grow: 0;
+    max-width: none;
+    flex-basis: auto;
+  }
+  .jss217 {
+    flex-grow: 1;
+    max-width: 100%;
+    flex-basis: 0;
+  }
+  .jss218 {
+    flex-grow: 0;
+    max-width: 8.333333%;
+    flex-basis: 8.333333%;
+  }
+  .jss219 {
+    flex-grow: 0;
+    max-width: 16.666667%;
+    flex-basis: 16.666667%;
+  }
+  .jss220 {
+    flex-grow: 0;
+    max-width: 25%;
+    flex-basis: 25%;
+  }
+  .jss221 {
+    flex-grow: 0;
+    max-width: 33.333333%;
+    flex-basis: 33.333333%;
+  }
+  .jss222 {
+    flex-grow: 0;
+    max-width: 41.666667%;
+    flex-basis: 41.666667%;
+  }
+  .jss223 {
+    flex-grow: 0;
+    max-width: 50%;
+    flex-basis: 50%;
+  }
+  .jss224 {
+    flex-grow: 0;
+    max-width: 58.333333%;
+    flex-basis: 58.333333%;
+  }
+  .jss225 {
+    flex-grow: 0;
+    max-width: 66.666667%;
+    flex-basis: 66.666667%;
+  }
+  .jss226 {
+    flex-grow: 0;
+    max-width: 75%;
+    flex-basis: 75%;
+  }
+  .jss227 {
+    flex-grow: 0;
+    max-width: 83.333333%;
+    flex-basis: 83.333333%;
+  }
+  .jss228 {
+    flex-grow: 0;
+    max-width: 91.666667%;
+    flex-basis: 91.666667%;
+  }
+  .jss229 {
+    flex-grow: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}
+  </style>
+  <style data-jss="">
+   .jss98 {
+  margin-left: -12px;
+  margin-right: 20px;
+}
+  </style>
+  <style data-jss="" data-meta="MuiFormGroup">
+   .jss337 {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.jss338 {
+  flex-direction: row;
+}
+  </style>
+  <style data-jss="" data-meta="MuiFormControlLabel">
+   .jss339 {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin-left: -14px;
+  margin-right: 16px;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+}
+.jss339.jss343 {
+  cursor: default;
+}
+.jss340 {
+  margin-left: 16px;
+  margin-right: -14px;
+  flex-direction: row-reverse;
+}
+.jss341 {
+  margin-left: 16px;
+  flex-direction: column-reverse;
+}
+.jss342 {
+  margin-left: 16px;
+  flex-direction: column;
+}
+.jss344.jss343 {
+  color: rgba(0, 0, 0, 0.38);
+}
+  </style>
+  <style data-jss="" data-meta="MuiTab">
+   .jss383 {
+  color: rgba(0, 0, 0, 0.87);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  font-size: 0.875rem;
+  max-width: 264px;
+  min-width: 72px;
+  box-sizing: border-box;
+  min-height: 48px;
+  text-align: center;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  flex-shrink: 0;
+  white-space: normal;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+@media (min-width:960px) {
+  .jss383 {
+    font-size: 0.8125rem;
+    min-width: 160px;
+  }
+}
+.jss384 {
+  min-height: 72px;
+  padding-top: 9px;
+}
+.jss385 {
+  color: inherit;
+  opacity: 0.7;
+}
+.jss385.jss388 {
+  opacity: 1;
+}
+.jss385.jss389 {
+  opacity: 0.4;
+}
+.jss386 {
+  color: rgba(0, 0, 0, 0.54);
+}
+.jss386.jss388 {
+  color: #01579b;
+}
+.jss386.jss389 {
+  color: rgba(0, 0, 0, 0.38);
+}
+.jss387 {
+  color: rgba(0, 0, 0, 0.54);
+}
+.jss387.jss388 {
+  color: #b71c1c;
+}
+.jss387.jss389 {
+  color: rgba(0, 0, 0, 0.38);
+}
+.jss390 {
+  flex-grow: 1;
+  max-width: none;
+  flex-shrink: 1;
+}
+.jss391 {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.jss392 {
+  width: 100%;
+  padding: 6px 12px;
+  box-sizing: border-box;
+}
+@media (min-width:960px) {
+  .jss392 {
+    padding: 6px 24px;
+  }
+}
+  </style>
+  <style data-jss="" data-meta="MuiPrivateTabIndicator">
+   .jss395 {
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  position: absolute;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.jss396 {
+  background-color: #01579b;
+}
+.jss397 {
+  background-color: #b71c1c;
+}
+  </style>
+  <style data-jss="" data-meta="MuiTabs">
+   .jss374 {
+  overflow: hidden;
+  min-height: 48px;
+  -webkit-overflow-scrolling: touch;
+}
+.jss375 {
+  display: flex;
+}
+.jss376 {
+  justify-content: center;
+}
+.jss377 {
+  flex: 1 1 auto;
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+}
+.jss378 {
+  width: 100%;
+  overflow-x: hidden;
+}
+.jss379 {
+  overflow-x: scroll;
+}
+@media (max-width:599.95px) {
+  .jss381 {
+    display: none;
+  }
+}
+  </style>
+  <style data-jss="">
+   .jss360 {
+  width: 200px;
+}
+.jss361 {
+  width: 100%;
+  color: #757575;
+  font-size: 0.85rem;
+  padding-top: 0px;
+  font-weight: 500;
+  text-transform: initial;
+  vertical-align: middle;
+  horizontal-align: center;
+}
+  </style>
+  <style data-jss="">
+   .jss230 {
+  margin-left: 0;
+  margin-right: 0;
+}
+.jss231 {
+  width: 120px;
+}
+.jss232 {
+  width: 100%;
+  color: #757575;
+  font-size: 0.85rem;
+  padding-top: 2.3%;
+  font-weight: 500;
+  text-transform: initial;
+  vertical-align: middle;
+}
+  </style>
+  <style data-jss="" data-meta="MuiRadio">
+   .jss345 {
+  color: rgba(0, 0, 0, 0.54);
+}
+.jss348.jss346 {
+  color: #01579b;
+}
+.jss348.jss347 {
+  color: rgba(0, 0, 0, 0.26);
+}
+.jss349.jss346 {
+  color: #b71c1c;
+}
+.jss349.jss347 {
+  color: rgba(0, 0, 0, 0.26);
+}
+  </style>
+  <style data-jss="">
+   .jss331 {
+  margin: 24px;
+}
+.jss332 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+  </style>
+  <style data-jss="">
+   .jss11 {
+  width: 100%;
+  flex-grow: 1;
+}
+.jss12 {
+  display: inline-block;
+}
+.jss13 {
+  flex-grow: 1;
+}
+.jss14 {
+  margin-left: -12px;
+  margin-right: 20px;
+}
+.jss15 {
+  display: flex;
+  flex-direction: row;
+}
+.jss16 {
+  width: 200px;
+}
+.jss17 {
+  margin-top: 19px;
+}
+.jss18 {
+  width: 200px;
+}
+.jss19 {
+  transform: rotate(0deg);
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  margin-left: auto;
+}
+@media (min-width:600px) {
+  .jss19 {
+    margin-right: -8px;
+  }
+}
+.jss20 {
+  transform: rotate(180deg);
+}
+.jss21 {
+  top: 45%;
+  left: 45%;
+  margin: 16px;
+  position: absolute;
+}
+  </style>
+  <style data-jss="" data-meta="MuiToggleButton">
+   .jss411 {
+  color: rgba(0, 0, 0, 0.38);
+  height: 32px;
+  margin: 0;
+  padding: 4px 12px;
+  font-size: 0.875rem;
+  min-width: 48px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 2px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+.jss411.jss413 {
+  color: rgba(0, 0, 0, 0.54);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.jss411.jss412 {
+  color: rgba(0, 0, 0, 0.12);
+}
+.jss411:hover {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+.jss411:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.jss411:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+@media (hover: none) {
+  .jss411:hover {
+    background-color: transparent;
+  }
+}
+.jss411:hover.jss412 {
+  background-color: transparent;
+}
+.jss411.jss413:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.jss414 {
+  width: 100%;
+  display: inherit;
+  align-items: inherit;
+  justify-content: inherit;
+}
+  </style>
+  <style data-jss="" data-meta="MuiToggleButtonGroup">
+   .jss409 {
+  overflow: hidden;
+  transition: background,box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  background: transparent;
+  border-radius: 2px;
+}
+.jss410 {
+  background: #fff;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 3px 1px -2px rgba(0,0,0,0.12);
+}
+  </style>
+  <style data-jss="">
+   .jss435 {
+  color: white;
+}
+.jss435.jss436 {
+  color: white;
+}
+  </style>
+  <style data-jss="">
+   .jss456 {
+  width: 100%;
+  margin-top: 24px;
+}
+.jss457 {
+  height: 478px;
+  overflow: auto;
+  min-width: 1020px;
+}
+  </style>
+  <style data-jss="">
+   .jss398 {
+  flex: 1;
+  width: 100%;
+  margin-top: 0;
+  background-color: #fff;
+}
+.jss399 {
+  height: 478px;
+  overflow: auto;
+  min-width: 1020px;
+}
+.jss401 {
+  min-height: 12px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.jss402 {
+  color: black;
+  font-size: 0.75rem;
+  text-transform: initial;
+}
+.jss403 {
+  padding: 0;
+}
+.jss404 {
+  margin: 8px;
+  font-size: 0.75rem;
+  text-transform: initial;
+  vertical-align: middle;
+}
+.jss405 {
+  display: flex;
+  align-items: center;
+}
+.jss406 {
+  width: 20%;
+  font-size: 0.75rem;
+  text-transform: initial;
+  vertical-align: middle;
+}
+.jss407 {
+  width: 50%;
+  color: black;
+  font-size: 0.75rem;
+  text-transform: initial;
+  vertical-align: middle;
+  background-color: white;
+}
+.jss408 {
+  width: 50%;
+  color: white !important;
+  background-color: #01579b !important;
+}
+  </style>
+  <style data-jss="">
+   .jss367 {
+  flex: 1;
+  width: 100%;
+  background-color: #fff;
+}
+.jss368 {
+  min-height: 12px;
+  border-bottom: 1px solid #e8e8e8;
+  background-color: #4f83cc;
+}
+.jss369 {
+  background-color: #1890ff;
+}
+.jss370 {
+  width: 9.65%;
+  color: black;
+  min-width: 12px;
+  min-height: 12px;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  margin-right: 0;
+  text-transform: initial;
+}
+.jss370:hover {
+  color: #40a9ff;
+  opacity: 1;
+}
+.jss370.jss372 {
+  color: white;
+  font-weight: 500;
+}
+.jss370:focus {
+  color: white;
+}
+.jss371 {
+  padding: 0;
+}
+.jss373 {
+  padding: 24px;
+}
+  </style>
+  <script charset="utf-8" src="/static/js/3.ad901a9e.chunk.js">
+  </script>
+  <link href="/static/css/4.61d8ea4e.chunk.css" rel="stylesheet" type="text/css"/>
+  <script charset="utf-8" src="/static/js/4.30df8ff7.chunk.js">
+  </script>
+ </head>
+ <body style="">
+  <noscript>
+   You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root">
+   <div class="jss11">
+    <div class="jss1 jss4 jss3 jss21" role="progressbar" style="width: 40px; height: 40px; position: fixed; top: 50%; left: 50%; display: none;">
+     <svg class="jss6" viewbox="22 22 44 44">
+      <circle class="jss7 jss9" cx="44" cy="44" fill="none" r="20.2" stroke-width="3.6">
+      </circle>
+     </svg>
+    </div>
+    <header class="jss31 jss37 jss22 jss25 jss29">
+     <div class="jss58 jss60 jss59">
+      <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARYAAACnCAYAAADUrHMrAAAACXBIWXMAAC4jAAAuIwF4pT92AAALUklEQVR4nO3dwXEjNxbGcWhLd2pvvkmOQFwnIE4EQ0dAKgJrAtgSVQ5gqAhERbCcCIZMwJYiMHnzkYxArq55XZZnRREPDXQ3Hv6/KpUvMpsjkh8B9MPDycvLiyvEhXNuJP/93so59+Sc25XyxwBSsh4sZ865G+fc1Dl37vH7z865uXNu0cJzA8yyGix1oFQ/g4D/f+ucmxEwQBiLwTJ0zi09RyjHrJ1zY6ZIgM6/jP29prJeEiNUKlfyeMNIjwcUwdKIpVqY/Zrosfey6MvIBfBgZcRyIdOfVAYycgHgwUqwLAMXaTUu5Y4RgCMsTIWqdZWHFq/3o3Nu0+L1gOxYGLHMjF8PyE7uI5bqVvD/Orjuv1nIBQ7LfcQyLuy6QBYIljCjjq4LZCHnYDlr4U7QIRTMAe/IOVi6/HBfdnhtoPeslfQD6AGCBUB0BAuA6HIOli6rX7cdXhvovdyDZd/RtZ86ui6QhdynQl3tOGanM/CO3IMlZauEPl4XyIKF3c27lgvlvnRY8QtkwcJdobZ7pNCTBTjCSmvKTcQ+t+95lP4vAN5hJViq8v7fE19jK9ehXQJwhJUCuer273XCx99zDAjgz1Ll7SJRuOylTQK1K4AnayX9Vbj8HLFw7plQAfQs7hVaynEgjw0eowqmO1lTIVQAJeuHwg/l/OaxZ63LVkY9c9ZTgHDWg+W1kfxcyE/tSW5XrxidAHGUFCwAWkI/FgDRESwAojvlTwqoDOWECCcL/KzLvUETLN8veqbQuxfq5bcfzjI57mNz8tOfMbvqtfF6x7aJ2Flw+N2C/7GTGZ5f3QRYRn4eZx6/1ydPmsXb6szi25ae/F4Cpv5ZddWK8uW3H6o31tcurq10d/LTnzHPlW7z9Y7lruFZ3meyyfQmwqbWZyldWDQsXaje+1cNn0vbPvR1jWUgf8xfnHMPzrk/JFgW9EJBIjN5j32OtFP+Uh5rI0FVlJwWb6sXeyKHwO+kiC23oTr6p66uvk3UMGwgAfNU0vs117tCAxnN/CFDRc5SRoihvH/aONnyUsKliON5LdxuvpI1EAIGGnWotNnWdCDXNB8ulupY6oBZMkXCERcdhEqtDhfT71GLBXIfZchZ3IIZvC07CpXaoMMTJlphtfK2XjBbZVgDgLRmLa2pHHPZ8NZ4r1mvvL2S2300a4KTL5kmI9ntqyI496qIMLTO5MZqi44SSvoH0mj7Wupg4CfGaY8jxYfuMUIR5LHnfBMwBdrLh39x5PmN5fE1ITOQ/+e9kcsiwmuheR3uGl6rsilpr9CDfLuYHX5Gtorwhp4p3tAxPkDHaI9uWSuaqC/lp7rGXBFgPsHSlOZ1iPL5KG138y2jlmKNlRW1X+SbXjtNqd5fmrKHgcVq8hLbJkwIlyJpPrzbhgfTVet5nxS/T7AYMeF2dHE0o4hZhAXVuQSUD4LFkM8cl1qMC8U0aBtxROu7XjGwVo1bege5eSl7NwqnqXKNWbimeSyCxZC6ApIiOts006CYwbKTO0s+TJX4lx4sTobI8x48D6Sj+eKIfcvb9/FMbaAlWL6Z0EDKNN9phu9iq0aRB98RLH+bMyUqXor2p75bSUy99zSVtymqIl83bNas3KdwfqAKchOpzDm11FWrSKsPGyOj0QZLG2/ekUxLtJWSMdx8vydEOt+zDQBQ6ONUaCUf8GoE87NiVT2GASECNNf3NZaljGA+JFpYe8uEDnRAM7ks3tZ9Qu9buh4VuWWiWDKSnO4K7WSKdN3CtdhHVKZBgrsz1ZfiieePGTnebl7I1Gif8BoDRi2maLoHctJDBLnWsaxa+OBTMGeHpkiN1z2CnAvklsqeF1ofKZgzQ1MmMeZ1by73ytu5dPpKhW8vGzTBYrKjW9tOB/+9HuaQ0PtfHw69OaZS0JbinJgR3ebMWCv7vi5L3ecTw6l864ceX9CmQ6vm9QHxtwmeCwt5diwV7/ND2zvgycomxHmiu0TnzLfN0PZZuaWuJZyVYNkl7KnCm8uGjZxdpLHgiyWMpbYJqdZCmA7ZoX2PXNIELIylYKm+kZ4TPC77huxYBWxq5biYANYaPaXqGQM7QgorOS5GiWBBaUIbd31mWuTPWrCkaC2Yw6146MwCp82/MC3yYy1YNJvNULZpYInChLtFx9FMG6V6arCRdSLTbsLlAIIFJVs26O9zKVNv6pzeQLCgdIuAwrnaoKUWHtkhWIBvwdAkXB64Y/RPBAvwTZNwcXLHiHPABcEC/G3asKfyR5kaFV9USbAA/7RoGC7Vou5T6Yu6BAvw/6pw+U+DVhzFL+oSLMDb6lFH6MbWelG3yHAhWIDDNtI2o0lf5SLDhWAB3reT5tohGxdrxYXLKftrAC8z+awsAhu3P8h/i9jEeLr/9YE+E4CfpUyNltIPWetBplfm23swFQJ0mi7qLkuocyFYAL1dg0XdQcCJAdkhWIAw9aJuyDaAS+tnFhEsQDOhe4xMn1tEsADNhYaL2R3RBAsQxzRgQffK6rlVBAsQTxUSW+WjmVxrIViAeOoFXY0ri7efTxM9borhHWcGIQdVncudLM76urF2IFqqYPma4DFPEjwmkMJcgsK39H9sLViYCgHx7ZRBcW7t1jPBAqSxVDaKMnV3KNVUCOiLC8+WBZvIO493Ei4Tz983NWIhWGDdhedC6jpBSwNNsJi6M8RUCEhHs9mQNRYA3nyrcUOaR/UWwQKktSvx70uwAGltSvz7EixAWgQLgOiKPMuZYAHSKvKoVYIF1vlORa54J8RDsMA6zRpHimmL74hlneDanSFYUALfPTuxpy0X1upTfBEsKIHvaZ/aJk3HaDYWmuo3RLCgBL4f2tjBojmv2dRtaYIFJfAdsZxHPLx9qFwQZsQCZEbzoZ1FWsTVHO2xZcQC5GenOA71PMJ5PzPlaMXckasEC0qh+fBOpDdLyMilChVNI21n8eAyggWl0LaKnMjajO+ay0imXNpQWVvcT0QHOZRiJyMDzQe/mhY9yChkJUHzeiF4KLUqY/ndECYPLCNYUBLtsRy1cxnB+LaZ9LW2el4WUyGUZBfxdnJT+x49l+gIFpSmWmt57MG/+cZyrxaCBSWaKnrRpnCf4ESAXkkRLCmOMdCs5gM+Rh3tKL63dpzqW3IJFt+SbMDXTsLlvqW/WPXleF1CqLhEwVJkxyxkq/qgf5Cy+lTW8rkwPf15LZdgKfIIBbRmJSPt68gB80VCa1RaU+0UdSwpDrfWTIVOElwfYTQ1Gn344C3kZygLvNodynv5N6/k7lNfwqT1WpmTl5eXmI9XvRC/x3xA8cnifgpkYyj7hoZv7B96khH1ptSjPt4Se8SSamGKxVt0qX7/maySTSHmiOVMEjtFj0+mN0BGYi7ehuzB8NFlIROAALGC5SLhNIjhJ5CZWMGySHjMAcECZCZGsGjb8GnsLbbtA6xrGizTgI5ZGoQKkKEmwTKV7lopESxAhkJvN7cRKttEGxoBJKYdsZzJQm3qUHElbdgCrNGMWMZSVh/aNFhjL6MVNh8CGfIp6R9LjUqqOz9vmRMqQL4OjVhGEihNjjUIxWgFyNypjEbqU/arNZTLjv9JjFaAzFUjllXL05z3cCcIMKBvXfrNnrMClKRPwXLPviDAhr4Ey3Mp3cuBEvQhWEwfNQmUqA/BMqX1JGBL18FyzUZDwJ4ug+UT+4EAm7oKlnuO8wDsSnFg2THXjFQA29oesRAqQAHaGrFsZT8Sd3+AArQxYvkiR1MSKkAhUgbLXu78jNmtDJQl1VToUUr0CRSgQLFHLGvn3AeppiVUgELFGrGs5eAydicDaBQse7l1XBW6bfhTAqhpg2Uro5Ile3wAHHIsWNZym/hJAoWRCYCjqp63Q2mi/RprJQDCOOf+An3QKJcdzbHRAAAAAElFTkSuQmCC" style="margin-right: 7px; margin-bottom: 16px; margin-top: 5px; height: 43px;" text=""/>
+      <h6 class="jss62 jss79 jss91 jss13" style="margin-left: 20px;">
+       PESQUISA DE JURISPRUDÊNCIA
+      </h6>
+      <button aria-label="Menu" class="jss105 jss99 jss100 jss98" tabindex="0" type="button">
+       <span class="jss104">
+        <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+         <path d="M0 0h24v24H0z" fill="none">
+         </path>
+         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z">
+         </path>
+        </svg>
+       </span>
+       <span class="jss298">
+       </span>
+      </button>
+      <button aria-label="Menu" class="jss105 jss99 jss100 jss14" tabindex="0" type="button">
+       <span class="jss104">
+        <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z">
+         </path>
+         <path d="M0 0h24v24H0z" fill="none">
+         </path>
+        </svg>
+       </span>
+       <span class="jss298">
+       </span>
+      </button>
+     </div>
+    </header>
+    <div class="jss11">
+     <form autocomplete="off" class="{classes.container}" novalidate="">
+      <div class="jss133">
+       <div class="jss134 jss173 jss181">
+        <div class="jss31 jss34 jss32 jss233 altura-card-padrao">
+         <div class="jss234" style="background-color: rgb(79, 131, 204);">
+          <div class="jss237">
+           <h5 class="jss62 jss78" style="color: white;">
+            Pesquisa Livre
+           </h5>
+          </div>
+         </div>
+         <hr class="jss240"/>
+         <div class="jss245">
+          <div style="flex-direction: column; align-self: center;">
+           <div class="jss246 jss247 jss249">
+            <label class="jss261 jss265 jss250 jss255 jss258 jss257" data-shrink="true" for="campoTxtOperadorE">
+             Contendo as palavras (e)
+            </label>
+            <div class="jss281 jss268 jss272 jss290 jss275 jss282 jss269">
+             <input aria-invalid="false" class="jss291 jss276 jss294 jss279 jss295 jss280" id="campoTxtOperadorE" placeholder="Digite aqui" type="search" value='"rescisão contratual" "multa do artigo 477"'/>
+            </div>
+           </div>
+           <div class="jss246 jss247 jss249">
+            <label class="jss261 jss250 jss255 jss258 jss257" data-shrink="true" for="campoTxtOperadorOu">
+             Qualquer das palavras (ou)
+            </label>
+            <div class="jss281 jss268 jss272 jss290 jss275 jss282 jss269">
+             <input aria-invalid="false" class="jss291 jss276 jss294 jss279 jss295 jss280" id="campoTxtOperadorOu" placeholder="Digite aqui" type="search" value=""/>
+            </div>
+           </div>
+           <div class="jss246 jss247 jss249">
+            <label class="jss261 jss265 jss250 jss255 jss258 jss257" data-shrink="true" for="campoTxtOperadorNaoContem">
+             Sem conter as palavras (não)
+            </label>
+            <div class="jss281 jss268 jss272 jss290 jss275 jss282 jss269">
+             <input aria-invalid="false" class="jss291 jss276 jss294 jss279 jss295 jss280" id="campoTxtOperadorNaoContem" placeholder="Digite aqui" type="search" value='"litigância de má-fé" "agravo de instrumento" "preliminar"'/>
+            </div>
+           </div>
+           <div class="jss246 jss247 jss249">
+            <label class="jss261 jss265 jss250 jss255 jss258 jss257" data-shrink="true" for="campoTxtEmenta">
+             Palavras na ementa (e)
+            </label>
+            <div class="jss281 jss268 jss272 jss290 jss275 jss282 jss269">
+             <input aria-invalid="false" class="jss291 jss276 jss294 jss279 jss295 jss280" id="campoTxtEmenta" placeholder="Digite aqui" type="search" value='"verbas rescisórias" "aviso prévio"'/>
+            </div>
+           </div>
+           <div class="jss246 jss247 jss249">
+            <label class="jss261 jss250 jss255 jss258 jss257" data-shrink="true" for="campoTxtDispositivo">
+             Palavras no dispositivo (e)
+            </label>
+            <div class="jss281 jss268 jss272 jss290 jss275 jss282 jss269">
+             <input aria-invalid="false" class="jss291 jss276 jss294 jss279 jss295 jss280" id="campoTxtDispositivo" placeholder="Digite aqui" type="search" value=""/>
+            </div>
+           </div>
+          </div>
+          <div style="display: flex; justify-content: space-evenly; width: 100%; margin-top: 60px;">
+           <div>
+            <button class="jss105 jss305 jss316 jss317 jss319 jss320 jss329" style="margin: 10px;" tabindex="0" type="button">
+             <span class="jss306 jss231">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+               </path>
+               <path d="M0 0h24v24H0z" fill="none">
+               </path>
+              </svg>
+              Pesquisar
+             </span>
+             <span class="jss298">
+             </span>
+            </button>
+            <button class="jss105 jss305 jss316 jss317 jss319 jss320 jss329" style="margin: 10px;" tabindex="0" type="button">
+             <span class="jss306 jss231">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+               </path>
+               <path d="M0 0h24v24H0z" fill="none">
+               </path>
+              </svg>
+              Limpar
+             </span>
+             <span class="jss298">
+             </span>
+            </button>
+            <button class="jss105 jss305 jss316 jss317 jss319 jss320 jss329" style="margin: 10px; width: 170px;" tabindex="0" type="button">
+             <span class="jss306">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M0 0h24v24H0z" fill="none">
+               </path>
+               <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z">
+               </path>
+              </svg>
+              Compartilhar
+             </span>
+             <span class="jss298">
+             </span>
+            </button>
+           </div>
+          </div>
+          <div class="jss31 jss33 jss32 jss232">
+           Use aspas para pesquisas exatas de expressões ou palavras compostas (Ex.: "adicional de periculosidade") em qualquer dos campos acima.
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="jss134 jss173 jss178 altura-75">
+        <div class="jss31 jss34 jss32 jss233 altura-card-padrao">
+         <div class="jss234" style="background-color: rgb(79, 131, 204); height: 32px;">
+          <div class="jss237">
+           <h5 class="jss62 jss78" style="color: white;">
+            Documentos
+            <button alt="Mostrar ou esconder tipos de documento" aria-label="Tipos de documento. Mostrar ou esconder o formulário de tipos de documentos." class="jss105 jss99" tabindex="0" type="button">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z">
+               </path>
+               <path d="M0 0h24v24H0z" fill="none">
+               </path>
+              </svg>
+             </span>
+             <span class="jss298">
+             </span>
+            </button>
+           </h5>
+          </div>
+         </div>
+         <hr class="jss240"/>
+         <div class="jss333 jss334" style="min-height: 0px;">
+          <div class="jss335">
+           <div class="jss336">
+            <div class="jss245">
+             <div class="jss337">
+              <div style="display: flex; justify-content: space-between;">
+               <div style="display: flex; flex-direction: column;">
+                <div class="jss337 jss332" role="radiogroup" style="margin-top: 0px; padding-top: 0px;">
+                 <div name="orgao" style="display: flex;">
+                  <label class="jss339">
+                   <span class="jss105 jss99 jss350 jss345 jss348 jss351 jss346">
+                    <span class="jss104">
+                     <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                      <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z">
+                      </path>
+                     </svg>
+                     <input checked="" class="jss353" type="radio" value="TST"/>
+                    </span>
+                    <span class="jss298">
+                    </span>
+                   </span>
+                   <span class="jss62 jss70 jss344">
+                    TST
+                   </span>
+                  </label>
+                  <label class="jss339">
+                   <span class="jss105 jss99 jss350 jss345 jss348">
+                    <span class="jss104">
+                     <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z">
+                      </path>
+                     </svg>
+                     <input class="jss353" type="radio" value="CSJT"/>
+                    </span>
+                    <span class="jss298">
+                    </span>
+                   </span>
+                   <span class="jss62 jss70 jss344">
+                    CSJT
+                   </span>
+                  </label>
+                 </div>
+                </div>
+                <hr class="jss240"/>
+                <div>
+                 <label class="jss339">
+                  <span class="jss105 jss99 jss350 jss354 jss358 jss332">
+                   <span class="jss104">
+                    <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                     <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+                     </path>
+                    </svg>
+                    <input checked="" class="jss353" data-indeterminate="false" type="checkbox" value="todos"/>
+                   </span>
+                   <span class="jss298">
+                   </span>
+                  </span>
+                  <span class="jss62 jss70 jss344">
+                   Todos
+                  </span>
+                 </label>
+                 <hr class="jss240"/>
+                </div>
+                <div>
+                 <label class="jss339">
+                  <span class="jss105 jss99 jss350 jss354 jss358 jss351 jss355 jss332">
+                   <span class="jss104">
+                    <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                     <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+                     </path>
+                    </svg>
+                    <input checked="" class="jss353" data-indeterminate="false" type="checkbox" value="acordaos"/>
+                   </span>
+                   <span class="jss298">
+                   </span>
+                  </span>
+                  <span class="jss62 jss70 jss344">
+                   Acórdãos
+                  </span>
+                 </label>
+                </div>
+                <div>
+                 <label class="jss339">
+                  <span class="jss105 jss99 jss350 jss354 jss358 jss332">
+                   <span class="jss104">
+                    <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                     <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+                     </path>
+                    </svg>
+                    <input checked="" class="jss353" data-indeterminate="false" type="checkbox" value="despachos"/>
+                   </span>
+                   <span class="jss298">
+                   </span>
+                  </span>
+                  <span class="jss62 jss70 jss344">
+                   Decisões Monocráticas
+                  </span>
+                 </label>
+                 <hr class="jss240"/>
+                </div>
+                <div>
+                 <label class="jss339">
+                  <span class="jss105 jss99 jss350 jss354 jss358 jss332">
+                   <span class="jss104">
+                    <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                     <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+                     </path>
+                    </svg>
+                    <input checked="" class="jss353" data-indeterminate="false" type="checkbox" value="sumulas"/>
+                   </span>
+                   <span class="jss298">
+                   </span>
+                  </span>
+                  <span class="jss62 jss70 jss344">
+                   Súmulas
+                  </span>
+                 </label>
+                </div>
+                <div>
+                 <label class="jss339">
+                  <span class="jss105 jss99 jss350 jss354 jss358 jss332">
+                   <span class="jss104">
+                    <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                     <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+                     </path>
+                    </svg>
+                    <input checked="" class="jss353" data-indeterminate="false" type="checkbox" value="precedentes"/>
+                   </span>
+                   <span class="jss298">
+                   </span>
+                  </span>
+                  <span class="jss62 jss70 jss344">
+                   Precedentes Normativos
+                  </span>
+                 </label>
+                </div>
+                <div>
+                 <label class="jss339">
+                  <span class="jss105 jss99 jss350 jss354 jss358 jss332">
+                   <span class="jss104">
+                    <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                     <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+                     </path>
+                    </svg>
+                    <input checked="" class="jss353" data-indeterminate="false" type="checkbox" value="ojs"/>
+                   </span>
+                   <span class="jss298">
+                   </span>
+                  </span>
+                  <span class="jss62 jss70 jss344">
+                   Orientações Jurisprudenciais
+                  </span>
+                 </label>
+                 <hr class="jss240"/>
+                </div>
+                <div>
+                 <label class="jss339">
+                  <span class="jss105 jss99 jss350 jss354 jss358 jss332">
+                   <span class="jss104">
+                    <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                     <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+                     </path>
+                    </svg>
+                    <input checked="" class="jss353" data-indeterminate="false" type="checkbox" value="despGP"/>
+                   </span>
+                   <span class="jss298">
+                   </span>
+                  </span>
+                  <span class="jss62 jss70 jss344">
+                   Decisões da Presidência
+                  </span>
+                 </label>
+                </div>
+                <div>
+                 <label class="jss339">
+                  <span class="jss105 jss99 jss350 jss354 jss358 jss332">
+                   <span class="jss104">
+                    <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                     <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+                     </path>
+                    </svg>
+                    <input checked="" class="jss353" data-indeterminate="false" type="checkbox" value="despGVP"/>
+                   </span>
+                   <span class="jss298">
+                   </span>
+                  </span>
+                  <span class="jss62 jss70 jss344">
+                   Decisões da Vice Presidência
+                  </span>
+                 </label>
+                </div>
+                <div>
+                 <label class="jss339">
+                  <span class="jss105 jss99 jss350 jss354 jss358 jss332">
+                   <span class="jss104">
+                    <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                     <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+                     </path>
+                    </svg>
+                    <input checked="" class="jss353" data-indeterminate="false" type="checkbox" value="despGCG"/>
+                   </span>
+                   <span class="jss298">
+                   </span>
+                  </span>
+                  <span class="jss62 jss70 jss344">
+                   Decisões da Corregedoria Geral
+                  </span>
+                 </label>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="jss134 jss173 jss178 altura-75">
+        <div class="jss31 jss34 jss32 jss233 altura-card-padrao" style="overflow: visible;">
+         <div class="jss234" style="background-color: rgb(79, 131, 204); height: 32px;">
+          <div class="jss237">
+           <h5 class="jss62 jss78" style="color: white;">
+            Filtros
+            <button alt="Mostrar ou esconder pesquisa avançada" aria-label="Filtros de pesquisa avançada. Mostrar ou esconder o formulário com os filtros de pesquisa avançada." class="jss105 jss99" tabindex="0" type="button">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z">
+               </path>
+               <path d="M0 0h24v24H0z" fill="none">
+               </path>
+              </svg>
+             </span>
+             <span class="jss298">
+             </span>
+            </button>
+           </h5>
+          </div>
+         </div>
+         <hr class="jss240"/>
+         <div class="jss333 jss334" style="min-height: 0px;">
+          <div class="jss335">
+           <div class="jss336">
+            <div class="jss245" style="padding-top: 0px;">
+             <div style="flex-direction: column;">
+              <div style="display: flex; flex-direction: row; align-items: flex-end; padding-top: 15px;" title="Pesquisar Processo">
+               <div aria-label="Número do processo" class="jss246" style="width: 8ch; margin: 1%;">
+                <label class="jss261 jss250 jss255 jss258 jss257" data-shrink="true" for="numero">
+                 Processo
+                </label>
+                <div class="jss281 jss268 jss272 jss282 jss269">
+                 <input aria-invalid="false" class="jss291 jss276" id="numero" name="numero" placeholder="Número" rows="1" style="text-align: right;" type="text" value=""/>
+                </div>
+               </div>
+               -
+               <div aria-label="DV do processo" class="jss246" style="width: 2ch; margin: 1%; font-size: 22px;">
+                <div class="jss281 jss268 jss272 jss282 jss269">
+                 <input aria-invalid="false" class="jss291 jss276" id="digito" name="digito" placeholder="DV" rows="1" type="text" value=""/>
+                </div>
+               </div>
+               .
+               <div aria-label="Ano do processo" class="jss246" style="width: 4ch; margin: 1%; font-size: 17px;">
+                <div class="jss281 jss268 jss272 jss282 jss269">
+                 <input aria-invalid="false" class="jss291 jss276" id="ano" name="ano" placeholder="Ano" rows="1" type="text" value=""/>
+                </div>
+               </div>
+               .
+               <div aria-label="Órgão" class="jss246" style="width: 1ch; margin: 1%;">
+                <div class="jss281 jss268 jss272 jss282 jss269">
+                 <input aria-invalid="false" class="jss291 jss276" id="orgao" rows="1" type="text" value="5"/>
+                </div>
+               </div>
+               .
+               <div aria-label="TRT" class="jss246" style="width: 2ch; margin: 1%; font-size: 25px;">
+                <div class="jss281 jss268 jss272 jss282 jss269">
+                 <input aria-invalid="false" class="jss291 jss276" id="tribunal" placeholder="TRT" rows="1" type="text" value=""/>
+                </div>
+               </div>
+               .
+               <div aria-label="Vara" class="jss246" style="width: 4ch; margin: 1%; font-size: 17px;">
+                <div class="jss281 jss268 jss272 jss282 jss269">
+                 <input aria-invalid="false" class="jss291 jss276" id="vara" placeholder="Vara" rows="1" type="text" value=""/>
+                </div>
+               </div>
+               <button aria-label="Limpar número do processo" class="jss105 jss99 jss102" tabindex="0" title="Limpar número do processo" type="button">
+                <span class="jss104">
+                 <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" style="cursor: pointer; width: 20px; height: 20px;" viewbox="0 0 24 24">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z">
+                  </path>
+                  <path d="M0 0h24v24H0z" fill="none">
+                  </path>
+                 </svg>
+                </span>
+                <span class="jss298">
+                </span>
+               </button>
+              </div>
+              <div style="padding-top: 1rem;">
+               <label aria-hidden="true" class="jss261" style="font-size: 0.7rem;">
+                Órgão Judicante
+               </label>
+               <div class="mdl react-dropdown-tree-select" id="idOrgaoJudic">
+                <div class="dropdown">
+                 <a aria-expanded="false" aria-haspopup="tree" aria-label="Órgão Judicante" class="dropdown-trigger arrow bottom" id="idOrgaoJudic_trigger" role="button" tabindex="0">
+                  <ul class="tag-list">
+                   <li class="tag-item">
+                    <input aria-autocomplete="list" aria-label="Órgão Judicante" class="search" placeholder="Digite para filtrar a lista abaixo" type="text"/>
+                   </li>
+                  </ul>
+                 </a>
+                </div>
+               </div>
+              </div>
+              <div style="padding-top: 1rem;">
+               <label aria-hidden="true" class="jss261" style="font-size: 0.7rem;">
+                Ministro (a)
+               </label>
+               <div class="mdl react-dropdown-tree-select" id="rdts1">
+                <div class="dropdown">
+                 <a aria-expanded="false" aria-haspopup="tree" aria-label="Ministro (a)" class="dropdown-trigger arrow bottom" id="rdts1_trigger" role="button" tabindex="0">
+                  <ul class="tag-list">
+                   <li class="tag-item">
+                    <input aria-autocomplete="list" aria-label="Ministro (a)" class="search" placeholder="Digite para filtrar a lista abaixo" type="text"/>
+                   </li>
+                  </ul>
+                 </a>
+                </div>
+               </div>
+              </div>
+              <div style="padding-top: 1rem;">
+               <label aria-hidden="true" class="jss261" style="font-size: 0.7rem;">
+                Convocado (a)
+               </label>
+               <div class="mdl react-dropdown-tree-select" id="rdts2">
+                <div class="dropdown">
+                 <a aria-expanded="false" aria-haspopup="tree" aria-label="Convocado (a)" class="dropdown-trigger arrow bottom" id="rdts2_trigger" role="button" tabindex="0">
+                  <ul class="tag-list">
+                   <li class="tag-item">
+                    <input aria-autocomplete="list" aria-label="Convocado (a)" class="search" placeholder="Digite para filtrar a lista abaixo" type="text"/>
+                   </li>
+                  </ul>
+                 </a>
+                </div>
+               </div>
+              </div>
+              <div style="padding-top: 1rem;">
+               <label aria-hidden="true" class="jss261" style="font-size: 0.7rem;">
+                Classe Processual
+               </label>
+               <div class="mdl react-dropdown-tree-select" id="rdts3">
+                <div class="dropdown">
+                 <a aria-expanded="false" aria-haspopup="tree" aria-label="Classe Processual" class="dropdown-trigger arrow bottom" id="rdts3_trigger" role="button" tabindex="0">
+                  <ul class="tag-list">
+                   <li class="tag-item">
+                    <input aria-autocomplete="list" aria-label="Classe Processual" class="search" placeholder="Digite para filtrar a lista abaixo" type="text"/>
+                   </li>
+                  </ul>
+                 </a>
+                </div>
+               </div>
+              </div>
+              <div style="padding-top: 1rem;">
+               <label aria-hidden="true" class="jss261" style="font-size: 0.7rem;">
+                Indicadores
+               </label>
+               <div class="mdl react-dropdown-tree-select" id="rdts4">
+                <div class="dropdown">
+                 <a aria-expanded="false" aria-haspopup="tree" aria-label="Indicadores" class="dropdown-trigger arrow bottom" id="rdts4_trigger" role="button" tabindex="0">
+                  <ul class="tag-list">
+                   <li class="tag-item">
+                    <input aria-autocomplete="list" aria-label="Indicadores" class="search" placeholder="Digite para filtrar a lista abaixo" type="text"/>
+                   </li>
+                  </ul>
+                 </a>
+                </div>
+               </div>
+              </div>
+              <div style="padding-top: 1rem;">
+               <label aria-hidden="true" class="jss261" style="font-size: 0.7rem;">
+                Assunto
+               </label>
+               <div class="mdl react-dropdown-tree-select" id="rdts5">
+                <div class="dropdown">
+                 <a aria-expanded="false" aria-haspopup="tree" aria-label="Assunto" class="dropdown-trigger arrow bottom" id="rdts5_trigger" role="button" tabindex="0">
+                  <ul class="tag-list">
+                   <li class="tag-item">
+                    <input aria-autocomplete="list" aria-label="Assunto" class="search" placeholder="Digite para filtrar a lista abaixo" type="text"/>
+                   </li>
+                  </ul>
+                 </a>
+                </div>
+               </div>
+              </div>
+              <div>
+               <div style="padding-top: 10px;">
+                <div align="left" aria-hidden="true" class="jss31 jss33 jss32 jss361" width="100%">
+                 Publicação
+                </div>
+                <div class="jss246" style="width: 150px;">
+                 <label class="jss261 jss265 jss250 jss255 jss258 jss257" data-shrink="true" for="idDataPublicacaoInicio">
+                  Início
+                 </label>
+                 <div class="jss281 jss268 jss272 jss282 jss269" style="opacity: 0.54;">
+                  <input aria-invalid="false" aria-label="Data de início da Publicação, digite a data ou utilize as setas para cima e para baixo para navegar pelas datas." class="jss291 jss276 jss294 jss279" id="idDataPublicacaoInicio" type="date" value="2020-01-01"/>
+                 </div>
+                </div>
+                <div class="jss246" style="width: 150px; margin-left: 20px;">
+                 <label class="jss261 jss265 jss250 jss255 jss258 jss257" data-shrink="true" for="idDataPublicacaoFim">
+                  Fim
+                 </label>
+                 <div class="jss281 jss268 jss272 jss282 jss269" style="opacity: 0.54;">
+                  <input aria-invalid="false" aria-label="Data de fim da Publicação, digite a data ou utilize as setas para cima e para baixo para navegar pelas datas." class="jss291 jss276 jss294 jss279" id="idDataPublicacaoFim" type="date" value="2024-09-15"/>
+                 </div>
+                </div>
+               </div>
+               <div style="padding-top: 10px;">
+                <div align="left" aria-hidden="true" class="jss31 jss33 jss32 jss361" width="100%">
+                 Data do Acórdão
+                </div>
+                <div class="jss246" style="width: 150px;">
+                 <label class="jss261 jss250 jss255 jss258 jss257" data-shrink="true" for="idDataAcordaoInicio">
+                  Início
+                 </label>
+                 <div class="jss281 jss268 jss272 jss282 jss269" style="opacity: 0.54;">
+                  <input aria-invalid="false" aria-label="Data início do Acórdão, digite a data ou utilize as setas para cima e para baixo para navegar pelas datas." class="jss291 jss276 jss294 jss279" id="idDataAcordaoInicio" type="date" value=""/>
+                 </div>
+                </div>
+                <div class="jss246" style="width: 150px; margin-left: 20px;">
+                 <label class="jss261 jss250 jss255 jss258 jss257" data-shrink="true" for="idDataAcordaoFim">
+                  Fim
+                 </label>
+                 <div class="jss281 jss268 jss272 jss282 jss269" style="opacity: 0.54;">
+                  <input aria-invalid="false" aria-label="Data fim do Acórdão, digite a data ou utilize as setas para cima e para baixo para navegar pelas datas." class="jss291 jss276 jss294 jss279" id="idDataAcordaoFim" type="date" value=""/>
+                 </div>
+                </div>
+               </div>
+              </div>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </form>
+    </div>
+    <main class="jss12" id="main">
+     <header class="jss31 jss37 jss22 jss26 jss28">
+      <div class="jss374 jss368" id="barraResultadoTitulos">
+       <div class="jss375">
+        <div class="jss377 jss378" role="tablist" style="margin-bottom: 0px;">
+         <div class="jss375">
+          <button aria-label="Aba Acórdãos, Foram encontrados 3 registros." aria-selected="true" class="jss105 jss383 jss370 jss386 jss388 jss372 classeAbasResultado" role="tab" style="font-size: 0.75rem;" tabindex="0" type="button">
+           <span class="jss391">
+            <span class="jss392 jss371">
+             <span class="jss393">
+              Acórdãos (3)
+             </span>
+            </span>
+           </span>
+           <span class="jss298">
+           </span>
+          </button>
+         </div>
+         <span class="jss395 jss396 jss382" style="left: 0px; width: 147px;">
+         </span>
+        </div>
+       </div>
+      </div>
+      <div class="jss31 jss35 jss32 jss398">
+       <div style="display: flex; flex-direction: row; justify-content: space-between;">
+        <div class="jss405" style="flex-basis: 20%; justify-content: flex-start;">
+         <button class="jss105 jss305 jss316 jss317 jss319 jss320 jss404" tabindex="0" type="button">
+          <span class="jss306">
+           Exportar para pdf
+          </span>
+          <span class="jss298">
+          </span>
+         </button>
+        </div>
+        <div class="jss405" style="flex-grow: 1; justify-content: center;">
+         <div class="jss31 jss33 jss32 jss406">
+          Ordenado por:
+         </div>
+         <div class="jss409 jss410" style="width: 50%;">
+          <button class="jss105 jss411 jss407 jss413 jss408" style="width: 50%;" tabindex="0" type="button" value="data">
+           <span class="jss414">
+            Data
+           </span>
+           <span class="jss298">
+           </span>
+          </button>
+          <button class="jss105 jss411 jss407" style="width: 50%;" tabindex="0" type="button" value="relevancia">
+           <span class="jss414">
+            Relevância
+           </span>
+           <span class="jss298">
+           </span>
+          </button>
+         </div>
+        </div>
+        <div class="jss405" style="justify-content: flex-end;">
+         <div class="jss415">
+          <div class="jss58 jss60 jss59 jss416">
+           <div class="jss417">
+           </div>
+           <span class="jss62 jss72 jss91 jss418">
+            Registros por página:
+           </span>
+           <div class="jss281 jss422">
+            <div class="jss425 jss419">
+             <div aria-haspopup="true" aria-pressed="false" class="jss426 jss420 jss429 jss291" role="button" tabindex="0">
+              20
+             </div>
+             <input type="hidden" value="20"/>
+             <svg aria-hidden="true" class="jss108 jss431 jss421" focusable="false" role="presentation" viewbox="0 0 24 24">
+              <path d="M7 10l5 5 5-5z">
+              </path>
+             </svg>
+            </div>
+           </div>
+           <span class="jss62 jss72 jss91 jss418">
+            Registros 1 a 3 de um total de 3
+           </span>
+           <div class="jss424">
+            <button aria-label="Previous Page" class="jss105 jss106 jss99 jss100 jss103" disabled="" tabindex="-1" type="button">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z">
+               </path>
+              </svg>
+             </span>
+            </button>
+            <button aria-label="Next Page" class="jss105 jss106 jss99 jss100 jss103" disabled="" tabindex="-1" type="button">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z">
+               </path>
+              </svg>
+             </span>
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div>
+        <table aria-labelledby="tableTitle" class="jss434 jss399">
+         <thead class="jss437" style="background-color: rgb(79, 131, 204); color: black;">
+          <tr class="jss438 jss441">
+           <th class="jss443 jss444 jss449" scope="col" style="color: black;">
+            <span class="jss105 jss99 jss350 jss354 jss359">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+               </path>
+              </svg>
+              <input class="jss353" data-indeterminate="false" type="checkbox" value=""/>
+             </span>
+             <span class="jss298">
+             </span>
+            </span>
+           </th>
+           <th class="jss443 jss444 jss450" scope="col" style="color: black; width: 20%;">
+            Processo
+           </th>
+           <th class="jss443 jss444" scope="col" style="color: black;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+             <div style="margin: 17px;">
+              Ementa
+             </div>
+             <div>
+              <span class="jss105 jss99 jss350 jss354 jss435 jss359" title='Marque esta opção para que os resultados sejam exibidos com um tamanho menor. Ao final do texto será adicionado um link "Leia mais..." que expande o resultado. Assim será possível ver todos os resultados utilizando menos a barra de rolagem.'>
+               <span class="jss104">
+                <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+                 <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+                 </path>
+                </svg>
+                <input class="jss353" data-indeterminate="false" type="checkbox" value=""/>
+               </span>
+               <span class="jss298">
+               </span>
+              </span>
+              <i title='Marque esta opção para que os resultados sejam exibidos com um tamanho menor. Ao final do texto será adicionado um link "Leia mais..." que expande o resultado. Assim será possível ver todos os resultados utilizando menos a barra de rolagem.'>
+               Leia mais?
+              </i>
+             </div>
+            </div>
+           </th>
+           <th class="jss443 jss444" scope="col" style="color: black; width: 30%;">
+            Onde encontrou
+           </th>
+          </tr>
+         </thead>
+         <tbody class="jss455 jss400">
+          <tr class="jss438 jss440" tabindex="-1">
+           <td class="jss443 jss445">
+            <span class="jss105 jss99 jss350 jss354 jss359">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+               </path>
+              </svg>
+              <input class="jss353" data-indeterminate="false" type="checkbox" value=""/>
+             </span>
+             <span class="jss298">
+             </span>
+            </span>
+           </td>
+           <td class="jss443 jss445 jss450" scope="row">
+            <div style="display: flex; justify-content: space-between; flex-direction: column; height: 100%; padding: 20px 0px;">
+             <div style="display: flex; flex-direction: column; padding-bottom: 20px;">
+              <span class="" style="padding-bottom: 20px;" title="Inteiro teor com os argumentos realçados">
+               Processo:
+               <span style="margin-left: 6px; cursor: pointer; text-decoration: underline; font-weight: bold;">
+                <a href="#65d1fb2b4735a6679853e9e33ff771b2">
+                 RR - 3658000-26.2008.5.09.0004
+                </a>
+               </span>
+              </span>
+              <div>
+               Orgão Judicante: 6ª Turma
+              </div>
+              <div>
+               Relator: Augusto Cesar Leite de Carvalho
+              </div>
+              <div>
+               Julgamento: 15/11/2023
+              </div>
+              <div>
+               Publicação: 17/11/2023
+              </div>
+              <div>
+               Tipo de Documento: Acordão
+              </div>
+             </div>
+             <div style="display: flex; flex-direction: column;">
+              <span>
+               <span style="font-weight: bold;">
+                Inteiro Teor :
+               </span>
+               <span class="" title="Abrir inteiro teor no formato HTML">
+                <a href="https://jurisprudencia-backend2.tst.jus.br/rest/documentos/65d1fb2b4735a6679853e9e33ff771b2" target="blank">
+                 <span aria-label="Abrir inteiro teor no formato HTML em uma nova janela" class="open_in_new_window">
+                 </span>
+                </a>
+               </span>
+               <span class="" title="Fazer download do inteiro teor no formato DOC">
+                <a href="https://consultadocumento.tst.jus.br/consultaDocumento/acordao.do?anoProcInt=2013&amp;numProcInt=188103&amp;dtaPublicacaoStr=17/11/2023%2007:00:00&amp;nia=8238754&amp;origem=documento">
+                 <span aria-label="Fazer download do inteiro teor no formato DOC" class="word-download">
+                 </span>
+                </a>
+               </span>
+               <span class="" title="Fazer download do inteiro teor no formato PDF">
+                <a href="https://consultadocumento.tst.jus.br/consultaDocumento/acordao.do?anoProcInt=2013&amp;numProcInt=188103&amp;dtaPublicacaoStr=17/11/2023%2007:00:00&amp;nia=8238754">
+                 <span aria-label="Fazer download do inteiro teor no formato PDF" class="pdf-download">
+                 </span>
+                </a>
+               </span>
+              </span>
+              <a href="#">
+               <span aria-label="Ementa para citação" style="cursor: pointer; text-decoration: underline; font-weight: bold;">
+                Ementa para citação
+               </span>
+              </a>
+              <a href="#">
+               <span aria-label="Dispositivo" style="cursor: pointer; text-decoration: underline; font-weight: bold;">
+                Dispositivo
+               </span>
+              </a>
+              <span style="cursor: pointer; text-decoration: underline; font-weight: bold;">
+               <a href="https://consultaprocessual.tst.jus.br/consultaProcessual/resumoForm.do?consulta=1&amp;numeroInt=188103&amp;anoInt=2013" style="color: rgba(0, 0, 0, 0.87);" target="blank">
+                <span aria-label="Ver andamentos em uma nova janela.">
+                 Andamentos
+                </span>
+               </a>
+              </span>
+              <span>
+               <b>
+                Indicadores:
+               </b>
+               Tramitação Eletrônica
+              </span>
+             </div>
+            </div>
+           </td>
+           <td class="jss443 jss445" style="vertical-align: top; padding: 4px 0px 4px 24px;">
+            <div class="autoHeight" id="celulaLeiaMaisAcordao0" style="display: flex; flex-direction: column; overflow-y: hidden; text-align: justify;">
+             <style>
+              <!--
+        p.default {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:0.0;
+          Alignment:left;
+          SpaceBelow:5.0;
+          SpaceAbove:5.0;
+        }
+        p.ListaParagraph {
+          LeftIndent:35.4;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.Corpo {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.Tema {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.IstoaPosto {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.Voto {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.Relatario {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.NumaProcesso {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:right;
+          SpaceBelow:8.5;
+        }
+        p.CorreaJunto {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:right;
+          SpaceBelow:8.5;
+        }
+        p.DefaultaParagraphaFont {
+          italic:;
+          bold:normal;
+          underline:;
+        }
+        p.pageanumber {
+          italic:;
+          bold:normal;
+          underline:;
+        }
+        p.Transcriaaoaa {
+          LeftIndent:184.3;
+          RightIndent:0.0;
+          FirstLineIndent:28.35;
+          Alignment:justify;
+        }
+        p.Transcriaao {
+          LeftIndent:127.6;
+          RightIndent:0.0;
+          FirstLineIndent:28.35;
+          Alignment:justify;
+        }
+        p.DataaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.Date {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.MapaadoaDocumentoaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:1;
+        }
+        p.DocumentaMap {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.RodapaaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.footer {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.CabeaalhoaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.header {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:right;
+        }
+        p.footnoteareference {
+          italic:;
+          bold:normal;
+          underline:;
+        }
+        p.TextoadeanotaadearodapaaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:2;
+        }
+        p.footnoteatext {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.Funaao {
+          LeftIndent:93.55;
+          RightIndent:93.55;
+          FirstLineIndent:0.0;
+          Alignment:center;
+        }
+        p.Autoridade {
+          LeftIndent:93.55;
+          RightIndent:93.55;
+          FirstLineIndent:0.0;
+          Alignment:center;
+        }
+        p.Ementa {
+          LeftIndent:226.8;
+          RightIndent:0.0;
+          FirstLineIndent:0.0;
+          Alignment:justify;
+        }
+        p.Identificaaao {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:0.0;
+          Alignment:justify;
+        }
+        p.TatuloaaaChar {
+          italic:;
+          bold:bold;
+          underline:;
+          size:4;
+        }
+        p.TatuloaaaChar {
+          italic:italic;
+          bold:bold;
+          underline:;
+          size:4;
+        }
+        p.TatuloaaaChar {
+          italic:;
+          bold:bold;
+          underline:;
+          size:5;
+        }
+        p.headingaa {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.headingaa {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.headingaa {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+      -->
+             </style>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                RECURSO DE REVISTA.
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                INTERVALO INTRAJORNADA. PEGADA DUPLA. TEMPO A DISPOSIÇÃO
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+               <b>
+                .
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               O Regional consignou que, mesmo nos dias nos quais houve "dois pegas", o intervalo intrajornada foi concedido de forma fracionada, não atendendo às disposições do art. 71 da CLT. Consignou, ainda, não haver consonância entre a cláusula coletiva e o referido artigo da CLT. Ademais, a Corte
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <i>
+                a quo
+               </i>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               nada esclareceu em relação ao tempo do intervalo intrajornada entre as duas pegadas. Nesse contexto, as alegações de divergência jurisprudencial e violação dos artigos 7º, XXVI, da CF e 71 da CLT esbarram no óbice da Súmula 126 do TST. Recurso de revista não conhecido.
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                HORAS EXTRAS. DESCARACTERIZAÇÃO DO REGIME DE COMPENSAÇÃO DE JORNADA
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+               <b>
+                .
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               No caso, um dos fundamentos adotados pelo Regional para a descaracterização dos regimes de compensação de jornadas e banco de horas foi a existência de prestação habitual de horas extras além do limite legal de 10 horas diárias
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+               ,
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               previsto no art. 59 da CLT. Nesse contexto, os arestos colacionados são inespecíficos, nos termos das Súmulas 23 e 296, I, do TST, pois não tratam da questão sob todos os aspectos enfrentados na decisão recorrida. Ademais, a aplicação do item IV da Súmula 85 do TST esbarra no óbice do item V do referido verbete sumular. Recurso de revista não conhecido.
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                REFLEXOS DO DESCANSO SEMANAL REMUNERADO MAJORADO PELAS HORAS EXTRAS
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+               <b>
+                .
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                APLICAÇÃO DA OJ 394 DA SBDI I DO TST.
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               O Tribunal Pleno desta Corte ao julgar o IncJulgRREmbRep nº 10169-57.2013.5.05.0024 (DEJT de 31/3/2023) em que se discutia possível modificação do teor da OJ 394 da SBDI I do TST, decidiu que:
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                1.
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               A majoração do valor do repouso semanal remunerado, decorrente da integração das horas extras habituais, deve repercutir no cálculo, efetuado pelo empregador, das demais parcelas que têm como base de cálculo o salário, não se cogitando de
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <i>
+                bis in idem
+               </i>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               por sua incidência no cálculo das férias, da gratificação natalina, do
+               <span style="background-color:#C6BDFF">
+                aviso prévio
+               </span>
+               e do FGTS.
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                2.
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               O item 1 será aplicado às horas extras trabalhadas a partir de 20.03.2023." No caso concreto, as horas extras foram laboradas antes de 20/3/2023. É o caso, portanto, de se prover o recurso patronal para que se observe a antiga redação OJ 394 da SBDI-1 do TST. Recurso de revista conhecido e provido.
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                CRITÉRIO DE ABATIMENTO DAS HORAS EXTRAS PAGAS.
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               Esta Corte pacificou sua jurisprudência no sentido de que a dedução das horas extras, comprovadamente pagas daquelas reconhecidas em juízo, deve ser feita pelo critério global. Nesse sentido, a OJ 415 da SBDI-1 do TST. Recurso de revista conhecido e provido.
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                INTERVALO INTRAJORNADA. PEGADA ÚNICA
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+               <b>
+                .
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               O Regional considerou inválida a concessão fracionada do intervalo intrajornada, prevista na cláusula coletiva. Tal decisão não viola diretamente o art. 71, caput e §1º, da CLT, o qual não trata da possibilidade de fracionamento do intervalo intrajornada. O aresto colacionado é inespecífico, nos termos da Súmula 296, I, do TST. Recurso de revista não conhecido.
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                <span style="background-color:#FFFF00">
+                 MULTA DO ARTIGO 477
+                </span>
+                , § 8º, DA CLT. DIFERENÇAS RECONHECIDAS EM JUÍZO.
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               A multa do art. 477, § 8º, da CLT é cabível nos casos nos quais o empregador deixa de efetuar o correto pagamento das
+               <span style="background-color:#FF00FF">
+                verbas rescisórias
+               </span>
+               ao empregado, ou seja, no prazo definido pelo § 6º do referido dispositivo. Registre-se que, com o cancelamento da Orientação Jurisprudencial 351 da SBDI-1 desta Corte, não subsiste o entendimento de a fundada controvérsia ou dúvida sobre as obrigações isentar o empregador do pagamento da multa.
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <i>
+                In casu
+               </i>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               , não houve mora patronal deliberada, mas sim o reconhecimento judicial de direito a parcela trabalhista, o que implicou repercussão nas
+               <span style="background-color:#FF00FF">
+                verbas rescisórias
+               </span>
+               adimplidas, a tempo e modo, por ocasião da
+               <span style="background-color:#00FFFF">
+                rescisão contratual
+               </span>
+               . Recurso de revista conhecido e provido.
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               <b>
+                MULTAS CONVENCIONAIS
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+               <b>
+                .
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansFranklin Gothic Medium 
+      Cond">
+               No particular, a reclamada não apontou violação a dispositivo de lei ou da Constituição Federal, nem contrariedade à súmula ou orientação jurisprudencial desta Corte e não colacionou arestos para a configuração de divergência jurisprudencial. Portanto, não estão atendidos os pressupostos de admissibilidade do recurso de revista, previstos no art. 896 da CLT. Recurso de revista não conhecido.
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+              </span>
+             </p>
+            </div>
+           </td>
+           <td class="jss443 jss445" style="vertical-align: top; padding: 4px 0px 4px 24px;">
+            <div class="maxHeight" id="celulaLeiaMaisOndeEncontrou0" style="display: flex; flex-direction: column; overflow-y: hidden; text-align: justify;">
+             <ul style="list-style-type: circle; margin-right: 10px">
+              <li>
+               ...revista não 
+        conhecido.
+               <tst_j>
+                MULTA DO ARTIGO 477
+               </tst_j>
+               , § 8º, DA CLT. DIFERENÇAS RECONHECIDAS EM JUÍZO.
+      
+      
+...
+              </li>
+              <li>
+               ...rescisórias adimplidas, a tempo 
+        e modo, por ocasião da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               . Recurso de revista conhecido e provido.
+      
+      
+       ...
+              </li>
+              <li>
+               ...
+    
+      
+        
+      
+    
+    
+      
+        6 –
+               <tst_j>
+                MULTA DO ARTIGO 477
+               </tst_j>
+               DA CLT
+      
+    
+    
+      
+        
+      
+    
+    
+...
+              </li>
+              <li>
+               ...segundo lugar, quanto à aplicação do acréscimo do artigo 467 e da
+               <tst_j>
+                multa do artigo 477
+               </tst_j>
+               , 
+        ambos da CLT. Nesse sentido, entende-se que há diferença...
+              </li>
+              <li>
+               ...dos 
+        haveres rescisórios, motivo pelo qual deve incidir a
+               <tst_j>
+                multa do artigo 477
+               </tst_j>
+               , § 8º da CLT, que 
+        não resta afastada pelo deferimento da...
+              </li>
+              <li>
+               ... 
+        Cinge-se a controvérsia em saber se é devido ou não a
+               <tst_j>
+                multa do artigo 477
+               </tst_j>
+               , § 8º, da CLT 
+        nos casos de diferenças rescisórias deferidas...
+              </li>
+              <li>
+               ...supramencionado, as parcelas constantes 
+        do instrumento de
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               , consoante literalidade desse mesmo dispositivo.
+      
+    
+ ...
+              </li>
+              <li>
+               ...   verbas rescisórias adimplidas, a tempo e modo, por ocasião da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               . 
+        Injustificada, portanto, a imposição da multa do § 8º do...
+              </li>
+              <li>
+               ...CLT. ITERATIVA 
+        E NOTÓRIA JURISPRUDÊNCIA DA SBDI-1 DO TST.
+               <tst_j>
+                MULTA DO ARTIGO 477
+               </tst_j>
+               , § 8º, DA CLT. VERBAS 
+        RESCISÓRIAS. DIFERENÇAS RECONHECIDAS...
+              </li>
+              <li>
+               ...atraso no pagamento das verbas rescisórias. 2. Não 
+        incide a
+               <tst_j>
+                multa do artigo 477
+               </tst_j>
+               , § 8º, da CLT se o reconhecimento de diferenças de verbas 
+     ...
+              </li>
+              <li>
+               ...  rescisórias não significa a mora do empregador no pagamento da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               e não é 
+        motivo suficiente para ensejar a aplicação da multa...
+              </li>
+              <li>
+               ...     
+      
+    
+    
+      
+        "RECURSO DE EMBARGOS.
+               <tst_j>
+                MULTA DO ARTIGO 477
+               </tst_j>
+               DA CLT - DIFERENÇAS DE VERBAS RESCISÓRIAS. A 
+        mera consideração...
+              </li>
+              <li>
+               ...  empregador saldou integralmente os valores devidos em razão da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               , c) se 
+        o pagamento fora do prazo ou de forma parcial se...
+              </li>
+              <li>
+               ...das Verbas Rescisórias Efetuado no 
+        Prazo Legal à Época da
+               <tst_j>
+                Rescisão Contratual
+               </tst_j>
+               . Penalidade Indevida. Prevê o art. 477da CLT 
+        que o não pagamento...
+              </li>
+              <li>
+               ...do dispositivo, as parcelas constantes do instrumento de
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               . A natureza penal da sanção imposta no § 8º impede a interpretação...
+              </li>
+              <li>
+               ...   
+      
+    
+    
+      
+        "RECURSO DE REVISTA. 1.
+               <tst_j>
+                MULTA DO ARTIGO 477
+               </tst_j>
+               DA CLT. DIFERENÇASRESCISÓRIAS RECONHECIDAS EM 
+        JUÍZO. A multa...
+              </li>
+              <li>
+               ...TST; III) 
+        conhecer do recurso de revista quanto ao tema "
+               <tst_j>
+                multa do artigo 477
+               </tst_j>
+               da CLT", por 
+        divergência jurisprudencial, e, no mérito,...
+              </li>
+              <li>
+               ...por sua incidência no cálculo das férias, da gratificação natalina, do
+               <tst_j>
+                aviso prévio
+               </tst_j>
+               e do         FGTS.                     2.                     O item...
+              </li>
+              <li>
+               ...quais o empregador deixa de         efetuar o correto pagamento das
+               <tst_j>
+                verbas rescisórias
+               </tst_j>
+               ao empregado, ou seja, no prazo         definido pelo § 6º do referido...
+              </li>
+              <li>
+               ...direito a         parcela trabalhista, o que implicou repercussão nas
+               <tst_j>
+                verbas rescisórias
+               </tst_j>
+               adimplidas, a tempo         e modo, por ocasião da rescisão contratual...
+              </li>
+             </ul>
+            </div>
+            <span style="display: flex; cursor: pointer; justify-content: left;" title="Leia mais...">
+             <u>
+              Leia mais...
+             </u>
+            </span>
+           </td>
+          </tr>
+          <tr class="jss438 jss440" tabindex="-1">
+           <td class="jss443 jss445">
+            <span class="jss105 jss99 jss350 jss354 jss359">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+               </path>
+              </svg>
+              <input class="jss353" data-indeterminate="false" type="checkbox" value=""/>
+             </span>
+             <span class="jss298">
+             </span>
+            </span>
+           </td>
+           <td class="jss443 jss445 jss450" scope="row">
+            <div style="display: flex; justify-content: space-between; flex-direction: column; height: 100%; padding: 20px 0px;">
+             <div style="display: flex; flex-direction: column; padding-bottom: 20px;">
+              <span class="" style="padding-bottom: 20px;" title="Inteiro teor com os argumentos realçados">
+               Processo:
+               <span style="margin-left: 6px; cursor: pointer; text-decoration: underline; font-weight: bold;">
+                <a href="#f492a075685e3d185caf83e6d4b1cf1b">
+                 Ag-RR - 1000744-54.2021.5.02.0068
+                </a>
+               </span>
+              </span>
+              <div>
+               Orgão Judicante: 6ª Turma
+              </div>
+              <div>
+               Relatora: Katia Magalhaes Arruda
+              </div>
+              <div>
+               Julgamento: 28/06/2023
+              </div>
+              <div>
+               Publicação: 30/06/2023
+              </div>
+              <div>
+               Tipo de Documento: Acordão
+              </div>
+             </div>
+             <div style="display: flex; flex-direction: column;">
+              <span>
+               <span style="font-weight: bold;">
+                Inteiro Teor :
+               </span>
+               <span class="" title="Abrir inteiro teor no formato HTML">
+                <a href="https://jurisprudencia-backend2.tst.jus.br/rest/documentos/f492a075685e3d185caf83e6d4b1cf1b" target="blank">
+                 <span aria-label="Abrir inteiro teor no formato HTML em uma nova janela" class="open_in_new_window">
+                 </span>
+                </a>
+               </span>
+               <span class="" title="Fazer download do inteiro teor no formato DOC">
+                <a href="https://consultadocumento.tst.jus.br/consultaDocumento/acordao.do?anoProcInt=2022&amp;numProcInt=332894&amp;dtaPublicacaoStr=30/06/2023%2007:00:00&amp;nia=8155392&amp;origem=documento">
+                 <span aria-label="Fazer download do inteiro teor no formato DOC" class="word-download">
+                 </span>
+                </a>
+               </span>
+               <span class="" title="Fazer download do inteiro teor no formato PDF">
+                <a href="https://consultadocumento.tst.jus.br/consultaDocumento/acordao.do?anoProcInt=2022&amp;numProcInt=332894&amp;dtaPublicacaoStr=30/06/2023%2007:00:00&amp;nia=8155392">
+                 <span aria-label="Fazer download do inteiro teor no formato PDF" class="pdf-download">
+                 </span>
+                </a>
+               </span>
+              </span>
+              <a href="#">
+               <span aria-label="Ementa para citação" style="cursor: pointer; text-decoration: underline; font-weight: bold;">
+                Ementa para citação
+               </span>
+              </a>
+              <a href="#">
+               <span aria-label="Dispositivo" style="cursor: pointer; text-decoration: underline; font-weight: bold;">
+                Dispositivo
+               </span>
+              </a>
+              <span style="cursor: pointer; text-decoration: underline; font-weight: bold;">
+               <a href="https://consultaprocessual.tst.jus.br/consultaProcessual/resumoForm.do?consulta=1&amp;numeroInt=332894&amp;anoInt=2022" style="color: rgba(0, 0, 0, 0.87);" target="blank">
+                <span aria-label="Ver andamentos em uma nova janela.">
+                 Andamentos
+                </span>
+               </a>
+              </span>
+              <span>
+               <b>
+                Indicadores:
+               </b>
+               Tramitação Eletrônica, Conector PJe-JT - eSIJ, Lei 13.467/2017, Julgado com análise de transcendência
+              </span>
+             </div>
+            </div>
+           </td>
+           <td class="jss443 jss445" style="vertical-align: top; padding: 4px 0px 4px 24px;">
+            <div class="autoHeight" id="celulaLeiaMaisAcordao1" style="display: flex; flex-direction: column; overflow-y: hidden; text-align: justify;">
+             <style>
+              <!--
+        p.CorpoaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.ListaParagraph {
+          LeftIndent:35.4;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.CorpoaRelatarioaaaCourieraNegritoacorpoRelatarioaaaCourieratratroatrelatarioaaaCourier {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.Tema {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.IstoaPosto {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.Voto {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.Relatario {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.NumaProcesso {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:right;
+          SpaceBelow:8.5;
+        }
+        p.CorreaJunto {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:right;
+          SpaceBelow:8.5;
+        }
+        p.DefaultaParagraphaFont {
+          italic:;
+          bold:normal;
+          underline:;
+        }
+        p.pageanumber {
+          italic:;
+          bold:normal;
+          underline:;
+        }
+        p.Transcriaaoaa {
+          LeftIndent:155.95;
+          RightIndent:0.0;
+          FirstLineIndent:28.35;
+          Alignment:justify;
+        }
+        p.Transcriaao {
+          LeftIndent:127.6;
+          RightIndent:0.0;
+          FirstLineIndent:28.35;
+          Alignment:justify;
+        }
+        p.DataaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.Date {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.MapaadoaDocumentoaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:1;
+        }
+        p.DocumentaMap {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.RodapaaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.footer {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.CabeaalhoaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.header {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:right;
+        }
+        p.footnoteareference {
+          italic:;
+          bold:normal;
+          underline:;
+        }
+        p.TextoadeanotaadearodapaaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:2;
+        }
+        p.footnoteatext {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.Funaao {
+          LeftIndent:93.55;
+          RightIndent:93.55;
+          FirstLineIndent:0.0;
+          Alignment:center;
+        }
+        p.Autoridade {
+          LeftIndent:93.55;
+          RightIndent:93.55;
+          FirstLineIndent:0.0;
+          Alignment:center;
+        }
+        p.Ementa {
+          LeftIndent:226.8;
+          RightIndent:0.0;
+          FirstLineIndent:0.0;
+          Alignment:justify;
+        }
+        p.Identificaaao {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:0.0;
+          Alignment:justify;
+        }
+        p.TatuloaaaChar {
+          italic:;
+          bold:bold;
+          underline:;
+          size:4;
+        }
+        p.TatuloaaaChar {
+          italic:italic;
+          bold:bold;
+          underline:;
+          size:4;
+        }
+        p.TatuloaaaChar {
+          italic:;
+          bold:bold;
+          underline:;
+          size:5;
+        }
+        p.headingaa {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.headingaa {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.headingaa {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+      -->
+             </style>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               <b>
+                AGRAVO EM RECURSO DE REVISTA. RECLAMANTE. LEI Nº 13.467/2017
+               </b>
+              </span>
+             </p>
+             <p class="CorpoaRelatarioaaaCourieraNegritoacorpoRelatarioaaaCourieratratroatrelatarioaaaCourier">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               <b>
+                ENTE PÚBLICO. RESPONSABILIDADE SUBSIDIÁRIA
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+              </span>
+             </p>
+             <p class="CorpoaRelatarioaaaCourieraNegritoacorpoRelatarioaaaCourieratratroatrelatarioaaaCourier">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               1 - Na decisão monocrática, foi reconhecida a transcendência da matéria, mas negado seguimento ao recurso de revista interposto pela reclamante
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Times New Roman">
+               .
+              </span>
+             </p>
+             <p class="CorpoaRelatarioaaaCourieraNegritoacorpoRelatarioaaaCourieratratroatrelatarioaaaCourier">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               2 - A decisão monocrática examinou a controvérsia referente à responsabilização subsidiária do ente público sob a ótica dos julgamentos pelo STF da ADC nº 16/DF e do RE nº 760.931, observando a evolução jurisprudencial, em especial quanto à necessidade de comprovação de culpa.
+              </span>
+             </p>
+             <p class="CorpoaRelatarioaaaCourieraNegritoacorpoRelatarioaaaCourieratratroatrelatarioaaaCourier">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               3 - No caso concreto, o TRT reformou a sentença para afastar a responsabilidade subsidiária do ente público, sob os seguintes fundamentos: "
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               <i>
+                No caso em apreço, temos a condenação da empregadora no pagamento de: saldo salarial de 31 dias;
+                <span style="background-color:#89EFAD">
+                 aviso prévio
+                </span>
+                indenizado (30 dias); 13º salário proporcional (7/12) já considerada a projeção do
+                <span style="background-color:#89EFAD">
+                 aviso prévio
+                </span>
+                indenizado; férias proporcionais + 1/3 (7/12), FGTS sobre as
+                <span style="background-color:#C6BDFF">
+                 verbas rescisórias
+                </span>
+                e multa de 40% com base nos depósitos devidos por todo o pacto; multa do artigo 467 da CLT, por se tratar de
+                <span style="background-color:#C6BDFF">
+                 verbas rescisórias
+                </span>
+                incontroversas, ante a revelia da 1ª recda;
+                <span style="background-color:#FFFF00">
+                 multa do artigo 477
+                </span>
+                , § 8º, da CLT, face a ausência de pagamento das
+                <span style="background-color:#C6BDFF">
+                 verbas rescisórias
+                </span>
+                ; diferenças de FGTS e honorários advocatícios, o que evidencia que não houve culpa direta do tomador. Certo é que
+               </i>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               <u>
+                <i>
+                 a inadimplência passou a existir a partir da
+                 <span style="background-color:#00FFFF">
+                  rescisão contratual
+                 </span>
+                 , não se verificando, portanto, a contumácia na ausência de pagamentos contundentes como salários e FGTS durante o pacto laboral
+                </i>
+               </u>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               <i>
+                . [...]
+               </i>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               <u>
+                <i>
+                 Não verificado, pois, o nexo de causalidade entre a conduta comissiva ou omissiva do ente público e o dano sofrido pelo trabalhador, ou seja, o comportamento sistematicamente negligente em relação aos terceirizados, não há que se cogitar na responsabilização do ente público, eis que não verificada a sua conduta culposa
+                </i>
+               </u>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               ".
+              </span>
+             </p>
+             <p class="CorpoaRelatarioaaaCourieraNegritoacorpoRelatarioaaaCourieratratroatrelatarioaaaCourier">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               4 - Conforme aponta a decisão monocrática, a jurisprudência recente da SBDI-1 e da Sexta Turma do TST pacificou-se no sentido de que, somente se ficar demonstrado o descumprimento habitual, ostensivo e reiterado das obrigações trabalhistas por parte da prestadora de serviços, é que se pode concluir pela falha inequívoca na fiscalização por parte do ente público, o que não ocorreu no caso concreto, segundo afirmou o TRT.
+              </span>
+             </p>
+             <p class="CorpoaRelatarioaaaCourieraNegritoacorpoRelatarioaaaCourieratratroatrelatarioaaaCourier">
+              <span style="color: #000000; font-size: 12pt; font-family: Open SansTahoma">
+               5 - Agravo a que se nega provimento.
+              </span>
+             </p>
+            </div>
+           </td>
+           <td class="jss443 jss445" style="vertical-align: top; padding: 4px 0px 4px 24px;">
+            <div class="maxHeight" id="celulaLeiaMaisOndeEncontrou1" style="display: flex; flex-direction: column; overflow-y: hidden; text-align: justify;">
+             <ul style="list-style-type: circle; margin-right: 10px">
+              <li>
+               ...rescisórias incontroversas, ante a revelia 
+        da 1ª recda;
+               <tst_j>
+                multa do artigo 477
+               </tst_j>
+               , § 8º, da CLT, face a ausência de pagamento das verbas 
+        rescisórias;...
+              </li>
+              <li>
+               ...  
+      
+        a inadimplência passou a existir a partir da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               , não se 
+        verificando, portanto, a contumácia na ausência...
+              </li>
+              <li>
+               ...rescisórias incontroversas, ante a revelia 
+        da 1ª recda;
+               <tst_j>
+                multa do artigo 477
+               </tst_j>
+               , §8º, da CLT, face a ausência de pagamento das verbas 
+        rescisórias;...
+              </li>
+              <li>
+               ...tomador. Certo é que a inadimplência passou a existir a partir da
+               <tst_j>
+                rescisão 
+        contratual
+               </tst_j>
+               , não se verificando, portanto, a contumácia na ausência de pagamentos...
+              </li>
+              <li>
+               ...rescisórias incontroversas, ante a revelia 
+        da 1ª recda;
+               <tst_j>
+                multa do artigo 477
+               </tst_j>
+               , § 8º, da CLT, face a ausência de pagamento das verbas 
+        rescisórias;...
+              </li>
+              <li>
+               ...Certo é que a inadimplência passou a existir a 
+        partir da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               , 
+      
+      
+        não se verificando...
+              </li>
+              <li>
+               ...rescisórias incontroversas, ante a revelia 
+        da 1ª recda;
+               <tst_j>
+                multa do artigo 477
+               </tst_j>
+               , § 8º, da CLT, face a ausência de pagamento das verbas 
+        rescisórias;...
+              </li>
+              <li>
+               ...  
+      
+        a inadimplência passou a existir a partir da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               , não se 
+        verificando, portanto, a contumácia na ausência...
+              </li>
+              <li>
+               ...        31 dias;
+               <tst_j>
+                aviso prévio
+               </tst_j>
+               indenizado (30 dias); 13º salário proporcional (7/12) já considerada         a projeção do
+               <tst_j>
+                aviso prévio
+               </tst_j>
+               indenizado; férias...
+              </li>
+              <li>
+               ...férias proporcionais + 1/3 (7/12), FGTS sobre as
+               <tst_j>
+                verbas rescisórias
+               </tst_j>
+               e multa de 40% com base nos depósitos devidos por todo o pacto; multa         do...
+              </li>
+              <li>
+               ...do artigo 467 da CLT, por se tratar de
+               <tst_j>
+                verbas rescisórias
+               </tst_j>
+               incontroversas, ante a revelia         da 1ª recda; multa do artigo 477, § 8º, da CLT, face a...
+              </li>
+              <li>
+               ...a ausência de pagamento das
+               <tst_j>
+                verbas         rescisórias
+               </tst_j>
+               ; diferenças de FGTS e honorários advocatícios, o que evidencia que não houve         culpa direta...
+              </li>
+             </ul>
+            </div>
+            <span style="display: flex; cursor: pointer; justify-content: left;" title="Leia mais...">
+             <u>
+              Leia mais...
+             </u>
+            </span>
+           </td>
+          </tr>
+          <tr class="jss438 jss440" tabindex="-1">
+           <td class="jss443 jss445">
+            <span class="jss105 jss99 jss350 jss354 jss359">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z">
+               </path>
+              </svg>
+              <input class="jss353" data-indeterminate="false" type="checkbox" value=""/>
+             </span>
+             <span class="jss298">
+             </span>
+            </span>
+           </td>
+           <td class="jss443 jss445 jss450" scope="row">
+            <div style="display: flex; justify-content: space-between; flex-direction: column; height: 100%; padding: 20px 0px;">
+             <div style="display: flex; flex-direction: column; padding-bottom: 20px;">
+              <span class="" style="padding-bottom: 20px;" title="Inteiro teor com os argumentos realçados">
+               Processo:
+               <span style="margin-left: 6px; cursor: pointer; text-decoration: underline; font-weight: bold;">
+                <a href="#b2ce4febdb6ce7ab17a1b5f4905ce7bf">
+                 RR - 10668-67.2015.5.15.0129
+                </a>
+               </span>
+              </span>
+              <div>
+               Orgão Judicante: 4ª Turma
+              </div>
+              <div>
+               Relator: Guilherme Augusto Caputo Bastos
+              </div>
+              <div>
+               Julgamento: 24/08/2021
+              </div>
+              <div>
+               Publicação: 27/08/2021
+              </div>
+              <div>
+               Tipo de Documento: Acordão
+              </div>
+             </div>
+             <div style="display: flex; flex-direction: column;">
+              <span>
+               <span style="font-weight: bold;">
+                Inteiro Teor :
+               </span>
+               <span class="" title="Abrir inteiro teor no formato HTML">
+                <a href="https://jurisprudencia-backend2.tst.jus.br/rest/documentos/b2ce4febdb6ce7ab17a1b5f4905ce7bf" target="blank">
+                 <span aria-label="Abrir inteiro teor no formato HTML em uma nova janela" class="open_in_new_window">
+                 </span>
+                </a>
+               </span>
+               <span class="" title="Fazer download do inteiro teor no formato DOC">
+                <a href="https://consultadocumento.tst.jus.br/consultaDocumento/acordao.do?anoProcInt=2020&amp;numProcInt=320170&amp;dtaPublicacaoStr=27/08/2021%2007:00:00&amp;nia=7688601&amp;origem=documento">
+                 <span aria-label="Fazer download do inteiro teor no formato DOC" class="word-download">
+                 </span>
+                </a>
+               </span>
+               <span class="" title="Fazer download do inteiro teor no formato PDF">
+                <a href="https://consultadocumento.tst.jus.br/consultaDocumento/acordao.do?anoProcInt=2020&amp;numProcInt=320170&amp;dtaPublicacaoStr=27/08/2021%2007:00:00&amp;nia=7688601">
+                 <span aria-label="Fazer download do inteiro teor no formato PDF" class="pdf-download">
+                 </span>
+                </a>
+               </span>
+              </span>
+              <a href="#">
+               <span aria-label="Ementa para citação" style="cursor: pointer; text-decoration: underline; font-weight: bold;">
+                Ementa para citação
+               </span>
+              </a>
+              <a href="#">
+               <span aria-label="Dispositivo" style="cursor: pointer; text-decoration: underline; font-weight: bold;">
+                Dispositivo
+               </span>
+              </a>
+              <span style="cursor: pointer; text-decoration: underline; font-weight: bold;">
+               <a href="https://consultaprocessual.tst.jus.br/consultaProcessual/resumoForm.do?consulta=1&amp;numeroInt=320170&amp;anoInt=2020" style="color: rgba(0, 0, 0, 0.87);" target="blank">
+                <span aria-label="Ver andamentos em uma nova janela.">
+                 Andamentos
+                </span>
+               </a>
+              </span>
+              <span>
+               <b>
+                Indicadores:
+               </b>
+               Tramitação Eletrônica, Conector PJe-JT - eSIJ, Lei 13.467/2017, Julgado com análise de transcendência
+              </span>
+             </div>
+            </div>
+           </td>
+           <td class="jss443 jss445" style="vertical-align: top; padding: 4px 0px 4px 24px;">
+            <div class="autoHeight" id="celulaLeiaMaisAcordao2" style="display: flex; flex-direction: column; overflow-y: hidden; text-align: justify;">
+             <style>
+              <!--
+        p.TranscriaaoaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.DefaultaParagraphaFont {
+          italic:;
+          bold:normal;
+          underline:;
+        }
+        p.CorpoaChara {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.EmentaaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.ListaParagraph {
+          LeftIndent:35.4;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.Corpo {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.Tema {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.IstoaPosto {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.Voto {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.Relatario {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:justify;
+        }
+        p.NumaProcesso {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:right;
+          SpaceBelow:8.5;
+        }
+        p.CorreaJunto {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.55;
+          Alignment:right;
+          SpaceBelow:8.5;
+        }
+        p.pageanumber {
+          italic:;
+          bold:normal;
+          underline:;
+        }
+        p.Transcriaaoaa {
+          LeftIndent:184.3;
+          RightIndent:0.0;
+          FirstLineIndent:28.35;
+          Alignment:justify;
+        }
+        p.Transcriaao {
+          LeftIndent:127.55;
+          RightIndent:0.0;
+          FirstLineIndent:28.35;
+          Alignment:justify;
+        }
+        p.DataaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.Date {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.MapaadoaDocumentoaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:1;
+        }
+        p.DocumentaMap {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.RodapaaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.footer {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.CabeaalhoaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:3;
+        }
+        p.header {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:right;
+        }
+        p.footnoteareference {
+          italic:;
+          bold:normal;
+          underline:;
+        }
+        p.TextoadeanotaadearodapaaChar {
+          italic:;
+          bold:normal;
+          underline:;
+          size:2;
+        }
+        p.footnoteatext {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.Funaao {
+          LeftIndent:93.55;
+          RightIndent:93.55;
+          FirstLineIndent:0.0;
+          Alignment:center;
+        }
+        p.Autoridade {
+          LeftIndent:93.55;
+          RightIndent:93.55;
+          FirstLineIndent:0.0;
+          Alignment:center;
+        }
+        p.Ementa {
+          LeftIndent:226.8;
+          RightIndent:0.0;
+          FirstLineIndent:0.0;
+          Alignment:justify;
+        }
+        p.Identificaaao {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:0.0;
+          Alignment:justify;
+        }
+        p.TatuloaaaChar {
+          italic:;
+          bold:bold;
+          underline:;
+          size:4;
+        }
+        p.TatuloaaaChar {
+          italic:italic;
+          bold:bold;
+          underline:;
+          size:4;
+        }
+        p.TatuloaaaChar {
+          italic:;
+          bold:bold;
+          underline:;
+          size:5;
+        }
+        p.headingaa {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.headingaa {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+        p.headingaa {
+          LeftIndent:0.0;
+          RightIndent:0.0;
+          FirstLineIndent:127.6;
+          Alignment:justify;
+        }
+      -->
+             </style>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <u>
+                <b>
+                 RECURSO DE REVISTA
+                </b>
+               </u>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               .
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <u>
+                <b>
+                 RECURSO INTERPOSTO NA VIGÊNCIA DA LEI N.º 13.467/2017
+                </b>
+               </u>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <b>
+                .
+               </b>
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <b>
+                MULTA. ARTIGO 477, § 8º, DA CLT. HOMOLOGAÇÃO TARDIA.
+                <span style="background-color:#FFFF00">
+                 RESCISÃO CONTRATUAL
+                </span>
+                . TRANSCENDÊNCIA. CONFIGURAÇÃO.
+               </b>
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               Considerando a possibilidade de a decisão recorrida contrariar entendimento deste colendo Tribunal Superior, no sentido de que a aplicação da penalidade do artigo 477, § 8º, da CLT dá-se, exclusivamente, na situação de quitação a destempo das
+               <span style="background-color:#89EFAD">
+                verbas rescisórias
+               </span>
+               , verifica-se a
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <u>
+                <b>
+                 transcendência política
+                </b>
+               </u>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               , nos termos do artigo 896-A, § 1º, II, da CLT.
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <b>
+                GORJETAS. NATUREZA JURÍDICA. REFLEXOS. TRANSCENDÊNCIA. CONFIGURAÇÃO.
+               </b>
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               Considerando a possibilidade de a decisão recorrida contrariar entendimento deste colendo Tribunal Superior, consubstanciado na Súmula nº 354, verifica-se a
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <u>
+                <b>
+                 transcendência política
+                </b>
+               </u>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               , nos termos do artigo 896-A, § 1º, II, da CLT.
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <b>
+               </b>
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <b>
+                MULTA. ARTIGO 477, § 8º, DA CLT. HOMOLOGAÇÃO TARDIA.
+                <span style="background-color:#FFFF00">
+                 RESCISÃO CONTRATUAL
+                </span>
+                . PROVIMENTO.
+               </b>
+              </span>
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               O entendimento deste colendo Tribunal Superior é no sentido de que a aplicação da penalidade do artigo 477, § 8º, da CLT dá-se, exclusivamente, na hipótese de quitação a destempo das
+               <span style="background-color:#89EFAD">
+                verbas rescisórias
+               </span>
+               , não havendo qualquer previsão legal de sua incidência no caso de homologação do termo rescisório fora do prazo previsto em seu § 6º. Precedentes da egrégia SBDI-1.
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <b>
+                Recurso de revista de que se conhece e ao qual se dá provimento.
+               </b>
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <b>
+                GORJETAS. NATUREZA JURÍDICA. REFLEXOS. PROVIMENTO.
+               </b>
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               As gorjetas, sejam elas espontâneas ou compulsórias, integram a remuneração do empregado para todos os efeitos legais, nos termos do artigo 457 da CLT, exceto como base de cálculo do
+               <span style="background-color:#C6BDFF">
+                aviso prévio
+               </span>
+               , adicional noturno, horas extraordinárias e repouso semanal remunerado. Inteligência da Súmula nº 354.
+              </span>
+             </p>
+             <p class="Ementa">
+              <span style="color: #000000; font-size: 12pt; font-family: Open Sans">
+               <b>
+                Recurso de revista de que se conhece e ao qual se dá provimento.
+               </b>
+              </span>
+             </p>
+            </div>
+           </td>
+           <td class="jss443 jss445" style="vertical-align: top; padding: 4px 0px 4px 24px;">
+            <div class="maxHeight" id="celulaLeiaMaisOndeEncontrou2" style="display: flex; flex-direction: column; overflow-y: hidden; text-align: justify;">
+             <ul style="list-style-type: circle; margin-right: 10px">
+              <li>
+               ...  
+        MULTA. ARTIGO 477, § 8º, DA CLT. HOMOLOGAÇÃO TARDIA.
+               <tst_j>
+                RESCISÃO CONTRATUAL
+               </tst_j>
+               . 
+        TRANSCENDÊNCIA. CONFIGURAÇÃO.
+      
+    
+    
+   ...
+              </li>
+              <li>
+               ...  
+        MULTA. ARTIGO 477, § 8º, DA CLT. HOMOLOGAÇÃO TARDIA.
+               <tst_j>
+                RESCISÃO CONTRATUAL
+               </tst_j>
+               . PROVIMENTO.
+      
+      
+        
+      
+    
+    
+     ...
+              </li>
+              <li>
+               ...     1.2.1. MULTA. ARTIGO 477, § 8º, DA CLT. HOMOLOGAÇÃO TARDIA.
+               <tst_j>
+                RESCISÃO CONTRATUAL
+               </tst_j>
+               .
+      
+    
+    
+      
+        
+      
+    
+    
+     ...
+              </li>
+              <li>
+               ...     1.3.1. MULTA. ARTIGO 477, § 8º, DA CLT. HOMOLOGAÇÃO TARDIA.
+               <tst_j>
+                RESCISÃO CONTRATUAL
+               </tst_j>
+               .
+      
+    
+    
+      
+        
+      
+    
+    
+     ...
+              </li>
+              <li>
+               ...pagamento de aviso prévio indenizado, 
+        tendo sido homologada a
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               apenas em 106/02/2015 (ID. d861656), ou seja, 
+        depois do...
+              </li>
+              <li>
+               ...como para a 
+        realização de demais atos formais relativos à
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               (entrega de guias de 
+        seguro-desemprego e para saque do FGTS)...
+              </li>
+              <li>
+               ...MULTA DO ART. 477, § 8º, DA CLT. ATRASO NA HOMOLOGAÇÃO DA
+               <tst_j>
+                RESCISÃO CONTRATUAL
+               </tst_j>
+               . Esta Subseção tem decidido reiteradamente que a multa do art. 477...
+              </li>
+              <li>
+               ...       8º, da CLT não incide em caso de atraso na homologação da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               , quando 
+        efetuado o pagamento das verbas rescisórias no prazo...
+              </li>
+              <li>
+               ...das verbas rescisórias, e não em razão de posterior homologação da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               " . 
+        2 . A decisão recorrida está em harmonia com a jurisprudência...
+              </li>
+              <li>
+               ... da CLT não incide em caso de atraso 
+        na homologação da
+               <tst_j>
+                rescisão contratual
+               </tst_j>
+               , quando evidenciado que o pagamento das verbas 
+        rescisórias...
+              </li>
+              <li>
+               ...EMBARGOS EM RECURSO DE REVISTA REGIDO PELA LEI Nº 13.015/2014.
+               <tst_j>
+                MULTA DO ARTIGO 
+        477
+               </tst_j>
+               DA CLT. PAGAMENTO DAS VERBAS RESCISÓRIAS EFETUADO NO PRAZO LEGAL...
+              </li>
+              <li>
+               ...       2.1. MULTA. ARTIGO 477, § 8º, DA CLT. HOMOLOGAÇÃO TARDIA.
+               <tst_j>
+                RESCISÃO CONTRATUAL
+               </tst_j>
+               .
+      
+    
+    
+      
+        
+      
+    
+    
+     ...
+              </li>
+              <li>
+               ...temas 
+        "MULTA. ARTIGO 477, § 8º, DA CLT. HOMOLOGAÇÃO TARDIA.
+               <tst_j>
+                RESCISÃO CONTRATUAL
+               </tst_j>
+               " e "GORJETAS. 
+        NATUREZA JURÍDICA. REFLEXOS"; II – conhecer...
+              </li>
+              <li>
+               ...tema 
+        "MULTA. ARTIGO 477, § 8º, DA CLT. HOMOLOGAÇÃO TARDIA.
+               <tst_j>
+                RESCISÃO CONTRATUAL
+               </tst_j>
+               ", por violação 
+        do artigo 477, § 8º, da CLT, e, no mérito...
+              </li>
+              <li>
+               ...    dá-se, exclusivamente, na situação de quitação a destempo das
+               <tst_j>
+                verbas rescisórias
+               </tst_j>
+               ,         verifica-se a                     transcendência política...
+              </li>
+              <li>
+               ...dá-se, exclusivamente, na hipótese de quitação a         destempo das
+               <tst_j>
+                verbas rescisórias
+               </tst_j>
+               , não havendo qualquer previsão legal de sua incidência no        ...
+              </li>
+              <li>
+               ...nos termos do artigo 457 da CLT, exceto como base de cálculo         do
+               <tst_j>
+                aviso prévio
+               </tst_j>
+               , adicional noturno, horas extraordinárias e repouso semanal remunerado...
+              </li>
+             </ul>
+            </div>
+            <span style="display: flex; cursor: pointer; justify-content: left;" title="Leia mais...">
+             <u>
+              Leia mais...
+             </u>
+            </span>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div style="display: flex; flex-direction: row; justify-content: space-between;">
+        <div class="jss405" style="flex-basis: 20%; justify-content: flex-start;">
+         <button class="jss105 jss305 jss316 jss317 jss319 jss320 jss404" tabindex="0" type="button">
+          <span class="jss306">
+           Exportar para pdf
+          </span>
+          <span class="jss298">
+          </span>
+         </button>
+        </div>
+        <div class="jss405" style="flex-grow: 1; justify-content: center;">
+         <div class="jss31 jss33 jss32 jss406">
+          Ordenado por:
+         </div>
+         <div class="jss409 jss410" style="width: 50%;">
+          <button class="jss105 jss411 jss407 jss413 jss408" style="width: 50%;" tabindex="0" type="button" value="data">
+           <span class="jss414">
+            Data
+           </span>
+           <span class="jss298">
+           </span>
+          </button>
+          <button class="jss105 jss411 jss407" style="width: 50%;" tabindex="0" type="button" value="relevancia">
+           <span class="jss414">
+            Relevância
+           </span>
+           <span class="jss298">
+           </span>
+          </button>
+         </div>
+        </div>
+        <div class="jss405" style="justify-content: flex-end;">
+         <div class="jss415">
+          <div class="jss58 jss60 jss59 jss416">
+           <div class="jss417">
+           </div>
+           <span class="jss62 jss72 jss91 jss418">
+            Registros por página:
+           </span>
+           <div class="jss281 jss422">
+            <div class="jss425 jss419">
+             <div aria-haspopup="true" aria-pressed="false" class="jss426 jss420 jss429 jss291" role="button" tabindex="0">
+              20
+             </div>
+             <input type="hidden" value="20"/>
+             <svg aria-hidden="true" class="jss108 jss431 jss421" focusable="false" role="presentation" viewbox="0 0 24 24">
+              <path d="M7 10l5 5 5-5z">
+              </path>
+             </svg>
+            </div>
+           </div>
+           <span class="jss62 jss72 jss91 jss418">
+            Registros 1 a 3 de um total de 3
+           </span>
+           <div class="jss424">
+            <button aria-label="Previous Page" class="jss105 jss106 jss99 jss100 jss103" disabled="" tabindex="-1" type="button">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z">
+               </path>
+              </svg>
+             </span>
+            </button>
+            <button aria-label="Next Page" class="jss105 jss106 jss99 jss100 jss103" disabled="" tabindex="-1" type="button">
+             <span class="jss104">
+              <svg aria-hidden="true" class="jss108" focusable="false" role="presentation" viewbox="0 0 24 24">
+               <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z">
+               </path>
+              </svg>
+             </span>
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </header>
+    </main>
+   </div>
+  </div>
+  <script async="" src="https://www.google-analytics.com/analytics.js" type="text/javascript">
+  </script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E2H19MX1YW&amp;l=dataLayer&amp;cx=c" type="text/javascript">
+  </script>
+  <script>
+   !function(e){function t(t){for(var n,o,i=t[0],c=t[1],l=t[2],s=0,d=[];s<i.length;s++)o=i[s],Object.prototype.hasOwnProperty.call(a,o)&&a[o]&&d.push(a[o][0]),a[o]=0;for(n in c)Object.prototype.hasOwnProperty.call(c,n)&&(e[n]=c[n]);for(f&&f(t);d.length;)d.shift()();return u.push.apply(u,l||[]),r()}function r(){for(var e,t=0;t<u.length;t++){for(var r=u[t],n=!0,o=1;o<r.length;o++){var c=r[o];0!==a[c]&&(n=!1)}n&&(u.splice(t--,1),e=i(i.s=r[0]))}return e}var n={},o={1:0},a={1:0},u=[];function i(t){if(n[t])return n[t].exports;var r=n[t]={i:t,l:!1,exports:{}};return e[t].call(r.exports,r,r.exports,i),r.l=!0,r.exports}i.e=function(e){var t=[];o[e]?t.push(o[e]):0!==o[e]&&{4:1}[e]&&t.push(o[e]=new Promise((function(t,r){for(var n="static/css/"+({}[e]||e)+"."+{3:"31d6cfe0",4:"61d8ea4e",5:"31d6cfe0",6:"31d6cfe0"}[e]+".chunk.css",a=i.p+n,u=document.getElementsByTagName("link"),c=0;c<u.length;c++){var l=(f=u[c]).getAttribute("data-href")||f.getAttribute("href");if("stylesheet"===f.rel&&(l===n||l===a))return t()}var s=document.getElementsByTagName("style");for(c=0;c<s.length;c++){var f;if((l=(f=s[c]).getAttribute("data-href"))===n||l===a)return t()}var d=document.createElement("link");d.rel="stylesheet",d.type="text/css",d.onload=t,d.onerror=function(t){var n=t&&t.target&&t.target.src||a,u=new Error("Loading CSS chunk "+e+" failed.\n("+n+")");u.code="CSS_CHUNK_LOAD_FAILED",u.request=n,delete o[e],d.parentNode.removeChild(d),r(u)},d.href=a,document.getElementsByTagName("head")[0].appendChild(d)})).then((function(){o[e]=0})));var r=a[e];if(0!==r)if(r)t.push(r[2]);else{var n=new Promise((function(t,n){r=a[e]=[t,n]}));t.push(r[2]=n);var u,c=document.createElement("script");c.charset="utf-8",c.timeout=120,i.nc&&c.setAttribute("nonce",i.nc),c.src=function(e){return i.p+"static/js/"+({}[e]||e)+"."+{3:"ad901a9e",4:"30df8ff7",5:"17e9f8b0",6:"15b40ddc"}[e]+".chunk.js"}(e);var l=new Error;u=function(t){c.onerror=c.onload=null,clearTimeout(s);var r=a[e];if(0!==r){if(r){var n=t&&("load"===t.type?"missing":t.type),o=t&&t.target&&t.target.src;l.message="Loading chunk "+e+" failed.\n("+n+": "+o+")",l.name="ChunkLoadError",l.type=n,l.request=o,r[1](l)}a[e]=void 0}};var s=setTimeout((function(){u({type:"timeout",target:c})}),12e4);c.onerror=c.onload=u,document.head.appendChild(c)}return Promise.all(t)},i.m=e,i.c=n,i.d=function(e,t,r){i.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},i.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},i.t=function(e,t){if(1&t&&(e=i(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(i.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var n in e)i.d(r,n,function(t){return e[t]}.bind(null,n));return r},i.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return i.d(t,"a",t),t},i.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},i.p="/",i.oe=function(e){throw console.error(e),e};var c=this["webpackJsonpconsulta-jurisprudencial"]=this["webpackJsonpconsulta-jurisprudencial"]||[],l=c.push.bind(c);c.push=t,c=c.slice();for(var s=0;s<c.length;s++)t(c[s]);var f=l;r()}([])
+  </script>
+  <script src="/static/js/2.e58aeaab.chunk.js">
+  </script>
+  <script src="/static/js/main.42daa964.chunk.js">
+  </script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-139518329-1">
+  </script>
+  <script>
+   function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-139518329-1")
+  </script>
+ </body>
+</html>

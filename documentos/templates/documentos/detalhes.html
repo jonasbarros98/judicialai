@@ -1,0 +1,44 @@
+{% load static %}
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% endblock %}
+{% load custom_filters %}
+
+{% block content %}
+
+    <div class="container">
+        <h2 class="text-center mb-4">Detalhes do Documento</h2>
+
+        <!-- Div das informações iniciais com colapso -->
+        <div class="collapse-header" data-toggle="collapse" data-target="#info-collapse" aria-expanded="false">
+            <h5>{{ documento.titulo }} <small class="text-muted">(Clique para expandir)</small></h5>
+        </div>
+        <div id="info-collapse" class="collapse collapse-content">
+            <p><strong>Tipo:</strong> {{ documento.get_tipo_display }}</p>
+            <p><strong>Descrição dos Fatos:</strong> {{ documento.descricao_fatos }}</p>
+            <p><strong>Valor da Causa:</strong> {{ documento.valor_causa|format_currency }}</p>
+            <p><strong>Juízo Competente:</strong> {{ documento.juizo_competente }}</p>
+            <p><strong>Criado em:</strong> {{ documento.data_criacao|date:"d/m/Y" }}</p>
+        </div>
+
+        <!-- Div da peça jurídica -->
+        <div class="card">
+            <div class="card-header">
+                Peça Jurídica
+            </div>
+            <div class="card-body">
+                <!-- Usar o filtro safe para renderizar o conteúdo com tags HTML 
+                <p class="card-text" style="text-align: justify; white-space: pre-wrap;">
+                    
+              
+                </p>-->
+                {{ documento.conteudo | safe }}
+            </div>
+        </div>
+
+        <a href="{% url 'historico' %}" class="btn btn-primary mt-4">Voltar ao Histórico</a>
+    </div>
+
+    <!-- Carregar o Bootstrap Bundle, que inclui o script para colapso -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}
