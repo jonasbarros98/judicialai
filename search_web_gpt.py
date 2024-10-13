@@ -1,10 +1,11 @@
 import openai
 import requests
 from senha_gpt import API_KEY
+from bing_key import BING_KEY
 
 # Chave da API do OpenAI (GPT-4) e da Bing Search API
 openai.api_key = API_KEY
-subscription_key_bing = "bfe07d2fa9b349cebe5688cec4da4d5d"
+subscription_key_bing = BING_KEY
 
 # Ponto de extremidade da Bing Search API
 bing_search_url = "https://api.bing.microsoft.com/v7.0/search"
