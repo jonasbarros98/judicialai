@@ -5,13 +5,73 @@
 
 {% block extra_head %}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <style>
+        /* Definindo o menu lateral fixo */
+        .sidebar {
+            position: fixed;
+            top: 100px; /* Ajuste conforme a altura do seu cabeçalho */
+            left: 0;
+            width: 220px;
+            height: calc(100% - 100px); /* Altura da tela menos a altura do cabeçalho */
+            background-color: #f8f9fa;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto; /* Adiciona rolagem no menu se necessário */
+        }
+
+        /* Ajustando o conteúdo principal */
+        .main-content {
+            margin-left: 240px; /* Deixar espaço para o menu lateral */
+            padding: 20px;
+        }
+
+        /* Estilo para o contêiner de detalhes do documento */
+        .document-details {
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .document-details h5 {
+            margin-top: 20px;
+        }
+
+        /* Estilo para os botões de download */
+        .download-buttons {
+            margin-left: 240px; /* Mesma margem do conteúdo principal */
+            padding: 20px;
+        }
+
+        /* Estilo para os documentos na sidebar */
+        .document-list {
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .document-list li {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .document-list li:hover {
+            background-color: #f1f1f1;
+        }
+
+        .document-list li:active {
+            background-color: #e9e9e9;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <div class="row">
             <!-- Menu lateral -->
-            <div class="col-md-3 sidebar">
+            <div class="col-md-2 sidebar">
                 <h4>Seus Documentos</h4>
                 <ul class="list-group document-list">
                     {% for documento in documentos %}
@@ -21,14 +81,16 @@
                     {% endfor %}
                 </ul>
             </div>
+
             <!-- Área de detalhes -->
-            <div class="main-content">
+            <div class="col-md-7 main-content">
                 <div id="document-details" class="document-details">
                     <h5>Selecione um documento à esquerda para visualizar os detalhes</h5>
                 </div>
             </div>
-             <!-- Botões de download -->
-             <div class="col-md-3 download-buttons">
+
+            <!-- Botões de download -->
+            <div class="col-md-3 download-buttons">
                 <h4>Baixar Documento</h4>
                 <button class="btn btn-primary btn-block mb-2" onclick="baixarDocumento('word')">Baixar Word</button>
                 <button class="btn btn-secondary btn-block" onclick="baixarDocumento('pdf')">Baixar PDF</button>
@@ -42,12 +104,16 @@
             fetch(`/documentos/documento/${id}/`)
                 .then(response => response.text())
                 .then(data => {
-                    // Renderiza o HTML em vez de texto literal
                     document.getElementById('document-details').innerHTML = data;
                 })
                 .catch(error => {
                     console.error('Erro ao carregar o documento:', error);
                 });
+        }
+
+        function baixarDocumento(formato) {
+            let url = `/documentos/documento/` + formato;
+            window.location.href = url;
         }
     </script>
 {% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Histórico{% endblock %}
+
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Menu lateral -->
+            <div class="col-md-2 sidebar">
+                <h4>Seus Documentos</h4>
+                <ul class="list-group document-list">
+                    {% for documento in documentos %}
+                    <li class="list-group-item list-group-item-action" onclick="carregarDocumento('{{ documento.id }}')">
+                        {{ documento.titulo }} - {{ documento.data_criacao|date:"d/m/Y" }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- Área de detalhes -->
+            <div class="col-md-7">
+                <div id="document-details" class="document-details">
+                    <h5>Selecione um documento à esquerda para visualizar os detalhes</h5>
+                </div>
+            </div>
+             <!-- Botões de download -->
+             <div class="col-md-3 download-buttons">
+                <h4>Baixar Documento</h4>
+                <button class="btn btn-primary btn-block mb-2" onclick="baixarDocumento('word')">Baixar Word</button>
+                <button class="btn btn-secondary btn-block" onclick="baixarDocumento('pdf')">Baixar PDF</button>
+            </div>           
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        function carregarDocumento(id) {
+            fetch(`/documentos/documento/${id}/`)
+                .then(response => response.text())
+                .then(data => {
+                    // Renderiza o HTML em vez de texto literal
+                    document.getElementById('document-details').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar o documento:', error);
+                });
+        }
+    </script>
+{% endblock %}

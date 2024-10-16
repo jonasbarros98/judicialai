@@ -5,7 +5,16 @@ from bing_key import BING_KEY
 
 # Chave da API do OpenAI (GPT-4) e da Bing Search API
 openai.api_key = API_KEY
+if openai.api_key:
+    print("API GPT Key configurada corretamente!")
+else:
+    print("API GPT Key não configurada!")
 subscription_key_bing = BING_KEY
+
+if subscription_key_bing:
+    print("API BING Key configurada corretamente!")
+else:
+    print("API BING Key não configurada!")
 
 # Ponto de extremidade da Bing Search API
 bing_search_url = "https://api.bing.microsoft.com/v7.0/search"
