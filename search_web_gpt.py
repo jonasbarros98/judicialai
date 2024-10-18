@@ -59,6 +59,7 @@ def buscar_jurisprudencias_bing(caso_juridico):
     # Restrição da busca aos sites desejados
     restricted_query = f'{frase_pesquisa} site:stf.jus.br OR site:stj.jus.br OR site:tst.jus.br OR site:jusbrasil.com.br'
     
+    print("Chave do Bing usada: " + subscription_key_bing)
     headers = {"Ocp-Apim-Subscription-Key": subscription_key_bing}
     params = {"q": restricted_query, "textDecorations": True, "textFormat": "HTML"}
 

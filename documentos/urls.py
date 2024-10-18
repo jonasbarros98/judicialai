@@ -8,12 +8,14 @@ urlpatterns = [
     path('documento/<int:documento_id>/exportar_word/', views.exportar_documento_word, name='exportar_documento_word'),
     path('criar/', views.criar_documento, name='criar_documento'),
     path('sucesso/<int:documento_id>/', views.documento_sucesso, name='documento_sucesso'),
+    path('documento/editar/<int:documento_id>/', views.editar_documento, name='editar_documento'),
     path('historico/', views.historico, name='historico'),
     path('documento/<int:id>/', views.documento_detalhes, name='documento_detalhes'),
     path('', views.home_view, name='home'),
     
-     # Rota para criar contestação
+     # Rota para criar as peças
     path('criar_contestacao/', views.criar_contestacao, name='criar_contestacao'),
+    path('criar_apelacao/', views.criar_apelacao, name='criar_apelacao'),
     # Adiciona uma rota padrão para /documentos/ que redireciona para /documentos/criar/
     path('', lambda request: HttpResponseRedirect('criar/')),
 ]

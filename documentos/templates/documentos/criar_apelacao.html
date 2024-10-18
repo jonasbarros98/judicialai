@@ -1,0 +1,137 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Criar Apelação{% endblock %}
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+{% endblock %}
+{% block content %}
+
+<div>
+    <h2 class="text-center"><strong>Gere a sua Apelação</strong></h2>
+    <br>
+    <form method="post" action="{% url 'criar_apelacao' %}" id="documento-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Campo oculto para definir o tipo de documento -->
+        <input type="hidden" name="tipo" value="apelacao">
+
+        <!-- Primeira Etapa -->
+        <div id="etapa-1">
+            <div class="form-group text-center">
+                <label for="anexar_documentos">Anexar Sentença Recorrida (PDF) (Opcional):</label>
+                <div class="d-flex justify-content-center">
+                    <input type="file" name="anexar_documentos" id="anexar_documentos">
+                </div>
+                <small class="form-text text-muted">Você pode anexar o PDF da sentença que deseja recorrer.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="processo_numero">Número do Processo: (Opcional)</label>
+                <input type="text" class="form-control" name="processo_numero" id="processo_numero"
+                    placeholder="Ex: XXXXXXX-XX.2024.1.23.4567">
+            </div>
+
+            <div class="form-group">
+                <label for="decisao_que_recorrida" class="required-field">Decisão que está sendo recorrida:</label>
+                <textarea class="form-control" name="decisao_que_recorrida" id="decisao_que_recorrida" rows="5" maxlength="2500"
+                placeholder="Ex: O autor recorre da decisão que indeferiu o pedido de indenização por danos morais..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="fundamentacao_direito" class="required-field">Fundamentação Jurídica para o Recurso:</label>
+                <textarea class="form-control" name="fundamentacao_direito" id="fundamentacao_direito" rows="5" maxlength="2500" 
+                placeholder="Ex: A apelação se fundamenta nos artigos 282 e 285 do CPC..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="pedido_reforma">Pedido de Reforma da Sentença:</label>
+                <textarea class="form-control" name="pedido_reforma" id="pedido_reforma" rows="5" maxlength="2500" 
+                placeholder="Ex: O recorrente requer a reforma integral da sentença para que o pedido de indenização seja julgado procedente..."></textarea>
+            </div>
+
+            <!-- Botão para avançar -->
+            <button type="button" class="btn btn-primary" id="btn-avancar">Avançar</button>
+        </div>
+
+        <!-- Segunda Etapa -->
+        <div id="etapa-2" style="display: none;">
+            <div class="form-group">
+                <label for="valor_causa">Valor da Causa (Opcional):</label>
+                <input type="text" class="form-control" name="valor_causa" id="valor_causa"
+                    placeholder="Ex: R$ 50.000,00">
+            </div>
+
+            <div class="form-group">
+                <label for="juizo_competente">Juízo de Origem: (Opcional)</label>
+                <input type="text" class="form-control" name="juizo_competente" id="juizo_competente"
+                    placeholder="Ex: 1ª Vara Cível">
+            </div>
+            
+            <div class="form-group">
+                <label for="provas">Provas que sustentam o recurso:</label>
+                <textarea class="form-control" name="provas" id="provas" rows="3" 
+                placeholder="Ex: E-mails, depoimentos, laudos periciais, etc."></textarea>
+            </div>
+
+            <!-- Botão para voltar e para enviar -->
+            <button type="button" class="btn btn-secondary" id="btn-voltar">Voltar</button>
+            <button type="submit" class="btn btn-primary">Gerar Apelação</button>
+        </div>   
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Manipulador para o botão "Avançar"
+        $('#btn-avancar').click(function () {
+            let isValid = true;
+            $('#etapa-1 input[required], #etapa-1 textarea[required]').each(function() {
+                if ($(this).val() === '') {
+                    isValid = false;
+                    $(this).addClass('is-invalid');
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            if (isValid) {
+                $('#etapa-1').hide();
+                $('#etapa-2').show();
+            } else {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+            }
+        });
+
+        $('#btn-voltar').click(function () {
+            $('#etapa-2').hide();
+            $('#etapa-1').show();
+        });
+
+        // Aplicação da máscara de moeda
+        $('#valor_causa').inputmask({
+            alias: 'currency',
+            prefix: 'R$ ',
+            groupSeparator: '.',
+            radixPoint: ',',
+            autoGroup: true,
+            digits: 2,
+            rightAlign: false
+        });
+
+        $('#documento-form').submit(function (event) {
+            event.preventDefault();
+            $('#documento-form').hide();
+            $('#loader').show();
+            setTimeout(() => {
+                this.submit();
+            }, 500);
+        });
+    });
+</script>
+
+{% endblock %}

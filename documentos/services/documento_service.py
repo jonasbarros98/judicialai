@@ -35,11 +35,24 @@ def gerar_conteudo_juridico(tipo_documento, dados_preenchimento):
         justica_gratis = dados_preenchimento.get('justica_gratis') or 'Não Solicite Justiça Gratuita'
         
         # Parte 1: Buscar jurisprudências relevantes
-        
+        print("LÁAA VAAAI") 
+        print(".") 
+        print(".") 
+        print(".") 
+        print(".") 
         query = gerar_frase_pesquisa_gpt(descricao_fatos)
+        print(f"Gerando frase de GPT: '{query}'..") 
+        print(".") 
+        print(".") 
+        print(".") 
+        print(".") 
         jurisprudencias = buscar_jurisprudencias_bing(query)
         
-        print(f"Gerando frase de pesquisa para o caso: '{query}'..")    
+        print(f"Buscou jurisprudencias no bing: '{jurisprudencias}'..") 
+        print(".") 
+        print(".") 
+        print(".") 
+        print(".")    
 
         # Exibir as jurisprudências encontradas (para fins de teste)
         print(f"Jurisprudências encontradas: {jurisprudencias}")
@@ -250,6 +263,87 @@ def gerar_conteudo_contestacao(tipo_documento, dados_preenchimento):
 
         mensagem += (
             "\nUse essas informações para compor a melhor contestação possível. "
+            "Formate a citação em HTML e siga as instruções."
+        )
+
+        # Chamamos a API OpenAI usando streaming
+        response = openai.chat.completions.create(
+            model="chatgpt-4o-latest",  # Verifique se o modelo está correto
+            messages=[
+                {"role": "system", "content": "Você é um advogado especializado em direito civil."},
+                {"role": "user", "content": mensagem}
+            ],
+            temperature=0.5,
+            max_tokens=3640,
+            stream=True
+        )
+        
+        conteudo_completo = ""
+        # Processar a resposta por partes
+        for parte in response:
+            if not parte.choices[0].delta == {}:
+                print(str(parte.choices[0].delta.content), end="")
+                conteudo_completo += str(parte.choices[0].delta.content)
+
+        return conteudo_completo
+
+    except Exception as e:
+        print("Erro:", e)
+        return "Erro: " + str(e)
+    
+
+
+def gerar_conteudo_apelacao(tipo_documento, dados_preenchimento):
+    try:
+        # Extração dos dados do caso para a apelação
+        processo_numero = dados_preenchimento.get('processo_numero') or '[Número do Processo]'
+        decisao_que_recorrida = dados_preenchimento.get('decisao_que_recorrida') or '[Decisão Recorrida]'
+        fundamentacao_direito = dados_preenchimento.get('fundamentacao_direito') or '[Fundamentação Jurídica]'
+        pedido_reforma = dados_preenchimento.get('pedido_reforma') or '[Pedido de Reforma]'
+        valor_causa = dados_preenchimento.get('valor_causa') or '[Valor da Causa]'
+        juizo_competente = dados_preenchimento.get('juizo_competente') or '[Juízo Competente]'
+        provas = dados_preenchimento.get('provas') or '[Provas]'
+
+        # Parte 1: Buscar jurisprudências relevantes com base na fundamentação do direito
+        query = gerar_frase_pesquisa_gpt(fundamentacao_direito)
+        jurisprudencias = buscar_jurisprudencias_bing(query)
+        
+        print(f"Gerando frase de pesquisa para o caso: '{query}'..")
+        print("Dados da apelação:", processo_numero, decisao_que_recorrida, fundamentacao_direito, pedido_reforma, valor_causa, juizo_competente, provas)
+
+        # Construção da mensagem para o modelo, incluindo jurisprudências reais
+        mensagem = (
+            f"Você é um advogado altamente especializado em direito civil, com mais de 20 anos de experiência.\n"
+            f"Você precisa redigir uma Apelação. A decisão recorrida é a seguinte: {decisao_que_recorrida}.\n"
+            f"O valor da causa é de R$ {valor_causa}, e o juízo competente é {juizo_competente}.\n"
+            f"A fundamentação jurídica para o recurso é a seguinte: {fundamentacao_direito}.\n"
+            f"O pedido de reforma é: {pedido_reforma}.\n"
+            f"O número do processo é: {processo_numero}.\n"
+            f"As provas apresentadas são: {provas}.\n"
+            f"- Quando não forem fornecidos os dados de provas, processo ou valores, não invente dados, utilize colchetes aguardando inclusão. Ex: [nome], [valor], [provas].\n"
+            f"\n\nInstruções adicionais:\n"
+            f"- Inclua as jurisprudências relevantes da pesquisa e cite-as corretamente no formato de apelação jurídica em HTML.\n"
+            f"- Inclua fundamentação legal apropriada, mencionando artigos do Código Civil, Código de Processo Civil ou outras legislações pertinentes.\n"
+            f"- Caso seja citada a jurisprudência, utilize formatação em HTML, destacando trechos de legislação ou jurisprudência em <i>itálico</i>.\n"
+            f"- Não inclua o link da pesquisa de jurisprudência no documento final. Formate as jurisprudências como citação profissional jurídica.\n"
+            f"- O documento deve ser claro e objetivo, mantendo foco na reforma da sentença, evitando argumentos vagos ou irrelevantes.\n"
+            f"- Todo o documento deve ser em HTML, sem usar ```html ou qualquer outra forma de marcação de código. Somente HTML puro.\n"
+            f"- A estrutura deve conter seções como: <h3>DOS FATOS</h3>, <h3>DO DIREITO</h3>, <h3>DO PEDIDO</h3>.\n"
+            f"- Use títulos como <h2> no início e <h3> ou <h4> ao longo do texto. Nunca use <h1>.\n"
+            f"- Finalize com espaço para o nome do advogado, OAB e data.\n"
+            f"- O documento deve ter clareza, fluidez e fundamentação robusta, mantendo a estrutura em HTML.\n"
+            f"- O documento completo deve conter pelo menos 2000 palavras.\n"
+            f"- As jurisprudências reais encontradas na web são as seguintes (use apenas as pertinentes):\n"
+        )
+
+        # Parte 2: Incluir as jurisprudências reais
+        for idx, jurisprudencia in enumerate(jurisprudencias["webPages"]["value"][:3]):
+            mensagem += f"{idx + 1}. Título: {jurisprudencia['name']}\n"
+            mensagem += f"   URL: {jurisprudencia['url']}\n"
+            mensagem += f"   Trecho: {jurisprudencia['snippet']}\n\n"
+
+        mensagem += (
+            "\nUse essas informações para compor a melhor apelação possível. "
             "Formate a citação em HTML e siga as instruções."
         )
 

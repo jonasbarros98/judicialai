@@ -1,6 +1,9 @@
 {% extends 'documentos/base.html' %}
 
+{% load static %}
+
 {% block title %}Documento Criado com Sucesso{% endblock %}
+
 
 {% block content %}
 
@@ -10,12 +13,11 @@
         background-color: #f8f9fa;
     }
 
-    /* Melhorando a visualização do conteúdo como um documento */
     .container {
-        max-width: 900px; /* Centraliza o conteúdo e limita a largura */
+        max-width: 900px;
         margin: 0 auto;
         padding: 30px;
-        background-color: white; /* Deixa o fundo branco no conteúdo */
+        background-color: white;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
@@ -35,29 +37,6 @@
         text-align: justify;
     }
 
-    p b {
-        color: #000;
-        font-weight: bold;
-    }
-
-    i {
-        font-style: italic;
-        display: block;
-        margin-bottom: 10px;
-        font-size: 14px;
-    }
-
-    ol {
-        margin-left: 20px;
-        padding-left: 20px;
-    }
-
-    ol li {
-        margin-bottom: 10px;
-        font-size: 14px;
-    }
-
-    /* Ajustando o espaçamento e a largura para parecer mais com Word */
     .editable-content {
         margin-top: 20px;
         font-family: Arial, sans-serif;
@@ -66,21 +45,9 @@
         text-align: justify;
     }
 
-    /* Melhorando a aparência da assinatura */
     .signature {
         margin-top: 30px;
         text-align: right;
-    }
-
-    .signature p {
-        margin-bottom: 0;
-    }
-
-    .signature span {
-        display: block;
-        border-top: 1px solid #000;
-        width: 250px;
-        margin-left: auto;
     }
 
     .action-links {
@@ -93,29 +60,69 @@
     <p class="text-center text-secondary">O resultado poderá ser salvo ou editado abaixo</p>
 
     <div class="editor-container mt-5">
-        <div class="editable-content">
+        <!-- Formulário para editar o conteúdo -->
+        <form method="post" action="{% url 'editar_documento' documento.id %}" onsubmit="return updateEditorContent();">
+            {% csrf_token %}
             
-            <!-- Informações principais do documento -->
-            <div class="mb-3">
-                <strong>Tipo de Ação:</strong> {{ documento.tipo }}<br>
-                <strong>Valor da Causa:</strong> R$ {{ documento.valor_causa }}<br>
-                <strong>Juízo Competente:</strong> {{ documento.juizo_competente }}<br>
+            <div class="editable-content">
+                <!-- Informações principais do documento -->
+                <div class="mb-3">
+                    <strong>Tipo de Ação:</strong> {{ documento.tipo }}<br>
+                    <strong>Valor da Causa:</strong> R$ {{ documento.valor_causa }}<br>
+                    <strong>Juízo Competente:</strong> {{ documento.juizo_competente }}<br>
+                </div>
+
+                <!-- Campo oculto para enviar o conteúdo editado -->
+                <input type="hidden" name="conteudo_documento_hidden" id="conteudo_documento_hidden">
+                
+                <!-- Conteúdo editável com CKEditor -->
+                <div id="conteudo_documento" contenteditable="true">
+                    {{ documento.conteudo | safe }}
+                </div>
             </div>
 
-            <!-- Conteúdo do documento vindo do banco de dados -->
-            <div>
-                {{ documento.conteudo | safe }}
+            <!-- Botões de ação -->
+            <div class="action-links mt-5" style="padding-top: 50px;">
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                <button type="button" class="btn btn-primary" onclick="updateEditorContent();">Testar Alterações</button>
+                <a href="{% url 'exportar_documento_pdf' documento.id %}" class="btn btn-secondary mr-2">Baixar PDF</a>
+                <a href="{% url 'exportar_documento_word' documento.id %}" class="btn btn-success">Baixar Word</a>
+                <br><br>
+                <a href="{% url 'criar_documento' %}" class="btn btn-secondary">Criar outro documento</a>
             </div>
-        </div>
-    </div>
-
-    <div class="action-links mt-5">
-        <h2 class="text-dark">Baixar Documento:</h2>
-        <a href="{% url 'exportar_documento_pdf' documento.id %}" class="btn btn-primary mr-2">Baixar PDF</a>
-        <a href="{% url 'exportar_documento_word' documento.id %}" class="btn btn-success">Baixar Word</a>
-        <br><br>
-        <a href="{% url 'criar_documento' %}" class="btn btn-secondary">Criar outro documento</a>
+        </form>
     </div>
 </div>
+
+<!-- Inicializa o CKEditor -->
+ <!-- Inclua o CKEditor localmente -->
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+<script>
+    // Verifica se o CKEditor foi carregado corretamente
+    console.log(CKEDITOR);
+
+    // Configura CKEditor na div com o ID 'conteudo_documento'
+    var editor = CKEDITOR.inline('conteudo_documento', {
+        removePlugins: 'notificationMessage'
+    });
+
+    // Função para capturar o conteúdo do CKEditor e inseri-lo no campo oculto ao submeter o formulário
+    function updateEditorContent() {
+        // Exibe uma mensagem no console para testar se a função foi chamada
+        console.log('Função updateEditorContent foi chamada.');
+
+        // Obter o conteúdo do CKEditor
+        var content = editor.getData();
+
+        // Exibe um alerta para confirmar que a função foi chamada
+        alert('Função updateEditorContent executada! Conteúdo capturado:\n' + content);
+
+        // Inserir o conteúdo no campo oculto
+        document.getElementById('conteudo_documento_hidden').value = content;
+
+        // Permitir o envio do formulário
+        return true;
+    }
+</script>
 
 {% endblock %}

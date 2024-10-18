@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import DocumentoJuridico
-from .services.documento_service import gerar_conteudo_juridico,gerar_conteudo_contestacao  # Importa a função de gerar conteúdo
+from .services.documento_service import gerar_conteudo_juridico,gerar_conteudo_contestacao, gerar_conteudo_apelacao  # Importa a função de gerar conteúdo
 from .services.documento_service import render_pdf_view  # Importa a função de exportação para PDF
 from .services.documento_service import gerar_word_view
 from django.contrib.auth.decorators import login_required
@@ -156,6 +156,29 @@ def documento_sucesso(request, documento_id):
     documento = get_object_or_404(DocumentoJuridico, id=documento_id)
     return render(request, 'documentos/documento_sucesso.html', {'documento': documento})
 
+def editar_documento(request, documento_id):
+    print("Entrei na editar documento")
+    documento = get_object_or_404(DocumentoJuridico, id=documento_id)
+    print("2")
+
+    if request.method == 'POST':
+        print("3")
+        novo_conteudo = request.POST.get('conteudo_documento')
+        print("4 conteudo_documento: " + str(novo_conteudo))
+
+        novo_conteudoH = request.POST.get('conteudo_documento_hidden')
+        print("4 conteudo_documento_hidden: " + str(novo_conteudoH))
+
+        documento.conteudo = novo_conteudoH
+        print("5")
+        documento.save()
+        print("6")
+        return redirect('documento_sucesso', documento_id=documento.id)
+    
+    print("7")
+
+    return render(request, 'documentos/documento_sucesso.html', {'documento': documento})
+
 @login_required  # Certifica que o usuário esteja logado para acessar a tela inicial
 def tela_inicial(request):
     return render(request, 'documentos/tela_inicial.html')
@@ -290,4 +313,97 @@ def criar_contestacao(request):
 
     # Renderiza o formulário se a requisição for GET
     return render(request, 'documentos/criar_contestacao.html')
+
+
+
+@login_required(login_url='/index/')
+def criar_apelacao(request):
+    if request.method == 'POST':
+        try:
+            # Captura os dados do formulário
+            processo_numero = request.POST.get('processo_numero')
+            decisao_que_recorrida = request.POST.get('decisao_que_recorrida')
+            fundamentacao_direito = request.POST.get('fundamentacao_direito')
+            pedido_reforma = request.POST.get('pedido_reforma')  # Usaremos o campo descricao_fatos para armazenar esse valor
+            valor_causa = request.POST.get('valor_causa')
+            juizo_competente = request.POST.get('juizo_competente')
+            provas = request.POST.get('provas')
+
+            # Lidar com o arquivo anexado (um PDF)
+            arquivo_anexado = request.FILES.get('anexar_documentos')
+            if arquivo_anexado:
+                if not arquivo_anexado.name.endswith('.pdf'):
+                    return render(request, 'documentos/criar_apelacao.html', {
+                        'error_message': 'Somente arquivos PDF são permitidos.',
+                        'processo_numero': processo_numero,
+                        'decisao_que_recorrida': decisao_que_recorrida,
+                        'fundamentacao_direito': fundamentacao_direito,
+                        'pedido_reforma': pedido_reforma,
+                        'valor_causa': valor_causa,
+                        'juizo_competente': juizo_competente,
+                        'provas': provas,
+                    })
+                fs = FileSystemStorage()
+                nome_arquivo = fs.save(arquivo_anexado.name, arquivo_anexado)
+                caminho_arquivo = fs.url(nome_arquivo)
+
+            # Converte o valor_causa em Decimal
+            try:
+                valor_causa = Decimal(valor_causa)
+            except (InvalidOperation, ValueError, TypeError):
+                return render(request, 'documentos/criar_apelacao.html', {
+                    'error_message': 'O valor da causa deve ser um número válido.',
+                    'processo_numero': processo_numero,
+                    'decisao_que_recorrida': decisao_que_recorrida,
+                    'fundamentacao_direito': fundamentacao_direito,
+                    'pedido_reforma': pedido_reforma,
+                    'valor_causa': valor_causa,
+                    'juizo_competente': juizo_competente,
+                    'provas': provas,
+                })
+
+            # Gera o conteúdo jurídico baseado nas informações fornecidas
+            dados_preenchimento = {
+                'processo_numero': processo_numero,
+                'decisao_que_recorrida': decisao_que_recorrida,
+                'fundamentacao_direito': fundamentacao_direito,
+                'descricao_fatos': pedido_reforma,  # Armazena o pedido de reforma como "descricao_fatos"
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas,
+            }
+
+            conteudo_gerado = gerar_conteudo_apelacao('apelação', dados_preenchimento)
+
+            # Cria o documento no banco de dados com o usuário logado
+            documento = DocumentoJuridico.objects.create(
+                tipo='apelacao',  # Define o tipo como 'apelação'
+                titulo=f'Apelação - {processo_numero}',
+                conteudo=conteudo_gerado,
+                valor_causa=valor_causa,
+                juizo_competente=juizo_competente,
+                provas=provas,
+                anexo=caminho_arquivo if arquivo_anexado else None,
+                processo_numero=processo_numero if processo_numero else '',
+                fundamentacao_direito=fundamentacao_direito if fundamentacao_direito else '',
+                descricao_fatos=pedido_reforma if pedido_reforma else '',  # Armazena o pedido de reforma
+                user=request.user
+            )
+
+            return redirect('documento_sucesso', documento_id=documento.id)
+
+        except Exception as e:
+            print(f"Erro ao criar o documento: {str(e)}")
+            return render(request, 'documentos/criar_apelacao.html', {
+                'error_message': f'Ocorreu um erro ao criar o documento: {str(e)}',
+                'processo_numero': processo_numero,
+                'decisao_que_recorrida': decisao_que_recorrida,
+                'fundamentacao_direito': fundamentacao_direito,
+                'pedido_reforma': pedido_reforma,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas,
+            })
+
+    return render(request, 'documentos/criar_apelacao.html')
 

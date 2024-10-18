@@ -1,0 +1,121 @@
+{% extends 'documentos/base.html' %}
+
+{% block title %}Documento Criado com Sucesso{% endblock %}
+
+{% block content %}
+
+<!-- Aplicando o fundo à página inteira -->
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    /* Melhorando a visualização do conteúdo como um documento */
+    .container {
+        max-width: 900px; /* Centraliza o conteúdo e limita a largura */
+        margin: 0 auto;
+        padding: 30px;
+        background-color: white; /* Deixa o fundo branco no conteúdo */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+        color: #000;
+        text-transform: uppercase;
+        font-size: 16px;
+        margin-top: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid #000;
+        padding-bottom: 5px;
+    }
+
+    p {
+        margin-bottom: 12px;
+        text-align: justify;
+    }
+
+    p b {
+        color: #000;
+        font-weight: bold;
+    }
+
+    i {
+        font-style: italic;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    ol {
+        margin-left: 20px;
+        padding-left: 20px;
+    }
+
+    ol li {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    /* Ajustando o espaçamento e a largura para parecer mais com Word */
+    .editable-content {
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: justify;
+    }
+
+    /* Melhorando a aparência da assinatura */
+    .signature {
+        margin-top: 30px;
+        text-align: right;
+    }
+
+    .signature p {
+        margin-bottom: 0;
+    }
+
+    .signature span {
+        display: block;
+        border-top: 1px solid #000;
+        width: 250px;
+        margin-left: auto;
+    }
+
+    .action-links {
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <h2 class="text-center text-dark">Documento Criado com Sucesso!</h2>
+    <p class="text-center text-secondary">O resultado poderá ser salvo ou editado abaixo</p>
+
+    <div class="editor-container mt-5">
+        <div class="editable-content">
+            
+            <!-- Informações principais do documento -->
+            <div class="mb-3">
+                <strong>Tipo de Ação:</strong> {{ documento.tipo }}<br>
+                <strong>Valor da Causa:</strong> R$ {{ documento.valor_causa }}<br>
+                <strong>Juízo Competente:</strong> {{ documento.juizo_competente }}<br>
+            </div>
+
+            <!-- Conteúdo do documento vindo do banco de dados -->
+            <div>
+                {{ documento.conteudo | safe }}
+            </div>
+        </div>
+    </div>
+
+    <div class="action-links mt-5">
+        <h2 class="text-dark">Baixar Documento:</h2>
+        <a href="{% url 'exportar_documento_pdf' documento.id %}" class="btn btn-primary mr-2">Baixar PDF</a>
+        <a href="{% url 'exportar_documento_word' documento.id %}" class="btn btn-success">Baixar Word</a>
+        <br><br>
+        <a href="{% url 'criar_documento' %}" class="btn btn-secondary">Criar outro documento</a>
+    </div>
+</div>
+
+{% endblock %}

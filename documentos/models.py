@@ -6,6 +6,7 @@ class DocumentoJuridico(models.Model):
     TIPO_DOCUMENTO_CHOICES = [
         ('peticao_inicial', 'Petição Inicial'),
         ('contestacao', 'Contestação'),
+         ('apelacao', 'Apelação'),
     ]
     
     tipo = models.CharField(

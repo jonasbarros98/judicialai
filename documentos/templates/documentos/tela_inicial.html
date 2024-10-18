@@ -5,7 +5,7 @@
 {% block title %}Tela Inicial{% endblock %}
 
 {% block extra_head %}
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <!--<link href="{% static 'css/styles.css' %}" rel="stylesheet">-->
 {% endblock %}
 {% block content %}
 
@@ -17,7 +17,7 @@
         <div class="balloon-container">
             <div class="balloon" onclick="window.location.href='{% url 'criar_documento' %}'">Petição Inicial</div>
             <div class="balloon" onclick="window.location.href='{% url 'criar_contestacao' %}'">Contestação</div>
-            <div class="balloon" onclick="window.location.href='#'">Apelação</div>
+            <div class="balloon" onclick="window.location.href='{% url 'criar_apelacao' %}'">Apelação</div>
             <div class="balloon" onclick="window.location.href='#'">Embargos</div>
             <div class="balloon" onclick="window.location.href='#'">Recurso Extraordinário</div>
             <div class="balloon" onclick="window.location.href='#'">Mandado de Segurança</div>
