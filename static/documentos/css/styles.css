@@ -1,0 +1,81 @@
+/* Background acinzentado para a página */
+body {
+    background-color: #F5F5F5;
+    margin: 0;
+    /* Remove a margem padrão do body */
+    padding: 0;
+    /* Remove o preenchimento padrão do body */
+}
+
+/* Ajustes para as divs com sombra e bordas arredondadas */
+.collapse-header {
+    cursor: pointer;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Outros estilos comuns */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+    /* Remove a margem padrão do h2 */
+    padding: 0;
+    /* Remove o preenchimento padrão do h2 */
+}
+
+h3 {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+}
+
+p {
+    margin-bottom: 12px;
+    text-align: justify;
+}
+
+p b {
+    color: #000;
+    font-weight: bold;
+}
+
+i {
+    font-style: italic;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.editable-content {
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.action-links {
+    text-align: center;
+}
+
+
+
