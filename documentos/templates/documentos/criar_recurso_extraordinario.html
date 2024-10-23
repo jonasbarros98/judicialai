@@ -1,0 +1,67 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Criar Recurso Extraordinário{% endblock %}
+
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center">Criar Recurso Extraordinário</h2>
+    <br>
+    <form method="post" action="{% url 'criar_recurso_extraordinario' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="processo_numero" class="required-field">Número do Processo:</label>
+            <input type="text" class="form-control" name="processo_numero" id="processo_numero" placeholder="Ex: XXXXXXX-XX.2024.1.23.4567" required>
+        </div>
+
+        <div class="form-group">
+            <label for="decisao_recorrida" class="required-field">Decisão Recorrida:</label>
+            <textarea class="form-control" name="decisao_recorrida" id="decisao_recorrida" rows="5" placeholder="Descreva a decisão que está sendo objeto do recurso" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="fundamentacao_direito" class="required-field">Fundamentação Jurídica:</label>
+            <textarea class="form-control" name="fundamentacao_direito" id="fundamentacao_direito" rows="5" placeholder="Fundamentação jurídica do recurso" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="pedido_reforma" class="required-field">Pedido de Reforma:</label>
+            <textarea class="form-control" name="pedido_reforma" id="pedido_reforma" rows="5" placeholder="O que está sendo pedido (ex.: reforma da decisão)" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="valor_causa" class="required-field">Valor da Causa:</label>
+            <input type="text" class="form-control" name="valor_causa" id="valor_causa" placeholder="Ex: R$ 50.000,00" required>
+        </div>
+
+        <div class="form-group">
+            <label for="juizo_competente" class="required-field">Juízo Competente:</label>
+            <input type="text" class="form-control" name="juizo_competente" id="juizo_competente" placeholder="Ex: Supremo Tribunal Federal" required>
+        </div>
+
+        <div class="form-group">
+            <label for="provas">Provas que Sustentam o Recurso:</label>
+            <textarea class="form-control" name="provas" id="provas" rows="3" placeholder="Ex: Documentos, e-mails, vídeos, etc."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="anexar_documento">Anexar Documento PDF (Opcional):</label>
+            <input type="file" class="form-control-file" name="anexar_documento" id="anexar_documento">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Gerar Recurso Extraordinário</button>
+    </form>
+
+    <!-- Mensagem de erro, se houver -->
+    {% if error_message %}
+        <div class="alert alert-danger mt-3">{{ error_message }}</div>
+    {% endif %}
+</div>
+
+{% endblock %}

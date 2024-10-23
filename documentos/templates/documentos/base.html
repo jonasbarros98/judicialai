@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    {% block extra_head %}
+    {% endblock %}
     <title>{% block title %}JurídicoJB{% endblock %}</title>
+    
+
 </head>
 
 <body>
@@ -50,7 +54,17 @@
             <!--<main role="main" class="col-md-9 col-lg-10 px-md-4">-->
             <main role="main"></main>
 
-    <div id="container-ajustadoo">
+            
+    {% block contentHistorico %}
+    {% endblock %}
+
+    {% block contentSucesso %}
+    {% endblock %}
+
+    {% block contentt %}
+    {% endblock %}
+
+    <div id="container-ajustado">
         {% block content %}
         {% endblock %}
     </div>

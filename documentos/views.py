@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import DocumentoJuridico
-from .services.documento_service import gerar_conteudo_juridico,gerar_conteudo_contestacao, gerar_conteudo_apelacao  # Importa a função de gerar conteúdo
+from .services.documento_service import gerar_conteudo_juridico,gerar_conteudo_contestacao, gerar_conteudo_apelacao, gerar_conteudo_embargo, gerar_conteudo_recurso_extraordinario  # Importa a função de gerar conteúdo
 from .services.documento_service import render_pdf_view  # Importa a função de exportação para PDF
 from .services.documento_service import gerar_word_view
 from django.contrib.auth.decorators import login_required
@@ -407,3 +407,236 @@ def criar_apelacao(request):
 
     return render(request, 'documentos/criar_apelacao.html')
 
+
+
+
+def criar_embargo(request):
+    print('Entrou na view criar_embargo')  # Confirma que a função foi chamada
+    if request.method == 'POST':
+        print('Método POST detectado')
+        
+        try:
+            print('Iniciando processamento dos dados')
+
+            # Captura os dados do formulário
+            tipo_acao = request.POST.get('tipo_acao')
+            valor_causa = request.POST.get('valor_causa')
+            juizo_competente = request.POST.get('juizo_competente')
+            fundamentacao_fatos = request.POST.get('fundamentacao_fatos')
+            fundamentacao_direito = request.POST.get('fundamentacao_direito')
+            processo_numero = request.POST.get('processo_numero')
+
+            # Exibe os dados capturados no console
+            print(f"tipo_acao: {tipo_acao}")
+            print(f"valor_causa: {valor_causa}")
+            print(f"juizo_competente: {juizo_competente}")
+            print(f"fundamentacao_fatos: {fundamentacao_fatos}")
+            print(f"fundamentacao_direito: {fundamentacao_direito}")
+            print(f"processo_numero: {processo_numero}")
+
+            # Lidar com o arquivo anexado (um PDF)
+            arquivo_anexado = request.FILES.get('anexar_documento')
+            print(f"Arquivo anexado: {arquivo_anexado}")
+
+            # Validação básica do arquivo anexado (opcional)
+            if arquivo_anexado and not arquivo_anexado.name.endswith('.pdf'):
+                print('Erro: Arquivo anexado não é PDF')
+                return render(request, 'documentos/criar_embargo.html', {
+                    'error_message': 'Somente arquivos PDF são permitidos.',
+                    'tipo_acao': tipo_acao,
+                    'valor_causa': valor_causa,
+                    'juizo_competente': juizo_competente,
+                    'fundamentacao_fatos': fundamentacao_fatos,
+                    'fundamentacao_direito': fundamentacao_direito,
+                    'processo_numero': processo_numero
+                })
+
+            # Salvar o arquivo PDF, se existir
+            caminho_arquivo = None
+            if arquivo_anexado:
+                print('Salvando arquivo PDF...')
+                fs = FileSystemStorage()
+                nome_arquivo = fs.save(arquivo_anexado.name, arquivo_anexado)
+                caminho_arquivo = fs.url(nome_arquivo)
+                print(f"Arquivo salvo em: {caminho_arquivo}")
+
+            # Converte o valor_causa em Decimal
+            try:
+                print('Convertendo valor da causa...')
+                valor_causa = Decimal(valor_causa)
+                print(f"Valor convertido: {valor_causa}")
+            except (InvalidOperation, ValueError, TypeError):
+                print('Erro ao converter valor da causa')
+                return render(request, 'documentos/criar_embargo.html', {
+                    'error_message': 'O valor da causa deve ser um número válido.',
+                    'tipo_acao': tipo_acao,
+                    'valor_causa': valor_causa,
+                    'juizo_competente': juizo_competente,
+                    'fundamentacao_fatos': fundamentacao_fatos,
+                    'fundamentacao_direito': fundamentacao_direito,
+                    'processo_numero': processo_numero
+                })
+
+            # Gera o conteúdo do documento jurídico
+            print('Gerando conteúdo do documento...')
+            dados_preenchimento = {
+                'tipo_acao': tipo_acao,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'fundamentacao_fatos': fundamentacao_fatos,
+                'fundamentacao_direito': fundamentacao_direito,
+                'processo_numero': processo_numero
+            }
+
+            conteudo_gerado = gerar_conteudo_embargo('embargos', dados_preenchimento)
+            print('Conteúdo gerado com sucesso')
+
+            # Cria o documento no banco de dados, salvando o tipo como 'embargos'
+            print('Criando documento no banco de dados...')
+            documento = DocumentoJuridico.objects.create(
+                tipo='embargos',  # Salva o tipo correto
+                titulo=f'Embargos - {processo_numero}',
+                conteudo=conteudo_gerado,
+                valor_causa=valor_causa,
+                juizo_competente=juizo_competente,
+                fundamentacao_fatos=fundamentacao_fatos,
+                fundamentacao_direito=fundamentacao_direito,
+                processo_numero=processo_numero,
+                anexo=caminho_arquivo if arquivo_anexado else None,
+                user=request.user  # Associa o documento ao usuário logado
+            )
+            print(f"Documento criado com ID: {documento.id}")
+
+            # Redireciona para a página de sucesso com o ID do documento
+            print('Redirecionando para a página de sucesso...')
+            return redirect('documento_sucesso', documento_id=documento.id)
+
+        except Exception as e:
+            print(f"Erro durante o processamento: {str(e)}")
+            return render(request, 'documentos/criar_embargo.html', {
+                'error_message': f'Ocorreu um erro ao criar o documento: {str(e)}',
+                'tipo_acao': tipo_acao,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'fundamentacao_fatos': fundamentacao_fatos,
+                'fundamentacao_direito': fundamentacao_direito,
+                'processo_numero': processo_numero
+            })
+
+    # Se for uma requisição GET, renderiza o formulário vazio
+    print('Renderizando formulário vazio (GET)')
+    return render(request, 'documentos/criar_embargo.html')
+
+
+
+
+
+def criar_recurso_extraordinario(request):
+    print("Entrou na view criar_recurso_extraordinario")
+    
+    if request.method == 'POST':
+        print("Método POST detectado")
+        
+        try:
+            # Captura os dados do formulário
+            print("Iniciando captura dos dados do formulário...")
+            tipo_acao = 'recurso_extraordinario'
+            processo_numero = request.POST.get('processo_numero')
+            decisao_recorrida = request.POST.get('decisao_recorrida')
+            fundamentacao_direito = request.POST.get('fundamentacao_direito')
+            pedido_reforma = request.POST.get('pedido_reforma')  # Ainda capturado, mas não será salvo no modelo
+            valor_causa = request.POST.get('valor_causa')
+            juizo_competente = request.POST.get('juizo_competente')
+            provas = request.POST.get('provas')
+            
+            # Exibir os valores capturados
+            print(f"Dados capturados: \nProcesso: {processo_numero}, \nDecisão Recorrida: {decisao_recorrida}, \nFundamentação: {fundamentacao_direito}, \nPedido de Reforma: {pedido_reforma}, \nValor da Causa: {valor_causa}, \nJuízo Competente: {juizo_competente}, \nProvas: {provas}")
+
+            # Lidar com o arquivo anexado (um PDF)
+            arquivo_anexado = request.FILES.get('anexar_documento')
+            print(f"Arquivo anexado: {arquivo_anexado}")
+            
+            if arquivo_anexado:
+                if not arquivo_anexado.name.endswith('.pdf'):
+                    print("Arquivo não é PDF")
+                    return render(request, 'documentos/criar_recurso_extraordinario.html', {
+                        'error_message': 'Somente arquivos PDF são permitidos.',
+                        'processo_numero': processo_numero,
+                        'decisao_recorrida': decisao_recorrida,
+                        'fundamentacao_direito': fundamentacao_direito,
+                        'valor_causa': valor_causa,
+                        'juizo_competente': juizo_competente,
+                        'provas': provas
+                    })
+
+                print("Salvando arquivo PDF...")
+                fs = FileSystemStorage()
+                nome_arquivo = fs.save(arquivo_anexado.name, arquivo_anexado)
+                caminho_arquivo = fs.url(nome_arquivo)
+                print(f"Arquivo salvo em: {caminho_arquivo}")
+
+            # Validação de valor da causa
+            print("Validando valor da causa...")
+            try:
+                valor_causa = Decimal(valor_causa)
+                print(f"Valor da causa convertido: {valor_causa}")
+            except (InvalidOperation, ValueError, TypeError):
+                print("Erro ao converter valor da causa")
+                return render(request, 'documentos/criar_recurso_extraordinario.html', {
+                    'error_message': 'O valor da causa deve ser um número válido.',
+                    'processo_numero': processo_numero,
+                    'decisao_recorrida': decisao_recorrida,
+                    'fundamentacao_direito': fundamentacao_direito,
+                    'valor_causa': valor_causa,
+                    'juizo_competente': juizo_competente,
+                    'provas': provas
+                })
+
+            # Gera o conteúdo do documento jurídico
+            print("Gerando conteúdo do documento...")
+            dados_preenchimento = {
+                'processo_numero': processo_numero,
+                'decisao_recorrida': decisao_recorrida,
+                'fundamentacao_direito': fundamentacao_direito,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas
+            }
+
+            conteudo_gerado = gerar_conteudo_recurso_extraordinario(dados_preenchimento)
+            print("Conteúdo gerado com sucesso")
+
+            # Cria o documento no banco de dados (removendo pedido_reforma)
+            print("Salvando documento no banco de dados...")
+            documento = DocumentoJuridico.objects.create(
+                tipo='recurso_extraordinario',
+                titulo=f'Recurso Extraordinário - {processo_numero}',
+                conteudo=conteudo_gerado,
+                valor_causa=valor_causa,
+                juizo_competente=juizo_competente,
+                processo_numero=processo_numero,
+                fundamentacao_direito=fundamentacao_direito,
+                anexo=caminho_arquivo if arquivo_anexado else None,
+                user=request.user  # Associa o documento ao usuário logado
+            )
+
+            print(f"Documento salvo com ID: {documento.id}")
+
+            # Redireciona para a página de sucesso
+            return redirect('documento_sucesso', documento_id=documento.id)
+
+        except Exception as e:
+            print(f"Erro durante o processamento: {str(e)}")
+            return render(request, 'documentos/criar_recurso_extraordinario.html', {
+                'error_message': f'Ocorreu um erro ao criar o documento: {str(e)}',
+                'processo_numero': processo_numero,
+                'decisao_recorrida': decisao_recorrida,
+                'fundamentacao_direito': fundamentacao_direito,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas
+            })
+
+    # Renderiza o formulário vazio para GET
+    print("Renderizando formulário vazio (GET)")
+    return render(request, 'documentos/criar_recurso_extraordinario.html')

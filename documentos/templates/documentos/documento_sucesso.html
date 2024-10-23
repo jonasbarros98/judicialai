@@ -1,11 +1,9 @@
 {% extends 'documentos/base.html' %}
-
 {% load static %}
 
 {% block title %}Documento Criado com Sucesso{% endblock %}
 
-
-{% block content %}
+{% block contentSucesso %}
 
 <!-- Aplicando o fundo à página inteira -->
 <style>
@@ -13,94 +11,106 @@
         background-color: #f8f9fa;
     }
 
-    .container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 30px;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h3 {
-        color: #000;
-        text-transform: uppercase;
-        font-size: 16px;
-        margin-top: 20px;
-        font-weight: bold;
-        border-bottom: 1px solid #000;
-        padding-bottom: 5px;
-    }
-
-    p {
-        margin-bottom: 12px;
-        text-align: justify;
-    }
-
-    .editable-content {
-        margin-top: 20px;
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        line-height: 1.6;
-        text-align: justify;
-    }
-
-    .signature {
+    /* Alinhando os elementos usando o grid do Bootstrap */
+    .container-fluid {
         margin-top: 30px;
-        text-align: right;
     }
 
     .action-links {
-        text-align: center;
+        margin-bottom: 15px;
     }
+
+    /* Adicionando um pouco de estilo extra para os botões na sidebar */
+    .btn-block {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .ajuste {
+    max-width: 80%;
+    /* Ajuste a largura conforme necessário */
+    margin: 10px auto 20px auto;
+    /* Suba o container e centraliza horizontalmente */
+    padding: 20px;
+    /* Adicione padding para espaçamento interno */
+
+    background-color: #f5f5f521;
+    /* Fundo branco com 80% de opacidade */
+    border-radius: 8px;
+    /* Bordas arredondadas para um visual mais suave */
+    box-shadow: 0 0px 1px rgba(0, 0, 0, 0.1);
+    /* Sombra para dar profundidade */
+}
+.containerTopo {
+    margin-top: 30px;
+    width: 100%;
+    /* Ajuste a largura conforme necessário */
+   
+    margin-left: auto;
+    /* Centralize o container horizontalmente */
+    margin-right: auto;
+    /* Centralize o container horizontalmente */
+    padding: 20px;
+    /* Adicione padding para espaçamento interno */
+}
 </style>
 
-<div class="container">
-    <h2 class="text-center text-dark">Documento Criado com Sucesso!</h2>
-    <p class="text-center text-secondary">O resultado poderá ser salvo ou editado abaixo</p>
+<div class="container-fluid ajuste">
+    <div class="row">
+        <!-- Sidebar com os botões de ação -->
+        <div class="col-md-2">
+            <h4>Opções</h4>
+            <div class="action-links">
+                <form method="post" action="{% url 'editar_documento' documento.id %}" onsubmit="return updateEditorContent();">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-block">Salvar Alterações</button>
+                    <a href="{% url 'exportar_documento_pdf' documento.id %}" class="btn btn-secondary btn-block">Baixar PDF</a>
+                    <a href="{% url 'exportar_documento_word' documento.id %}" class="btn btn-success btn-block">Baixar Word</a>
+                </form>
+                <a href="{% url 'criar_documento' %}" class="btn btn-secondary btn-block">Criar outro documento</a>
+            </div>
+        </div>
 
-    <div class="editor-container mt-5">
-        <!-- Formulário para editar o conteúdo -->
-        <form method="post" action="{% url 'editar_documento' documento.id %}" onsubmit="return updateEditorContent();">
-            {% csrf_token %}
-            
-            <div class="editable-content">
-                <!-- Informações principais do documento -->
-                <div class="mb-3">
-                    <strong>Tipo de Ação:</strong> {{ documento.tipo }}<br>
-                    <strong>Valor da Causa:</strong> R$ {{ documento.valor_causa }}<br>
-                    <strong>Juízo Competente:</strong> {{ documento.juizo_competente }}<br>
-                </div>
+        <!-- Conteúdo principal -->
+        <div class="col-md-8">
+            <div class="container">
+                <h2 class="text-center text-dark">Documento Criado com Sucesso!</h2>
+                <p class="text-center text-secondary">O resultado poderá ser salvo ou editado abaixo</p>
+                 <!-- Informações principais do documento 
+                            <div class="mb-3">
+                                <strong>Tipo de Ação:</strong> {{ documento.tipo }}<br>
+                                <strong>Valor da Causa:</strong> R$ {{ documento.valor_causa }}<br>
+                                <strong>Juízo Competente:</strong> {{ documento.juizo_competente }}<br>
+                            </div>-->
+            </div>
+            <div class="card container mt-1">
+                <div class="card-body">
+                   <!-- <h2 class="text-center text-dark">Documento Criado com Sucesso!</h2>
+                    <p class="text-center text-secondary">O resultado poderá ser salvo ou editado abaixo</p>-->
 
-                <!-- Campo oculto para enviar o conteúdo editado -->
-                <input type="hidden" name="conteudo_documento_hidden" id="conteudo_documento_hidden">
-                
-                <!-- Conteúdo editável com CKEditor -->
-                <div id="conteudo_documento" contenteditable="true">
-                    {{ documento.conteudo | safe }}
+                    <div class="editable-content">
+                        <!-- Formulário para editar o conteúdo -->
+                        <form method="post" action="{% url 'editar_documento' documento.id %}" onsubmit="return updateEditorContent();">
+                            {% csrf_token %}
+                            
+                            <!-- Campo oculto para enviar o conteúdo editado -->
+                            <input type="hidden" name="conteudo_documento_hidden" id="conteudo_documento_hidden">
+                            
+                            <!-- Conteúdo editável com CKEditor -->
+                            <div id="conteudo_documento" contenteditable="true">
+                                {{ documento.conteudo | safe }}
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-            <!-- Botões de ação -->
-            <div class="action-links mt-5" style="padding-top: 50px;">
-                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                <button type="button" class="btn btn-primary" onclick="updateEditorContent();">Testar Alterações</button>
-                <a href="{% url 'exportar_documento_pdf' documento.id %}" class="btn btn-secondary mr-2">Baixar PDF</a>
-                <a href="{% url 'exportar_documento_word' documento.id %}" class="btn btn-success">Baixar Word</a>
-                <br><br>
-                <a href="{% url 'criar_documento' %}" class="btn btn-secondary">Criar outro documento</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
 <!-- Inicializa o CKEditor -->
- <!-- Inclua o CKEditor localmente -->
 <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
 <script>
-    // Verifica se o CKEditor foi carregado corretamente
-    console.log(CKEDITOR);
-
     // Configura CKEditor na div com o ID 'conteudo_documento'
     var editor = CKEDITOR.inline('conteudo_documento', {
         removePlugins: 'notificationMessage'
@@ -108,19 +118,8 @@
 
     // Função para capturar o conteúdo do CKEditor e inseri-lo no campo oculto ao submeter o formulário
     function updateEditorContent() {
-        // Exibe uma mensagem no console para testar se a função foi chamada
-        console.log('Função updateEditorContent foi chamada.');
-
-        // Obter o conteúdo do CKEditor
         var content = editor.getData();
-
-        // Exibe um alerta para confirmar que a função foi chamada
-        alert('Função updateEditorContent executada! Conteúdo capturado:\n' + content);
-
-        // Inserir o conteúdo no campo oculto
         document.getElementById('conteudo_documento_hidden').value = content;
-
-        // Permitir o envio do formulário
         return true;
     }
 </script>

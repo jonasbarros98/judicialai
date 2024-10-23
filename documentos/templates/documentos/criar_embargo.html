@@ -1,0 +1,81 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Criar Embargos{% endblock %}
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div>
+    <h2 class="text-center"><strong>Gere a sua Peça de Embargos</strong></h2>
+    <br>
+    <form method="post" action="{% url 'criar_embargo' %}" id="documento-form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Informações principais -->
+        <div class="form-group">
+            <label for="processo_numero">Número do Processo: (Opcional)</label>
+            <input type="text" class="form-control" name="processo_numero" id="processo_numero" placeholder="Ex: XXXXXXX-XX.2024.1.23.4567">
+        </div>
+
+        <div class="form-group">
+            <label for="tipo_acao" class="required-field">Tipo de Ação: (Opcional)</label>
+            <input type="text" class="form-control" name="tipo_acao" id="tipo_acao" placeholder="Ex: Ação de Embargos" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fundamentacao_fatos">Fundamentação Fática:</label>
+            <textarea class="form-control" name="fundamentacao_fatos" id="fundamentacao_fatos" rows="5" maxlength="2500" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="fundamentacao_direito">Fundamentação Jurídica:</label>
+            <textarea class="form-control" name="fundamentacao_direito" id="fundamentacao_direito" rows="5" maxlength="2500"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="valor_causa">Valor da Causa: (Opcional)</label>
+            <input type="text" class="form-control" name="valor_causa" id="valor_causa" placeholder="Ex: R$ 50.000,00">
+        </div>
+
+        <div class="form-group">
+            <label for="juizo_competente">Juízo Competente:</label>
+            <input type="text" class="form-control" name="juizo_competente" id="juizo_competente" placeholder="Ex: Vara Cível">
+        </div>
+
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="adicionar-partes" onclick="togglePartesEnvolvidas()">
+            <label class="form-check-label" for="adicionar-partes">Adicionar Partes Envolvidas</label>
+        </div>
+
+        <div id="partes-envolvidas" style="display: none;">
+            <div class="form-group">
+                <label for="dados_requerente">Dados do Requerente:</label>
+                <textarea class="form-control" name="dados_requerente" id="dados_requerente" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="dados_requerido">Dados do Requerido:</label>
+                <textarea class="form-control" name="dados_requerido" id="dados_requerido" rows="2"></textarea>
+            </div>
+        </div>
+
+        <!-- Botão de Envio -->
+        <button type="submit" class="btn btn-primary">Gerar Embargos</button>
+    </form>
+</div>
+
+<!-- Funções JavaScript -->
+<script>
+    function togglePartesEnvolvidas() {
+        var partesEnvolvidas = document.getElementById('partes-envolvidas');
+        if (document.getElementById('adicionar-partes').checked) {
+            partesEnvolvidas.style.display = 'block';
+        } else {
+            partesEnvolvidas.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}
