@@ -7,7 +7,7 @@ from senha_gpt import API_KEY
 from docx import Document
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from documentos.models import DocumentoJuridico
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.oxml.ns import qn
@@ -18,110 +18,9 @@ from docx.shared import Pt, Inches
 from search_web_gpt import buscar_jurisprudencias_bing,gerar_frase_pesquisa_gpt
 from django import template
 from django.http import StreamingHttpResponse
-
-
+import time
 
 openai.api_key = API_KEY
-
-def gerar_conteudo_juridico(tipo_documento, dados_preenchimento):
-    try:
-        # Extração dos dados do caso para a pesquisa de jurisprudência
-        tipo_acao = dados_preenchimento.get('tipo_acao')
-        valor_causa = dados_preenchimento.get('valor_causa')
-        juizo_competente = dados_preenchimento.get('juizo_competente')
-        descricao_fatos = dados_preenchimento.get('descricao_fatos')
-        dados_requerente = dados_preenchimento.get('dados_requerente') or '[Nome do Requerente]'
-        dados_requerido = dados_preenchimento.get('dados_requerido') or '[Nome do Requerido]'
-        justica_gratis = dados_preenchimento.get('justica_gratis') or 'Não Solicite Justiça Gratuita'
-        
-        # Parte 1: Buscar jurisprudências relevantes
-        print("LÁAA VAAAI") 
-        print(".") 
-        print(".") 
-        print(".") 
-        print(".") 
-        query = gerar_frase_pesquisa_gpt(descricao_fatos)
-        print(f"Gerando frase de GPT: '{query}'..") 
-        print(".") 
-        print(".") 
-        print(".") 
-        print(".") 
-        jurisprudencias = buscar_jurisprudencias_bing(query)
-        
-        print(f"Buscou jurisprudencias no bing: '{jurisprudencias}'..") 
-        print(".") 
-        print(".") 
-        print(".") 
-        print(".")    
-
-        # Exibir as jurisprudências encontradas (para fins de teste)
-        print(f"Jurisprudências encontradas: {jurisprudencias}")
-        # Construímos a mensagem para enviar ao modelo, agora incluindo as jurisprudências reais
-        mensagem = (
-            f"Você é um advogado altamente especializado em direito civil, com mais de 20 anos de experiência, e precisa redigir uma Petição Inicial para uma ação do tipo: {tipo_acao} \n"
-            f"O valor da causa é de R$ {valor_causa}, e o juízo competente é {juizo_competente}. \n"
-            f"Os fatos principais do caso são os seguintes: {descricao_fatos}. "
-            f"Os dados conhecidos do requerente são: {dados_requerente}.\n"
-            f"os dados conhecidos do requerido são: {dados_requerido}.\n"
-            f"- Quando não forem fornecidos os dados do cliente, empresa ou envolvidos no caso, não invente dados de endereço ou afins, coloque-os entre colchetes aguardando inclusão. Ex: [nome], [endereço]."
-            f"\n\nInstruções adicionais:\n"
-            f"- Inclua a(s) jurisprudência(s) relevante(s) da pesquisa e cite-as corretamente no formato de peça jurídica em HTML.\n"
-            f"- Inclua fundamentação legal apropriada, mencionando artigos do Código Civil, Código de Processo Civil, ou outras legislações pertinentes.\n"
-            f"- Caso seja citada a jurisprudencia, utilize formatação em HTML, destaque os trechos de legislação ou jurisprudência em <i>itálico</i> , entre aspas e com espaçamento diferenciado. Exemplo: <i>Art. 373. O ônus da prova incumbe ao autor...</i>."
-            f"- Não inclua o link da pesquisa de jurisprudência no documento final. Ao inves disso você deve formatá-la igual uma citação profissional na peça juridica.\n"
-            f"- Mantenha a argumentação objetiva e focada no necessário para a defesa ou acusação, evitando argumentos vagos ou irrelevantes.\n"
-            f"- Todo o documento deve ser em HTML. Não insira marcadores do tipo ```html no inicio ou qualquer outra forma de marcação de código. Traga apenas a estrutura HTML pura.\n"
-            f"- A estrutura deve começar com as tags <html>, <head> e <body>. NÃO gere a tag <tittle>\n"
-            f"- Utilize as tags <b>negrito</b> para destacar informações importantes, como títulos de seções, palavras-chave ou valores significativos.\n"
-            f"- Evite espaços desnecessários ao gerar o documento.\n"
-            f"- A estrutura deve conter seções como: <h3>DOS FATOS</h3>, <h3>DO DIREITO</h3>, e <h3>DO PEDIDO</h3>, etc., numerando subtítulos em algarismos romanos (I, II, III).\n"
-            f"- Os titulos do inicio devem ser em <h2>, durante o texto pode utilizar <h3> ou <h4>. Nunca use h1 neste documento."
-            f"- Finalize com espaço para nome do advogado, OAB e data.\n"
-            f"- O documento deve ter clareza e fluidez, com parágrafos bem organizados e fundamentação robusta. Use a formatação HTML para manter o documento corretamente estruturado.\n"
-            f"- O documento completo deve conter pelo menos 2000 palavras."
-            f"- O campo a seguir define se o cliente solicita justiça gratuita ou nao: {justica_gratis}.\n"
-            f"- As jurisprudências reais encontradas na pesquisa na web são as seguintes abaixo (mas use apenas as que você considerar pertinentes):\n"
-              
-        )
-
-        # Parte 2: Incluir as jurisprudências reais na mensagem para o GPT-4
-        for idx, jurisprudencia in enumerate(jurisprudencias["webPages"]["value"][:3]):
-            mensagem += f"{idx + 1}. Título: {jurisprudencia['name']}\n"
-            mensagem += f"   URL: {jurisprudencia['url']}\n"
-            mensagem += f"   Trecho: {jurisprudencia['snippet']}\n\n"
-
-        mensagem += (
-            "\nUse essas informações para compor a melhor citação possível. "
-            "Formate a citação em HTML e siga as instruções."
-        )
-
-
-        # Chamamos a API OpenAI usando streaming
-        
-        response = openai.chat.completions.create(
-            model="chatgpt-4o-latest",  # Verifique se o modelo está correto
-            messages=[
-                {"role": "system", "content": "Você é um advogado especializado em direito civil com 20 anos de experiencia."},
-                {"role": "user", "content": mensagem}],
-            temperature=0.5,
-            max_tokens=3640,
-            #stream=False
-            stream = True
-        )
-        
-        conteudo_completo = ""
-        # Processar a resposta por partes
-        for parte in response:
-            delta_content = parte.choices[0].delta.content  # Captura o conteúdo da parte
-            if delta_content:  # Verifica se o conteúdo não é None
-                print(str(delta_content), end="")
-                conteudo_completo += str(delta_content)
-
-        return conteudo_completo
-
-    except Exception as e:
-        print("Erro:", e)
-        return "Erro: " + str(e)
 
 
 def render_pdf_view(request, documento):
@@ -283,6 +182,198 @@ def gerar_word_view(request, documento):
     return response
 
 
+def gerar_conteudo_juridico(tipo_documento, dados_preenchimento):
+    try:
+        # Extração dos dados do caso para a pesquisa de jurisprudência
+        tipo_acao = dados_preenchimento.get('tipo_acao')
+        valor_causa = dados_preenchimento.get('valor_causa')
+        juizo_competente = dados_preenchimento.get('juizo_competente')
+        descricao_fatos = dados_preenchimento.get('descricao_fatos')
+        dados_requerente = dados_preenchimento.get('dados_requerente') or '[Nome do Requerente]'
+        dados_requerido = dados_preenchimento.get('dados_requerido') or '[Nome do Requerido]'
+        justica_gratis = dados_preenchimento.get('justica_gratis') or 'Não Solicite Justiça Gratuita'
+        
+        # Parte 1: Buscar jurisprudências relevantes
+        print("LÁAA VAAAI") 
+        print(".") 
+        print(".") 
+        print(".") 
+        print(".") 
+        query = gerar_frase_pesquisa_gpt(descricao_fatos)
+        print(f"Gerando frase de GPT: '{query}'..") 
+        print(".") 
+        print(".") 
+        print(".") 
+        print(".") 
+        jurisprudencias = buscar_jurisprudencias_bing(query)
+        
+        print(f"Buscou jurisprudencias no bing: '{jurisprudencias}'..") 
+        print(".") 
+        print(".") 
+        print(".") 
+        print(".")    
+
+        # Exibir as jurisprudências encontradas (para fins de teste)
+        print(f"Jurisprudências encontradas: {jurisprudencias}")
+        # Construímos a mensagem para enviar ao modelo, agora incluindo as jurisprudências reais
+        mensagem = (
+            f"Você é um advogado altamente especializado em direito civil, com mais de 20 anos de experiência, e precisa redigir uma Petição Inicial para uma ação do tipo: {tipo_acao} \n"
+            f"O valor da causa é de R$ {valor_causa}, e o juízo competente é {juizo_competente}. \n"
+            f"Os fatos principais do caso são os seguintes: {descricao_fatos}. "
+            f"Os dados conhecidos do requerente são: {dados_requerente}.\n"
+            f"os dados conhecidos do requerido são: {dados_requerido}.\n"
+            f"- Quando não forem fornecidos os dados do cliente, empresa ou envolvidos no caso, não invente dados de endereço ou afins, coloque-os entre colchetes aguardando inclusão. Ex: [nome], [endereço]."
+            f"\n\nInstruções adicionais:\n"
+            f"- Inclua a(s) jurisprudência(s) relevante(s) da pesquisa e cite-as corretamente no formato de peça jurídica em HTML.\n"
+            f"- Inclua fundamentação legal apropriada, mencionando artigos do Código Civil, Código de Processo Civil, ou outras legislações pertinentes.\n"
+            f"- Caso seja citada a jurisprudencia, utilize formatação em HTML, destaque os trechos de legislação ou jurisprudência em <i>itálico</i> , entre aspas e com espaçamento diferenciado. Exemplo: <i>Art. 373. O ônus da prova incumbe ao autor...</i>."
+            f"- Não inclua o link da pesquisa de jurisprudência no documento final. Ao inves disso você deve formatá-la igual uma citação profissional na peça juridica.\n"
+            f"- Mantenha a argumentação objetiva e focada no necessário para a defesa ou acusação, evitando argumentos vagos ou irrelevantes.\n"
+            f"- Todo o documento deve ser em HTML. Não insira marcadores do tipo ```html no inicio ou qualquer outra forma de marcação de código. Traga apenas a estrutura HTML pura.\n"
+            f"- A estrutura deve começar com as tags <html>, <head> e <body>. NÃO gere a tag <tittle>\n"
+            f"- Utilize as tags <b>negrito</b> para destacar informações importantes, como títulos de seções, palavras-chave ou valores significativos.\n"
+            f"- Evite espaços desnecessários ao gerar o documento.\n"
+            f"- A estrutura deve conter seções como: <h3>DOS FATOS</h3>, <h3>DO DIREITO</h3>, e <h3>DO PEDIDO</h3>, etc., numerando subtítulos em algarismos romanos (I, II, III).\n"
+            f"- Os titulos do inicio devem ser em <h2>, durante o texto pode utilizar <h3> ou <h4>. Nunca use h1 neste documento."
+            f"- Finalize com espaço para nome do advogado, OAB e data.\n"
+            f"- O documento deve ter clareza e fluidez, com parágrafos bem organizados e fundamentação robusta. Use a formatação HTML para manter o documento corretamente estruturado.\n"
+            f"- O documento completo deve conter pelo menos 2000 palavras."
+            f"- O campo a seguir define se o cliente solicita justiça gratuita ou nao: {justica_gratis}.\n"
+            f"- As jurisprudências devem ser reais e verificáveis. Em hipótese alguma crie ou invente jurisprudências. Use apenas jurisprudências reais, citando-as de maneira completa e exata, incluindo o número do processo, tribunal, data do julgamento, e outras informações relevantes da decisão. Certifique-se de que as jurisprudências sejam formatadas conforme o padrão jurídico e estejam adequadamente inseridas na peça jurídica."
+            f"- As jurisprudências reais encontradas na pesquisa na web são as seguintes abaixo (mas use apenas as que você considerar pertinentes):\n"
+              
+        )
+
+        # Parte 2: Incluir as jurisprudências reais na mensagem para o GPT-4
+        for idx, jurisprudencia in enumerate(jurisprudencias["webPages"]["value"][:3]):
+            mensagem += f"{idx + 1}. Título: {jurisprudencia['name']}\n"
+            mensagem += f"   URL: {jurisprudencia['url']}\n"
+            mensagem += f"   Trecho: {jurisprudencia['snippet']}\n\n"
+
+        mensagem += (
+            "\nUse essas informações para compor a melhor citação possível. "
+            "Formate a citação em HTML e siga as instruções."
+        )
+
+
+        # Chamamos a API OpenAI usando streaming
+        
+        response = openai.chat.completions.create(
+            model="chatgpt-4o-latest",  # Verifique se o modelo está correto
+            messages=[
+                {"role": "system", "content": "Você é um advogado especializado em direito civil com 20 anos de experiencia."},
+                {"role": "user", "content": mensagem}],
+            temperature=0.5,
+            max_tokens=3640,
+            #stream=False
+            stream = True
+        )
+        
+        conteudo_completo = ""
+        # Processar a resposta por partes
+        for parte in response:
+            delta_content = parte.choices[0].delta.content  # Captura o conteúdo da parte
+            if delta_content:  # Verifica se o conteúdo não é None
+                print(str(delta_content), end="")
+                conteudo_completo += str(delta_content)
+
+        return conteudo_completo
+
+    except Exception as e:
+        print("Erro:", e)
+        return "Erro: " + str(e)
+
+
+
+
+
+def gerar_conteudo_juridico_mostrando_na_tela(tipo_documento, dados_preenchimento, documento_id=None):
+    def event_stream():
+        try:
+            # Extração dos dados do caso para a pesquisa de jurisprudência
+            tipo_acao = dados_preenchimento.get('tipo_acao')
+            valor_causa = dados_preenchimento.get('valor_causa')
+            juizo_competente = dados_preenchimento.get('juizo_competente')
+            descricao_fatos = dados_preenchimento.get('descricao_fatos')
+            dados_requerente = dados_preenchimento.get('dados_requerente') or '[Nome do Requerente]'
+            dados_requerido = dados_preenchimento.get('dados_requerido') or '[Nome do Requerido]'
+            justica_gratis = dados_preenchimento.get('justica_gratis') or 'Não Solicite Justiça Gratuita'
+            # Parte 1: Buscar jurisprudências relevantes
+            #yield f"data: Iniciando a geração do conteúdo jurídico...\n\n"
+            query = gerar_frase_pesquisa_gpt(dados_preenchimento.get('descricao_fatos'))
+            #yield f"data: Gerando frase de GPT: '{query}'...\n\n"
+            jurisprudencias = buscar_jurisprudencias_bing(query)
+            #yield f"data: Jurisprudências encontradas: {jurisprudencias}\n\n"
+
+            # Construir a mensagem para GPT com as jurisprudências reais
+            mensagem = (
+            f"Você é um advogado altamente especializado em direito civil, com mais de 20 anos de experiência, e precisa redigir uma Petição Inicial para uma ação do tipo: {tipo_acao} \n"
+            f"O valor da causa é de R$ {valor_causa}, e o juízo competente é {juizo_competente}. \n"
+            f"Os fatos principais do caso são os seguintes: {descricao_fatos}. "
+            f"Os dados conhecidos do requerente são: {dados_requerente}.\n"
+            f"os dados conhecidos do requerido são: {dados_requerido}.\n"
+            f"- Quando não forem fornecidos os dados do cliente, empresa ou envolvidos no caso, não invente dados de endereço ou afins, coloque-os entre colchetes aguardando inclusão. Ex: [nome], [endereço]."
+            f"\n\nInstruções adicionais:\n"
+            f"- Inclua a(s) jurisprudência(s) relevante(s) da pesquisa e cite-as corretamente no formato de peça jurídica em HTML.\n"
+            f"- Inclua fundamentação legal apropriada, mencionando artigos do Código Civil, Código de Processo Civil, ou outras legislações pertinentes.\n"
+            f"- Caso seja citada a jurisprudencia, utilize formatação em HTML, destaque os trechos de legislação ou jurisprudência em <i>itálico</i> , entre aspas e com espaçamento diferenciado. Exemplo: <i>Art. 373. O ônus da prova incumbe ao autor...</i>."
+            f"- Não inclua o link da pesquisa de jurisprudência no documento final. Ao inves disso você deve formatá-la igual uma citação profissional na peça juridica.\n"
+            f"- Mantenha a argumentação objetiva e focada no necessário para a defesa ou acusação, evitando argumentos vagos ou irrelevantes.\n"
+            f"- Todo o documento deve ser em HTML. Não insira marcadores do tipo ```html no inicio ou qualquer outra forma de marcação de código. Traga apenas a estrutura HTML pura.\n"
+            f"- A estrutura deve começar com as tags <html>, <head> e <body>. NÃO gere a tag <tittle>\n"
+            f"- Utilize as tags <b>negrito</b> para destacar informações importantes, como títulos de seções, palavras-chave ou valores significativos.\n"
+            f"- Evite espaços desnecessários ao gerar o documento.\n"
+            f"- A estrutura deve conter seções como: <h3>DOS FATOS</h3>, <h3>DO DIREITO</h3>, e <h3>DO PEDIDO</h3>, etc., numerando subtítulos em algarismos romanos (I, II, III).\n"
+            f"- Os titulos do inicio devem ser em <h2>, durante o texto pode utilizar <h3> ou <h4>. Nunca use h1 neste documento."
+            f"- Finalize com espaço para nome do advogado, OAB e data.\n"
+            f"- O documento deve ter clareza e fluidez, com parágrafos bem organizados e fundamentação robusta. Use a formatação HTML para manter o documento corretamente estruturado.\n"
+            f"- O documento completo deve conter pelo menos 2000 palavras."
+            f"- O campo a seguir define se o cliente solicita justiça gratuita ou nao: {justica_gratis}.\n"
+            f"- As jurisprudências devem ser reais e verificáveis. Em hipótese alguma crie ou invente jurisprudências. Use apenas jurisprudências reais, citando-as de maneira completa e exata, incluindo o número do processo, tribunal, data do julgamento, e outras informações relevantes da decisão. Certifique-se de que as jurisprudências sejam formatadas conforme o padrão jurídico e estejam adequadamente inseridas na peça jurídica."
+            f"- As jurisprudências reais encontradas na pesquisa na web são as seguintes abaixo (mas use apenas as que você considerar pertinentes):\n"
+              
+        )
+
+            #yield "data: Enviando conteúdo para o GPT...\n\n"
+            response = openai.chat.completions.create(
+                model="gpt-4",
+                messages=[{"role": "system", "content": "Você é um advogado especializado em direito civil com 20 anos de experiência."},
+                          {"role": "user", "content": mensagem}],
+                temperature=0.5,
+                max_tokens=3640,
+                stream=True
+            )
+
+            conteudo_completo = ""
+            for parte in response:
+                delta_content = parte.choices[0].delta.content
+                if delta_content:
+                    yield delta_content  # Envia o conteúdo para o navegador
+                    conteudo_completo += delta_content
+
+            # Salva o conteúdo gerado no documento
+            documento = DocumentoJuridico.objects.get(id=documento_id)
+            documento.conteudo = conteudo_completo
+            documento.save()
+
+            # Indica que o conteúdo foi completamente gerado
+            yield "event: done\ndata: STREAMING_COMPLETADO\n\n"
+
+        except Exception as e:
+            error_message = f"Erro: {str(e)}"
+            yield f"data: {error_message}\n\n"
+
+    return StreamingHttpResponse(event_stream(), content_type='text/event-stream')
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -329,7 +420,7 @@ def gerar_conteudo_contestacao(tipo_documento, dados_preenchimento):
             f"\n\nInstruções adicionais:\n"
             f"- Inclua as jurisprudências relevantes da pesquisa e cite-as corretamente no formato de contestação jurídica em HTML.\n"
             f"- Inclua fundamentação legal apropriada, mencionando artigos do Código Civil, Código de Processo Civil ou outras legislações pertinentes.\n"
-            f"- Caso seja citada a jurisprudência, utilize formatação em HTML, destacando trechos de legislação ou jurisprudência em <i>itálico</i>.\n"
+            f"- Caso seja citada a jurisprudência, utilize formatação em HTML, destacando trechos de legislação ou jurisprudência em <i>itálico</i>. numerando subtítulos em algarismos romanos (I, II, III).\n"
             f"- Não inclua o link da pesquisa de jurisprudência no documento final. Formate as jurisprudências como citação profissional jurídica.\n"
             f"- O documento deve ser claro e objetivo, mantendo foco na defesa contra os fatos apresentados, evitando argumentos vagos ou irrelevantes.\n"
             f"- Todo o documento deve ser em HTML, sem usar ```html ou qualquer outra forma de marcação de código. Somente HTML puro.\n"
@@ -338,6 +429,7 @@ def gerar_conteudo_contestacao(tipo_documento, dados_preenchimento):
             f"- Finalize com espaço para o nome do advogado, OAB e data.\n"
             f"- O documento deve ter clareza, fluidez e fundamentação robusta, mantendo a estrutura em HTML.\n"
             f"- O documento completo deve conter pelo menos 2000 palavras.\n"
+            f"- As jurisprudências devem ser reais e verificáveis. Em hipótese alguma crie ou invente jurisprudências. Use apenas jurisprudências reais, citando-as de maneira completa e exata, incluindo o número do processo, tribunal, data do julgamento, e outras informações relevantes da decisão. Certifique-se de que as jurisprudências sejam formatadas conforme o padrão jurídico e estejam adequadamente inseridas na peça jurídica."
             f"- As jurisprudências reais encontradas na web são as seguintes (use apenas as pertinentes):\n"
         )
 
@@ -411,7 +503,7 @@ def gerar_conteudo_apelacao(tipo_documento, dados_preenchimento):
             f"\n\nInstruções adicionais:\n"
             f"- Inclua as jurisprudências relevantes da pesquisa e cite-as corretamente no formato de apelação jurídica em HTML.\n"
             f"- Inclua fundamentação legal apropriada, mencionando artigos do Código Civil, Código de Processo Civil ou outras legislações pertinentes.\n"
-            f"- Caso seja citada a jurisprudência, utilize formatação em HTML, destacando trechos de legislação ou jurisprudência em <i>itálico</i>.\n"
+            f"- Caso seja citada a jurisprudência, utilize formatação em HTML, destacando trechos de legislação ou jurisprudência em <i>itálico</i>. numerando subtítulos em algarismos romanos (I, II, III).\n"
             f"- Não inclua o link da pesquisa de jurisprudência no documento final. Formate as jurisprudências como citação profissional jurídica.\n"
             f"- O documento deve ser claro e objetivo, mantendo foco na reforma da sentença, evitando argumentos vagos ou irrelevantes.\n"
             f"- Todo o documento deve ser em HTML, sem usar ```html ou qualquer outra forma de marcação de código. Somente HTML puro.\n"
@@ -420,6 +512,7 @@ def gerar_conteudo_apelacao(tipo_documento, dados_preenchimento):
             f"- Finalize com espaço para o nome do advogado, OAB e data.\n"
             f"- O documento deve ter clareza, fluidez e fundamentação robusta, mantendo a estrutura em HTML.\n"
             f"- O documento completo deve conter pelo menos 2000 palavras.\n"
+            f"- As jurisprudências devem ser reais e verificáveis. Em hipótese alguma crie ou invente jurisprudências. Use apenas jurisprudências reais, citando-as de maneira completa e exata, incluindo o número do processo, tribunal, data do julgamento, e outras informações relevantes da decisão. Certifique-se de que as jurisprudências sejam formatadas conforme o padrão jurídico e estejam adequadamente inseridas na peça jurídica."
             f"- As jurisprudências reais encontradas na web são as seguintes (use apenas as pertinentes):\n"
         )
 
@@ -494,7 +587,7 @@ def gerar_conteudo_embargo(tipo_documento, dados_preenchimento):
             f"\n\nInstruções adicionais:\n"
             f"- Inclua as jurisprudências relevantes da pesquisa e cite-as corretamente no formato de embargos jurídicos em HTML.\n"
             f"- Inclua fundamentação legal apropriada, mencionando artigos do Código Civil, Código de Processo Civil ou outras legislações pertinentes.\n"
-            f"- Caso seja citada a jurisprudência, utilize formatação em HTML, destacando trechos de legislação ou jurisprudência em <i>itálico</i>.\n"
+            f"- Caso seja citada a jurisprudência, utilize formatação em HTML, destacando trechos de legislação ou jurisprudência em <i>itálico</i>. numerando subtítulos em algarismos romanos (I, II, III).\n"
             f"- Não inclua o link da pesquisa de jurisprudência no documento final. Formate as jurisprudências como citação profissional jurídica.\n"
             f"- O documento deve ser claro e objetivo, mantendo foco nos embargos, evitando argumentos vagos ou irrelevantes.\n"
             f"- Todo o documento deve ser em HTML, sem usar ```html ou qualquer outra forma de marcação de código. Somente HTML puro.\n"
@@ -503,6 +596,7 @@ def gerar_conteudo_embargo(tipo_documento, dados_preenchimento):
             f"- Finalize com espaço para o nome do advogado, OAB e data.\n"
             f"- O documento deve ter clareza, fluidez e fundamentação robusta, mantendo a estrutura em HTML.\n"
             f"- O documento completo deve conter pelo menos 2000 palavras.\n"
+            f"- As jurisprudências devem ser reais e verificáveis. Em hipótese alguma crie ou invente jurisprudências. Use apenas jurisprudências reais, citando-as de maneira completa e exata, incluindo o número do processo, tribunal, data do julgamento, e outras informações relevantes da decisão. Certifique-se de que as jurisprudências sejam formatadas conforme o padrão jurídico e estejam adequadamente inseridas na peça jurídica."
             f"- As jurisprudências reais encontradas na web são as seguintes (use apenas as pertinentes):\n"
         )
 
@@ -576,7 +670,7 @@ def gerar_conteudo_recurso_extraordinario(dados_preenchimento):
             f"- Quando não forem fornecidos dados sobre as partes envolvidas, provas, processo ou valores, utilize colchetes aguardando inclusão. Ex: [nome], [endereço].\n"
             f"\n\nInstruções adicionais:\n"
             f"- Estruture o documento completo em HTML, incluindo títulos e subtítulos apropriados. Use <h2> para o título principal e <h3> ou <h4> para seções subsequentes. Não utilize <h1>.\n"
-            f"- Inclua seções como: <h3>DA DECISÃO RECORRIDA</h3>, <h3>DA FUNDAMENTAÇÃO JURÍDICA</h3>, <h3>DO PEDIDO DE REFORMA</h3>, entre outras que forem necessárias.\n"
+            f"- Inclua seções como: <h3>DA DECISÃO RECORRIDA</h3>, <h3>DA FUNDAMENTAÇÃO JURÍDICA</h3>, <h3>DO PEDIDO DE REFORMA</h3>, entre outras que forem necessárias. numerando subtítulos em algarismos romanos (I, II, III).\n"
             f"- Utilize jurisprudências relevantes da pesquisa, citando-as corretamente e formatando-as em HTML, com trechos de legislação ou jurisprudência destacados em <i>itálico</i>.\n"
             f"- Não inclua links de pesquisa de jurisprudência no documento final. Apenas formate as jurisprudências como citação jurídica formal.\n"
             f"- Inclua a fundamentação legal apropriada, mencionando artigos da Constituição Federal, Código de Processo Civil, ou outras legislações pertinentes ao recurso extraordinário.\n"
@@ -584,6 +678,7 @@ def gerar_conteudo_recurso_extraordinario(dados_preenchimento):
             f"- Finalize o documento com espaço para o nome do advogado, OAB e data de forma apropriada.\n"
             f"- O documento deve ser claro e objetivo, com robustez jurídica, fluidez e, no mínimo, 2000 palavras.\n"
             f"- O conteúdo deve ser todo em HTML puro, sem usar ```html ou outra marcação de código.\n"
+            f"- As jurisprudências devem ser reais e verificáveis. Em hipótese alguma crie ou invente jurisprudências. Use apenas jurisprudências reais, citando-as de maneira completa e exata, incluindo o número do processo, tribunal, data do julgamento, e outras informações relevantes da decisão. Certifique-se de que as jurisprudências sejam formatadas conforme o padrão jurídico e estejam adequadamente inseridas na peça jurídica."
             f"- As jurisprudências reais encontradas na web são as seguintes (use apenas as pertinentes):\n"
         )
 
@@ -627,3 +722,81 @@ def gerar_conteudo_recurso_extraordinario(dados_preenchimento):
 
 
 
+def gerar_conteudo_mandado_seguranca(dados_preenchimento):
+    try:
+        # Extração dos dados do Mandado de Segurança
+        processo_numero = dados_preenchimento.get('processo_numero') or '[Número do Processo]'
+        autoridade_coatora = dados_preenchimento.get('autoridade_coatora') or '[Autoridade Coatora]'
+        fundamentacao_direito = dados_preenchimento.get('fundamentacao_direito') or '[Fundamentação Jurídica]'
+        pedido_liminar = dados_preenchimento.get('pedido_liminar') or '[Pedido Liminar]'
+        valor_causa = dados_preenchimento.get('valor_causa') or '[Valor da Causa]'
+        juizo_competente = dados_preenchimento.get('juizo_competente') or '[Juízo Competente]'
+        provas = dados_preenchimento.get('provas') or '[Provas]'
+
+        # Parte 1: Buscar jurisprudências relevantes
+        query = gerar_frase_pesquisa_gpt(fundamentacao_direito)
+        jurisprudencias = buscar_jurisprudencias_bing(query)
+
+        print(f"Gerando frase de pesquisa para o caso: '{query}'..")
+        
+        # Parte 2: Construção da mensagem para o modelo, incluindo jurisprudências reais
+        mensagem = (
+            f"Você é um advogado altamente especializado em direito constitucional e administrativo, com mais de 20 anos de experiência.\n"
+            f"Você precisa redigir um Mandado de Segurança referente ao processo {processo_numero}.\n"
+            f"A autoridade coatora é a seguinte: {autoridade_coatora}.\n"
+            f"A fundamentação jurídica do pedido é: {fundamentacao_direito}.\n"
+            f"O pedido liminar, caso aplicável, é: {pedido_liminar}.\n"
+            f"O valor da causa é de R$ {valor_causa}, e o juízo competente é {juizo_competente}.\n"
+            f"As provas anexadas que sustentam o pedido são: {provas}.\n"
+            f"- Quando não forem fornecidos dados sobre as partes envolvidas, provas, processo ou valores, utilize colchetes aguardando inclusão. Ex: [nome], [endereço].\n"
+            f"\n\nInstruções adicionais:\n"
+            f"- Estruture o documento completo em HTML, incluindo títulos e subtítulos apropriados. Use <h2> para o título principal e <h3> ou <h4> para seções subsequentes. Não utilize <h1>.\n"
+            f"- Inclua seções como: <h3>DA AUTORIDADE COATORA</h3>, <h3>DA FUNDAMENTAÇÃO JURÍDICA</h3>, <h3>DO PEDIDO LIMINAR</h3>, entre outras que forem necessárias. numerando subtítulos em algarismos romanos (I, II, III).\n\n"
+            f"- Utilize jurisprudências relevantes da pesquisa, citando-as corretamente e formatando-as em HTML, com trechos de legislação ou jurisprudência destacados em <i>itálico</i>.\n"
+            f"- Não inclua links de pesquisa de jurisprudência no documento final. Apenas formate as jurisprudências como citação jurídica formal.\n"
+            f"- Inclua a fundamentação legal apropriada, mencionando artigos da Constituição Federal, legislação específica, Código de Processo Civil, ou outras legislações pertinentes ao Mandado de Segurança.\n"
+            f"- Mantenha o foco na ilegalidade do ato coator e no direito líquido e certo, sem incluir argumentos vagos ou irrelevantes.\n"
+            f"- Finalize o documento com espaço para o nome do advogado, OAB e data de forma apropriada.\n"
+            f"- O documento deve ser claro e objetivo, com robustez jurídica, fluidez e, no mínimo, 2000 palavras.\n"
+            f"- O conteúdo deve ser todo em HTML puro, sem usar ```html ou outra marcação de código.\n"
+            f"- As jurisprudências devem ser reais e verificáveis. Em hipótese alguma crie ou invente jurisprudências. Use apenas jurisprudências reais, citando-as de maneira completa e exata, incluindo o número do processo, tribunal, data do julgamento, e outras informações relevantes da decisão. Certifique-se de que as jurisprudências sejam formatadas conforme o padrão jurídico e estejam adequadamente inseridas na peça jurídica.\n"
+            f"- As jurisprudências reais encontradas na web são as seguintes (use apenas as pertinentes):\n"
+        )
+
+        # Parte 3: Incluir as jurisprudências reais
+        for idx, jurisprudencia in enumerate(jurisprudencias["webPages"]["value"][:3]):
+            mensagem += f"{idx + 1}. Título: {jurisprudencia['name']}\n"
+            mensagem += f"   URL: {jurisprudencia['url']}\n"
+            mensagem += f"   Trecho: {jurisprudencia['snippet']}\n\n"
+
+        mensagem += (
+            "\nUse essas informações para compor o melhor Mandado de Segurança possível. "
+            "Formate a citação em HTML e siga as instruções."
+        )
+
+        # Parte 4: Chamando a API OpenAI para gerar o conteúdo do documento
+        print("Mensagem GPT: " + mensagem)
+        response = openai.chat.completions.create(
+            model="chatgpt-4o-latest",
+            messages=[
+                {"role": "system", "content": "Você é um advogado especializado em direito constitucional e administrativo."},
+                {"role": "user", "content": mensagem}
+            ],
+            temperature=0.5,
+            max_tokens=3640,
+            stream=True
+        )
+
+        conteudo_completo = ""
+        # Processar a resposta por partes
+        for parte in response:
+            delta_content = parte.choices[0].delta.content  # Captura o conteúdo da parte
+            if delta_content:  # Verifica se o conteúdo não é None
+                print(str(delta_content), end="")
+                conteudo_completo += str(delta_content)
+
+        return conteudo_completo
+
+    except Exception as e:
+        print("Erro:", e)
+        return "Erro: " + str(e)

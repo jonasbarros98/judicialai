@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import DocumentoJuridico
-from .services.documento_service import gerar_conteudo_juridico,gerar_conteudo_contestacao, gerar_conteudo_apelacao, gerar_conteudo_embargo, gerar_conteudo_recurso_extraordinario  # Importa a função de gerar conteúdo
+from .services.documento_service import gerar_conteudo_juridico,gerar_conteudo_contestacao, gerar_conteudo_apelacao, gerar_conteudo_embargo, gerar_conteudo_mandado_seguranca, gerar_conteudo_recurso_extraordinario  # Importa a função de gerar conteúdo
 from .services.documento_service import render_pdf_view  # Importa a função de exportação para PDF
 from .services.documento_service import gerar_word_view
 from django.contrib.auth.decorators import login_required
@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.http import StreamingHttpResponse
 
 def home_view(request):
     return render(request, 'documentos/home.html')
@@ -140,6 +141,60 @@ def criar_documento(request):
 
     # Renderiza o formulário se a requisição for GET
     return render(request, 'documentos/criar_documento.html')
+
+
+@login_required(login_url='/index/')
+def criar_documento_mostrando_na_tela(request):
+    if request.method == 'POST':
+        try:
+            # Captura os dados do formulário
+            tipo = request.POST.get('tipo')
+            tipo_acao = request.POST.get('tipo_acao')
+            valor_causa = request.POST.get('valor_causa')
+            juizo_competente = request.POST.get('juizo_competente')
+            descricao_fatos = request.POST.get('descricao_fatos')
+            dados_requerente = request.POST.get('dados_requerente')
+            dados_requerido = request.POST.get('dados_requerido')
+            justica_gratis = 'justica_gratis' in request.POST
+
+            # 1. Criar o documento vazio no banco de dados
+            documento = DocumentoJuridico.objects.create(
+                tipo=tipo,
+                titulo=f"{tipo_acao}",
+                conteudo="",
+                valor_causa=valor_causa,
+                juizo_competente=juizo_competente,
+                descricao_fatos=descricao_fatos,
+                dados_requerente=dados_requerente if dados_requerente else '',
+                dados_requerido=dados_requerido if dados_requerido else '',
+                justica_gratis=justica_gratis,  
+                user=request.user  # Associa o documento ao usuário logado
+            )
+
+            # 2. Chamar a função de gerar o conteúdo, passando o ID do documento criado
+            return gerar_conteudo_juridico(
+                tipo_documento=tipo,
+                dados_preenchimento={
+                    'tipo_acao': tipo_acao,
+                    'valor_causa': valor_causa,
+                    'juizo_competente': juizo_competente,
+                    'descricao_fatos': descricao_fatos,
+                    'dados_requerente': dados_requerente,
+                    'dados_requerido': dados_requerido,
+                    'justica_gratis': justica_gratis
+                },
+                documento_id=documento.id  # Passar o ID do documento criado
+            )
+
+        except Exception as e:
+            return render(request, 'documentos/criar_documento.html', {
+                'error_message': f'Ocorreu um erro ao criar o documento: {str(e)}'
+            })
+
+    return render(request, 'documentos/criar_documento.html')
+
+
+
 
 
 
@@ -640,3 +695,118 @@ def criar_recurso_extraordinario(request):
     # Renderiza o formulário vazio para GET
     print("Renderizando formulário vazio (GET)")
     return render(request, 'documentos/criar_recurso_extraordinario.html')
+
+
+
+
+
+def criar_mandado_seguranca(request):
+    print("Entrou na view criar_mandado_seguranca")
+
+    if request.method == 'POST':
+        print("Método POST detectado")
+        
+        try:
+            # Captura os dados do formulário
+            print("Iniciando captura dos dados do formulário...")
+            tipo_acao = 'mandado_seguranca'
+            processo_numero = request.POST.get('processo_numero')
+            autoridade_coatora = request.POST.get('autoridade_coatora')  # Ajuste específico para Mandado de Segurança
+            fundamentacao_direito = request.POST.get('fundamentacao_direito')
+            pedido_liminar = request.POST.get('pedido_liminar')  # Campos específicos para Mandado de Segurança
+            valor_causa = request.POST.get('valor_causa')
+            juizo_competente = request.POST.get('juizo_competente')
+            provas = request.POST.get('provas')
+            
+            # Exibir os valores capturados
+            print(f"Dados capturados: \nProcesso: {processo_numero}, \nAutoridade Coatora: {autoridade_coatora}, \nFundamentação: {fundamentacao_direito}, \nPedido Liminar: {pedido_liminar}, \nValor da Causa: {valor_causa}, \nJuízo Competente: {juizo_competente}, \nProvas: {provas}")
+
+            # Lidar com o arquivo anexado (um PDF)
+            arquivo_anexado = request.FILES.get('anexar_documento')
+            print(f"Arquivo anexado: {arquivo_anexado}")
+            
+            if arquivo_anexado:
+                if not arquivo_anexado.name.endswith('.pdf'):
+                    print("Arquivo não é PDF")
+                    return render(request, 'documentos/criar_mandado_seguranca.html', {
+                        'error_message': 'Somente arquivos PDF são permitidos.',
+                        'processo_numero': processo_numero,
+                        'autoridade_coatora': autoridade_coatora,
+                        'fundamentacao_direito': fundamentacao_direito,
+                        'valor_causa': valor_causa,
+                        'juizo_competente': juizo_competente,
+                        'provas': provas
+                    })
+
+                print("Salvando arquivo PDF...")
+                fs = FileSystemStorage()
+                nome_arquivo = fs.save(arquivo_anexado.name, arquivo_anexado)
+                caminho_arquivo = fs.url(nome_arquivo)
+                print(f"Arquivo salvo em: {caminho_arquivo}")
+
+            # Validação de valor da causa
+            print("Validando valor da causa...")
+            try:
+                valor_causa = Decimal(valor_causa)
+                print(f"Valor da causa convertido: {valor_causa}")
+            except (InvalidOperation, ValueError, TypeError):
+                print("Erro ao converter valor da causa")
+                return render(request, 'documentos/criar_mandado_seguranca.html', {
+                    'error_message': 'O valor da causa deve ser um número válido.',
+                    'processo_numero': processo_numero,
+                    'autoridade_coatora': autoridade_coatora,
+                    'fundamentacao_direito': fundamentacao_direito,
+                    'valor_causa': valor_causa,
+                    'juizo_competente': juizo_competente,
+                    'provas': provas
+                })
+
+            # Gera o conteúdo do documento jurídico
+            print("Gerando conteúdo do documento...")
+            dados_preenchimento = {
+                'processo_numero': processo_numero,
+                'autoridade_coatora': autoridade_coatora,
+                'fundamentacao_direito': fundamentacao_direito,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas,
+                'pedido_liminar': pedido_liminar  # Incluído para Mandado de Segurança
+            }
+
+            conteudo_gerado = gerar_conteudo_mandado_seguranca(dados_preenchimento)
+            print("Conteúdo gerado com sucesso")
+
+            # Cria o documento no banco de dados
+            print("Salvando documento no banco de dados...")
+            documento = DocumentoJuridico.objects.create(
+                tipo='mandado_seguranca',
+                titulo=f'Mandado de Segurança - {processo_numero}',
+                conteudo=conteudo_gerado,
+                valor_causa=valor_causa,
+                juizo_competente=juizo_competente,
+                processo_numero=processo_numero,
+                fundamentacao_direito=fundamentacao_direito,
+                anexo=caminho_arquivo if arquivo_anexado else None,
+                user=request.user  # Associa o documento ao usuário logado
+            )
+
+            print(f"Documento salvo com ID: {documento.id}")
+
+            # Redireciona para a página de sucesso
+            return redirect('documento_sucesso', documento_id=documento.id)
+
+        except Exception as e:
+            print(f"Erro durante o processamento: {str(e)}")
+            return render(request, 'documentos/criar_mandado_seguranca.html', {
+                'error_message': f'Ocorreu um erro ao criar o documento: {str(e)}',
+                'processo_numero': processo_numero,
+                'autoridade_coatora': autoridade_coatora,
+                'fundamentacao_direito': fundamentacao_direito,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas
+            })
+
+    # Renderiza o formulário vazio para GET
+    print("Renderizando formulário vazio (GET)")
+    return render(request, 'documentos/criar_mandado_seguranca.html')

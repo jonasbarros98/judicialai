@@ -1,0 +1,67 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Criar Mandado de Segurança{% endblock %}
+
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center">Criar Mandado de Segurança</h2>
+    <br>
+    <form method="post" action="{% url 'criar_mandado_seguranca' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="processo_numero" class="required-field">Número do Processo:</label>
+            <input type="text" class="form-control" name="processo_numero" id="processo_numero" placeholder="Ex: XXXXXXX-XX.2024.1.23.4567" required>
+        </div>
+
+        <div class="form-group">
+            <label for="autoridade_coatora" class="required-field">Autoridade Coatora:</label>
+            <input type="text" class="form-control" name="autoridade_coatora" id="autoridade_coatora" placeholder="Ex: Secretário de Saúde" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fundamentacao_direito" class="required-field">Fundamentação Jurídica:</label>
+            <textarea class="form-control" name="fundamentacao_direito" id="fundamentacao_direito" rows="5" placeholder="Fundamentação jurídica do mandado de segurança" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="pedido_liminar" class="required-field">Pedido Liminar (se houver):</label>
+            <textarea class="form-control" name="pedido_liminar" id="pedido_liminar" rows="3" placeholder="Descreva o pedido liminar, se aplicável"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="valor_causa" class="required-field">Valor da Causa:</label>
+            <input type="text" class="form-control" name="valor_causa" id="valor_causa" placeholder="Ex: R$ 50.000,00" required>
+        </div>
+
+        <div class="form-group">
+            <label for="juizo_competente" class="required-field">Juízo Competente:</label>
+            <input type="text" class="form-control" name="juizo_competente" id="juizo_competente" placeholder="Ex: Tribunal de Justiça" required>
+        </div>
+
+        <div class="form-group">
+            <label for="provas">Provas que Sustentam o Mandado de Segurança:</label>
+            <textarea class="form-control" name="provas" id="provas" rows="3" placeholder="Ex: Documentos, e-mails, vídeos, etc."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="anexar_documento">Anexar Documento PDF (Opcional):</label>
+            <input type="file" class="form-control-file" name="anexar_documento" id="anexar_documento">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Gerar Mandado de Segurança</button>
+    </form>
+
+    <!-- Mensagem de erro, se houver -->
+    {% if error_message %}
+        <div class="alert alert-danger mt-3">{{ error_message }}</div>
+    {% endif %}
+</div>
+
+{% endblock %}

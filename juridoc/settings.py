@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-pamq!^kqivq%#0!n48$s0pyvz-*t!9nhzi3jv1dysedj1!qhd_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -145,7 +145,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Define uma pasta diferent
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Caminho para a pasta 'static' usada no desenvolvimento
+    os.path.join(BASE_DIR, 'documentos\static'),  # Caminho para a pasta 'static' usada no desenvolvimento
 ]
+
+
+print("arquivos estaticos: " + os.path.join(BASE_DIR, 'static'))
 
 
 # Default primary key field type
