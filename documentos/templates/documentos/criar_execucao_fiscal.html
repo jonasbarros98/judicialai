@@ -1,0 +1,51 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Criar Execução Fiscal{% endblock %}
+
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center">Criar Execução Fiscal</h2>
+    <br>
+    <form method="post" action="{% url 'criar_execucao_fiscal' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="processo_numero" class="required-field">Número do Processo:</label>
+            <input type="text" class="form-control" name="processo_numero" id="processo_numero" placeholder="Ex: XXXXXXX-XX.2024.1.23.4567" required>
+        </div>
+
+        <div class="form-group">
+            <label for="valor_executado" class="required-field">Valor Executado:</label>
+            <input type="text" class="form-control" name="valor_executado" id="valor_executado" placeholder="Ex: R$ 100.000,00" required>
+        </div>
+
+        <div class="form-group">
+            <label for="ente_fiscal" class="required-field">Ente Fiscal:</label>
+            <input type="text" class="form-control" name="ente_fiscal" id="ente_fiscal" placeholder="Ex: Receita Federal" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fundamento_legal" class="required-field">Fundamento Legal:</label>
+            <textarea class="form-control" name="fundamento_legal" id="fundamento_legal" rows="5" placeholder="Fundamento jurídico da execução" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="provas">Provas:</label>
+            <textarea class="form-control" name="provas" id="provas" rows="3" placeholder="Ex: Documentos fiscais, certidões, etc."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Gerar Execução Fiscal</button>
+    </form>
+
+    {% if error_message %}
+        <div class="alert alert-danger mt-3">{{ error_message }}</div>
+    {% endif %}
+</div>
+
+{% endblock %}

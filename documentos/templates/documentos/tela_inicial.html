@@ -21,10 +21,10 @@
             <div class="balloon" onclick="window.location.href='{% url 'criar_embargo' %}'">Embargos</div>
             <div class="balloon" onclick="window.location.href='{% url 'criar_recurso_extraordinario' %}'">Recurso Extraordinário</div>
             <div class="balloon" onclick="window.location.href='{% url 'criar_mandado_seguranca' %}'">Mandado de Segurança</div>
-            <div class="balloon" onclick="window.location.href='#'">Habeas Corpus</div>
-            <div class="balloon" onclick="window.location.href='#'">Ação Rescisória</div>
-            <div class="balloon" onclick="window.location.href='#'">Agravo de Instrumento</div>
-            <div class="balloon" onclick="window.location.href='#'">Execução Fiscal</div>
+            <div class="balloon" onclick="window.location.href='{% url 'criar_habeas_corpus' %}'">Habeas Corpus</div>
+            <div class="balloon" onclick="window.location.href='{% url 'criar_acao_rescisoria' %}'">Ação Rescisória</div>
+            <div class="balloon" onclick="window.location.href='{% url 'criar_agravo_instrumento' %}'">Agravo de Instrumento</div>
+            <div class="balloon" onclick="window.location.href='{% url 'criar_execucao_fiscal' %}'">Execução Fiscal</div>
         </div>
     </div>
 {% endblock %}

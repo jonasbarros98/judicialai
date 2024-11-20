@@ -1,0 +1,57 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Criar Habeas Corpus{% endblock %}
+
+{% block extra_head %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center">Criar Habeas Corpus</h2>
+    <br>
+    <form method="post" action="{% url 'criar_habeas_corpus' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="processo_numero" class="required-field">Número do Processo:</label>
+            <input type="text" class="form-control" name="processo_numero" id="processo_numero" placeholder="Ex: XXXXXXX-XX.2024.1.23.4567" required>
+        </div>
+
+        <div class="form-group">
+            <label for="paciente" class="required-field">Paciente:</label>
+            <input type="text" class="form-control" name="paciente" id="paciente" placeholder="Nome do paciente" required>
+        </div>
+
+        <div class="form-group">
+            <label for="autoridade_coatora" class="required-field">Autoridade Coatora:</label>
+            <input type="text" class="form-control" name="autoridade_coatora" id="autoridade_coatora" placeholder="Ex: Juiz da Vara Criminal" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fundamentacao_direito" class="required-field">Fundamentação Jurídica:</label>
+            <textarea class="form-control" name="fundamentacao_direito" id="fundamentacao_direito" rows="5" placeholder="Fundamentação jurídica do Habeas Corpus" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="pedido_liminar">Pedido Liminar (se houver):</label>
+            <textarea class="form-control" name="pedido_liminar" id="pedido_liminar" rows="3" placeholder="Descreva o pedido liminar, se aplicável"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="provas">Provas que Sustentam o Habeas Corpus:</label>
+            <textarea class="form-control" name="provas" id="provas" rows="3" placeholder="Ex: Documentos, vídeos, testemunhos, etc."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Gerar Habeas Corpus</button>
+    </form>
+
+    <!-- Mensagem de erro, se houver -->
+    {% if error_message %}
+        <div class="alert alert-danger mt-3">{{ error_message }}</div>
+    {% endif %}
+</div>
+
+{% endblock %}

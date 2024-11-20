@@ -1,0 +1,52 @@
+{% extends 'documentos/base.html' %}
+{% load static %}
+
+{% block title %}Criar Agravo de Instrumento{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center">Criar Agravo de Instrumento</h2>
+    <br>
+    <form method="post" action="{% url 'criar_agravo_instrumento' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="processo_numero">Número do Processo:</label>
+            <input type="text" class="form-control" name="processo_numero" id="processo_numero" required>
+        </div>
+
+        <div class="form-group">
+            <label for="fundamentacao_direito">Fundamentação Jurídica:</label>
+            <textarea class="form-control" name="fundamentacao_direito" id="fundamentacao_direito" rows="5" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="pedido">Pedido:</label>
+            <textarea class="form-control" name="pedido" id="pedido" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="valor_causa">Valor da Causa:</label>
+            <input type="text" class="form-control" name="valor_causa" id="valor_causa" required>
+        </div>
+
+        <div class="form-group">
+            <label for="juizo_competente">Juízo Competente:</label>
+            <input type="text" class="form-control" name="juizo_competente" id="juizo_competente" required>
+        </div>
+
+        <div class="form-group">
+            <label for="provas">Provas:</label>
+            <textarea class="form-control" name="provas" id="provas" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Gerar Agravo de Instrumento</button>
+    </form>
+
+    {% if error_message %}
+        <div class="alert alert-danger mt-3">{{ error_message }}</div>
+    {% endif %}
+</div>
+
+{% endblock %}

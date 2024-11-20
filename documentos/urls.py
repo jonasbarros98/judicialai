@@ -19,6 +19,10 @@ urlpatterns = [
     path('criar_embargo/', views.criar_embargo, name='criar_embargo'),
     path('criar_recurso_extraordinario/', views.criar_recurso_extraordinario, name='criar_recurso_extraordinario'),
     path('criar_mandado_seguranca/', views.criar_mandado_seguranca, name='criar_mandado_seguranca'),
+    path('criar_habeas_corpus/', views.criar_habeas_corpus, name='criar_habeas_corpus'),
+    path('criar_acao_rescisoria/', views.criar_acao_rescisoria, name='criar_acao_rescisoria'),
+    path('agravo_instrumento/', views.criar_agravo_instrumento, name='criar_agravo_instrumento'),
+    path('execucao_fiscal/', views.criar_execucao_fiscal, name='criar_execucao_fiscal'),
     # Adiciona uma rota padrão para /documentos/ que redireciona para /documentos/criar/
     path('', lambda request: HttpResponseRedirect('criar/')),
 ]

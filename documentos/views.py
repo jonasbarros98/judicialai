@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import DocumentoJuridico
-from .services.documento_service import gerar_conteudo_juridico,gerar_conteudo_contestacao, gerar_conteudo_apelacao, gerar_conteudo_embargo, gerar_conteudo_mandado_seguranca, gerar_conteudo_recurso_extraordinario  # Importa a função de gerar conteúdo
+from .services.documento_service import gerar_conteudo_juridico,gerar_conteudo_contestacao, gerar_conteudo_apelacao, gerar_conteudo_embargo, gerar_conteudo_mandado_seguranca, gerar_conteudo_recurso_extraordinario, gerar_conteudo_habeas_corpus, gerar_conteudo_acao_rescisoria, gerar_conteudo_agravo_instrumento, gerar_conteudo_execucao_fiscal  # Importa a função de gerar conteúdo
 from .services.documento_service import render_pdf_view  # Importa a função de exportação para PDF
 from .services.documento_service import gerar_word_view
 from django.contrib.auth.decorators import login_required
@@ -140,6 +140,7 @@ def criar_documento(request):
             })
 
     # Renderiza o formulário se a requisição for GET
+    #return render(request, 'documentos/criar_documento.html')
     return render(request, 'documentos/criar_documento.html')
 
 
@@ -195,9 +196,6 @@ def criar_documento_mostrando_na_tela(request):
 
 
 
-
-
-
 # Função para exportar o documento como PDF
 def exportar_documento_pdf(request, documento_id):
     # Busca o documento pelo ID, ou retorna 404 se não for encontrado
@@ -219,6 +217,7 @@ def editar_documento(request, documento_id):
     if request.method == 'POST':
         print("3")
         novo_conteudo = request.POST.get('conteudo_documento')
+        print("Conteúdo completo de request.POST:", request.POST)
         print("4 conteudo_documento: " + str(novo_conteudo))
 
         novo_conteudoH = request.POST.get('conteudo_documento_hidden')
@@ -233,6 +232,8 @@ def editar_documento(request, documento_id):
     print("7")
 
     return render(request, 'documentos/documento_sucesso.html', {'documento': documento})
+
+
 
 @login_required  # Certifica que o usuário esteja logado para acessar a tela inicial
 def tela_inicial(request):
@@ -464,7 +465,7 @@ def criar_apelacao(request):
 
 
 
-
+@login_required(login_url='/index/')
 def criar_embargo(request):
     print('Entrou na view criar_embargo')  # Confirma que a função foi chamada
     if request.method == 'POST':
@@ -584,8 +585,7 @@ def criar_embargo(request):
 
 
 
-
-
+@login_required(login_url='/index/')
 def criar_recurso_extraordinario(request):
     print("Entrou na view criar_recurso_extraordinario")
     
@@ -699,7 +699,7 @@ def criar_recurso_extraordinario(request):
 
 
 
-
+@login_required(login_url='/index/')
 def criar_mandado_seguranca(request):
     print("Entrou na view criar_mandado_seguranca")
 
@@ -810,3 +810,335 @@ def criar_mandado_seguranca(request):
     # Renderiza o formulário vazio para GET
     print("Renderizando formulário vazio (GET)")
     return render(request, 'documentos/criar_mandado_seguranca.html')
+
+
+
+
+@login_required(login_url='/index/')
+def criar_habeas_corpus(request):
+    print("Entrou na view criar_habeas_corpus")  # Verificação inicial
+
+    if request.method == 'POST':
+        print("Método POST detectado")  # Confirma que o método é POST
+
+        try:
+            # Captura os dados do formulário
+            print("Iniciando captura dos dados do formulário...")
+
+            tipo_acao = 'habeas_corpus'
+            processo_numero = request.POST.get('processo_numero')
+            paciente = request.POST.get('paciente')
+            autoridade_coatora = request.POST.get('autoridade_coatora')
+            fundamentacao_direito = request.POST.get('fundamentacao_direito')
+            pedido_liminar = request.POST.get('pedido_liminar')
+            provas = request.POST.get('provas')
+
+            # Exibir os valores capturados
+            print(f"Dados capturados: \nProcesso: {processo_numero}, \nPaciente: {paciente}, "
+                  f"\nAutoridade Coatora: {autoridade_coatora}, \nFundamentação Jurídica: {fundamentacao_direito}, "
+                  f"\nPedido Liminar: {pedido_liminar}, \nProvas: {provas}")
+
+            # Gera o conteúdo do Habeas Corpus
+            dados_preenchimento = {
+                'processo_numero': processo_numero,
+                'paciente': paciente,
+                'autoridade_coatora': autoridade_coatora,
+                'fundamentacao_direito': fundamentacao_direito,
+                'pedido_liminar': pedido_liminar,
+                'provas': provas
+            }
+            print("Dados de preenchimento para geração do conteúdo:", dados_preenchimento)
+
+            conteudo_gerado = gerar_conteudo_habeas_corpus(dados_preenchimento)
+            print("Conteúdo gerado com sucesso:", conteudo_gerado[:100])  # Exibir parte do conteúdo gerado
+
+            # Cria o documento no banco de dados
+            documento = DocumentoJuridico.objects.create(
+            tipo='habeas_corpus',
+            titulo=f'Habeas Corpus - {processo_numero}',
+            conteudo=conteudo_gerado,
+            processo_numero=processo_numero,
+            fundamentacao_direito=fundamentacao_direito,
+            user=request.user,
+            valor_causa=0  # Ajuste necessário se o campo `valor_causa` for requerido.
+            )
+            print(f"Documento salvo com ID: {documento.id}")
+
+            # Redireciona para a página de sucesso
+            return redirect('documento_sucesso', documento_id=documento.id)
+
+        except Exception as e:
+            print(f"Erro durante o processamento: {str(e)}")  # Captura e exibe o erro no console
+            return render(request, 'documentos/criar_habeas_corpus.html', {
+                'error_message': f'Ocorreu um erro ao criar o Habeas Corpus: {str(e)}',
+                'processo_numero': processo_numero,
+                'paciente': paciente,
+                'autoridade_coatora': autoridade_coatora,
+                'fundamentacao_direito': fundamentacao_direito,
+                'pedido_liminar': pedido_liminar,
+                'provas': provas
+            })
+
+    print("Renderizando formulário vazio (GET)")  # Quando o método não é POST, exibe o formulário vazio
+    return render(request, 'documentos/criar_habeas_corpus.html')
+
+
+@login_required(login_url='/index/')
+def criar_acao_rescisoria(request):
+    if request.method == 'POST':
+        try:
+            # Captura os dados do formulário
+            tipo_acao = 'acao_rescisoria'
+            processo_numero = request.POST.get('processo_numero')
+            fundamento_rescisorio = request.POST.get('fundamento_rescisorio')
+            pedido = request.POST.get('pedido')
+            valor_causa = request.POST.get('valor_causa')
+            provas = request.POST.get('provas')
+
+            # Lidar com o arquivo anexado (um PDF)
+            arquivo_anexado = request.FILES.get('anexar_documento')
+            if arquivo_anexado and not arquivo_anexado.name.endswith('.pdf'):
+                return render(request, 'documentos/criar_acao_rescisoria.html', {
+                    'error_message': 'Somente arquivos PDF são permitidos.',
+                    'processo_numero': processo_numero,
+                    'fundamento_rescisorio': fundamento_rescisorio,
+                    'pedido': pedido,
+                    'valor_causa': valor_causa,
+                    'provas': provas
+                })
+            fs = FileSystemStorage()
+            nome_arquivo = fs.save(arquivo_anexado.name, arquivo_anexado) if arquivo_anexado else None
+
+            # Validação de valor da causa
+            try:
+                valor_causa = Decimal(valor_causa)
+            except (InvalidOperation, ValueError, TypeError):
+                return render(request, 'documentos/criar_acao_rescisoria.html', {
+                    'error_message': 'O valor da causa deve ser um número válido.',
+                    'processo_numero': processo_numero,
+                    'fundamento_rescisorio': fundamento_rescisorio,
+                    'pedido': pedido,
+                    'provas': provas
+                })
+
+            # Gera o conteúdo da ação rescisória
+            dados_preenchimento = {
+                'processo_numero': processo_numero,
+                'fundamento_rescisorio': fundamento_rescisorio,
+                'pedido': pedido,
+                'valor_causa': valor_causa,
+                'provas': provas
+            }
+
+            conteudo_gerado = gerar_conteudo_acao_rescisoria(dados_preenchimento)
+
+            # Cria o documento no banco de dados
+            documento = DocumentoJuridico.objects.create(
+                tipo='acao_rescisoria',
+                titulo=f'Ação Rescisória - {processo_numero}',
+                conteudo=conteudo_gerado,
+                valor_causa=valor_causa,
+                processo_numero=processo_numero,
+                fundamentacao_direito=fundamento_rescisorio,
+                anexo=nome_arquivo,
+                user=request.user  # Associa o documento ao usuário logado
+            )
+
+            # Redireciona para a página de sucesso
+            return redirect('documento_sucesso', documento_id=documento.id)
+
+        except Exception as e:
+            return render(request, 'documentos/criar_acao_rescisoria.html', {
+                'error_message': f'Ocorreu um erro ao criar a Ação Rescisória: {str(e)}',
+                'processo_numero': processo_numero,
+                'fundamento_rescisorio': fundamento_rescisorio,
+                'pedido': pedido,
+                'provas': provas
+            })
+
+    return render(request, 'documentos/criar_acao_rescisoria.html')
+
+
+
+@login_required(login_url='/index/')
+def criar_agravo_instrumento(request):
+
+    if request.method == 'POST':
+        try:
+            # Captura os dados do formulário
+            processo_numero = request.POST.get('processo_numero')
+            fundamentacao_direito = request.POST.get('fundamentacao_direito')
+            pedido = request.POST.get('pedido')
+            valor_causa = request.POST.get('valor_causa')
+            juizo_competente = request.POST.get('juizo_competente')
+            provas = request.POST.get('provas')
+
+            # Validação e conversão de valor da causa
+            try:
+                valor_causa = Decimal(valor_causa)
+            except (ValueError, TypeError):
+                return render(request, 'documentos/criar_agravo_instrumento.html', {
+                    'error_message': 'O valor da causa deve ser um número válido.',
+                    'processo_numero': processo_numero,
+                    'fundamentacao_direito': fundamentacao_direito,
+                    'pedido': pedido,
+                    'juizo_competente': juizo_competente,
+                    'provas': provas
+                })
+
+            # Gera o conteúdo do agravo de instrumento
+            dados_preenchimento = {
+                'processo_numero': processo_numero,
+                'fundamentacao_direito': fundamentacao_direito,
+                'pedido': pedido,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas
+            }
+            conteudo_gerado = gerar_conteudo_agravo_instrumento(dados_preenchimento)
+
+            # Cria o documento no banco de dados
+            documento = DocumentoJuridico.objects.create(
+                tipo='agravo_instrumento',
+                titulo=f'Agravo de Instrumento - {processo_numero}',
+                conteudo=conteudo_gerado,
+                valor_causa=valor_causa,
+                juizo_competente=juizo_competente,
+                processo_numero=processo_numero,
+                fundamentacao_direito=fundamentacao_direito,
+                user=request.user  # Associa o documento ao usuário logado
+            )
+
+            # Redireciona para a página de sucesso
+            return redirect('documento_sucesso', documento_id=documento.id)
+
+        except Exception as e:
+            return render(request, 'documentos/criar_agravo_instrumento.html', {
+                'error_message': f'Ocorreu um erro ao criar o Agravo de Instrumento: {str(e)}',
+                'processo_numero': processo_numero,
+                'fundamentacao_direito': fundamentacao_direito,
+                'pedido': pedido,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas
+            })
+
+    return render(request, 'documentos/criar_agravo_instrumento.html')
+
+
+
+@login_required(login_url='/index/')
+def criar_agravo_instrumento(request):
+    if request.method == 'POST':
+        try:
+            # Captura os dados do formulário
+            processo_numero = request.POST.get('processo_numero')
+            fundamentacao_direito = request.POST.get('fundamentacao_direito')
+            pedido = request.POST.get('pedido')
+            valor_causa = request.POST.get('valor_causa')
+            juizo_competente = request.POST.get('juizo_competente')
+            provas = request.POST.get('provas')
+
+            # Validação e conversão de valor da causa
+            try:
+                valor_causa = Decimal(valor_causa)
+            except (ValueError, TypeError):
+                return render(request, 'documentos/criar_agravo_instrumento.html', {
+                    'error_message': 'O valor da causa deve ser um número válido.',
+                    'processo_numero': processo_numero,
+                    'fundamentacao_direito': fundamentacao_direito,
+                    'pedido': pedido,
+                    'juizo_competente': juizo_competente,
+                    'provas': provas
+                })
+
+            # Gera o conteúdo do agravo de instrumento
+            dados_preenchimento = {
+                'processo_numero': processo_numero,
+                'fundamentacao_direito': fundamentacao_direito,
+                'pedido': pedido,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas
+            }
+            conteudo_gerado = gerar_conteudo_agravo_instrumento(dados_preenchimento)
+
+            # Cria o documento no banco de dados
+            documento = DocumentoJuridico.objects.create(
+                tipo='agravo_instrumento',
+                titulo=f'Agravo de Instrumento - {processo_numero}',
+                conteudo=conteudo_gerado,
+                valor_causa=valor_causa,
+                juizo_competente=juizo_competente,
+                processo_numero=processo_numero,
+                fundamentacao_direito=fundamentacao_direito,
+                user=request.user  # Associa o documento ao usuário logado
+            )
+
+            # Redireciona para a página de sucesso
+            return redirect('documento_sucesso', documento_id=documento.id)
+
+        except Exception as e:
+            return render(request, 'documentos/criar_agravo_instrumento.html', {
+                'error_message': f'Ocorreu um erro ao criar o Agravo de Instrumento: {str(e)}',
+                'processo_numero': processo_numero,
+                'fundamentacao_direito': fundamentacao_direito,
+                'pedido': pedido,
+                'valor_causa': valor_causa,
+                'juizo_competente': juizo_competente,
+                'provas': provas
+            })
+
+    return render(request, 'documentos/criar_agravo_instrumento.html')
+
+
+
+@login_required(login_url='/index/')
+def criar_execucao_fiscal(request):
+    if request.method == 'POST':
+        try:
+            # Captura os dados do formulário
+            tipo_acao = 'execucao_fiscal'
+            processo_numero = request.POST.get('processo_numero')
+            valor_executado = request.POST.get('valor_executado')
+            fundamento_legal = request.POST.get('fundamento_legal')
+            provas = request.POST.get('provas')
+            ente_fiscal = request.POST.get('ente_fiscal')
+            
+            # Dados para geração do conteúdo
+            dados_preenchimento = {
+                'processo_numero': processo_numero,
+                'valor_executado': valor_executado,
+                'fundamento_legal': fundamento_legal,
+                'provas': provas,
+                'ente_fiscal': ente_fiscal,
+            }
+            
+            # Gera o conteúdo
+            conteudo_gerado = gerar_conteudo_execucao_fiscal(dados_preenchimento)
+
+            # Salva o documento no banco de dados
+            documento = DocumentoJuridico.objects.create(
+                tipo=tipo_acao,
+                titulo=f'Execução Fiscal - {processo_numero}',
+                conteudo=conteudo_gerado,
+                valor_causa=valor_executado,
+                processo_numero=processo_numero,
+                fundamentacao_direito=fundamento_legal,
+                user=request.user
+            )
+
+            # Redireciona para a página de sucesso
+            return redirect('documento_sucesso', documento_id=documento.id)
+
+        except Exception as e:
+            return render(request, 'documentos/criar_execucao_fiscal.html', {
+                'error_message': f'Ocorreu um erro ao criar a Execução Fiscal: {str(e)}',
+                'processo_numero': processo_numero,
+                'valor_executado': valor_executado,
+                'fundamento_legal': fundamento_legal,
+                'provas': provas,
+                'ente_fiscal': ente_fiscal,
+            })
+
+    return render(request, 'documentos/criar_execucao_fiscal.html')

@@ -27,7 +27,7 @@
     }
 
     .ajuste {
-    max-width: 80%;
+    max-width: 90%;
     /* Ajuste a largura conforme necessário */
     margin: 10px auto 20px auto;
     /* Suba o container e centraliza horizontalmente */
@@ -63,6 +63,8 @@
             <div class="action-links">
                 <form method="post" action="{% url 'editar_documento' documento.id %}" onsubmit="return updateEditorContent();">
                     {% csrf_token %}
+                    <!-- Campo oculto para enviar o conteúdo editado -->
+                    <input type="hidden" name="conteudo_documento_hidden" id="conteudo_documento_hidden">
                     <button type="submit" class="btn btn-primary btn-block">Salvar Alterações</button>
                     <a href="{% url 'exportar_documento_pdf' documento.id %}" class="btn btn-secondary btn-block">Baixar PDF</a>
                     <a href="{% url 'exportar_documento_word' documento.id %}" class="btn btn-success btn-block">Baixar Word</a>
@@ -72,7 +74,7 @@
         </div>
 
         <!-- Conteúdo principal -->
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="container">
                 <h2 class="text-center text-dark">Documento Criado com Sucesso!</h2>
                 <p class="text-center text-secondary">O resultado poderá ser salvo ou editado abaixo</p>
@@ -89,18 +91,17 @@
                     <p class="text-center text-secondary">O resultado poderá ser salvo ou editado abaixo</p>-->
 
                     <div class="editable-content">
-                        <!-- Formulário para editar o conteúdo -->
+                        <!-- Formulário para editar o conteúdo 
                         <form method="post" action="{% url 'editar_documento' documento.id %}" onsubmit="return updateEditorContent();">
-                            {% csrf_token %}
+                            {% csrf_token %}-->
                             
-                            <!-- Campo oculto para enviar o conteúdo editado -->
-                            <input type="hidden" name="conteudo_documento_hidden" id="conteudo_documento_hidden">
+                            
                             
                             <!-- Conteúdo editável com CKEditor -->
                             <div id="conteudo_documento" contenteditable="true">
                                 {{ documento.conteudo | safe }}
                             </div>
-                        </form>
+                       <!-- </form>-->
                     </div>
                 </div>
             </div>
@@ -109,8 +110,21 @@
 </div>
 
 <!-- Inicializa o CKEditor -->
-<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 <script>
+    // Configura CKEditor na div com o ID 'conteudo_documento'
+   /* var editor = CKEDITOR.inline('conteudo_documento', {
+        removePlugins: 'notificationMessage'
+    });
+
+    // Função para capturar o conteúdo do CKEditor e inseri-lo no campo oculto ao submeter o formulário
+    function updateEditorContent() {
+        var content = editor.getData();
+        alert(content);
+        document.getElementById('conteudo_documento_hidden').value = content;
+        return true;
+    }*/
+
     // Configura CKEditor na div com o ID 'conteudo_documento'
     var editor = CKEDITOR.inline('conteudo_documento', {
         removePlugins: 'notificationMessage'
@@ -119,7 +133,9 @@
     // Função para capturar o conteúdo do CKEditor e inseri-lo no campo oculto ao submeter o formulário
     function updateEditorContent() {
         var content = editor.getData();
+        console.log("Conteúdo do CKEditor:", content);  // Debug: Mostra o conteúdo capturado do CKEditor
         document.getElementById('conteudo_documento_hidden').value = content;
+        //alert(document.getElementById('conteudo_documento_hidden').value);
         return true;
     }
 </script>

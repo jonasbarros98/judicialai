@@ -110,6 +110,33 @@
             });
         }
 
+         // Função para exibir/ocultar os campos de partes envolvidas
+        function togglePartesEnvolvidas() {
+                var partesEnvolvidas = document.getElementById('partes-envolvidas');
+                if (document.getElementById('adicionar-partes').checked) {
+                    partesEnvolvidas.style.display = 'block';
+                } else {
+                    partesEnvolvidas.style.display = 'none';
+                }
+            }
+
+        // Função para exibir o loader
+        document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('documento-form').addEventListener('submit', function (event) {
+                    event.preventDefault();  // Previne o envio imediato do formulário
+    
+                    // Oculta o formulário e mostra o loader
+                    document.getElementById("documento-form").style.display = "none";
+                    document.getElementById("loader").style.display = "block";
+    
+                    // Aguarda um pequeno tempo para mostrar o loader e então submete o formulário
+                    setTimeout(() => {
+                        this.submit();  // Agora o formulário é enviado
+                    }, 500);  // Pausa de 500ms para garantir que o loader aparece
+                });
+            });
+
+
     </script>
 
 {% endblock %}
