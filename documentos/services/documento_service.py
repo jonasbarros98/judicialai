@@ -759,7 +759,7 @@ def gerar_conteudo_recurso_extraordinario(dados_preenchimento):
             f"- Mantenha o foco na constitucionalidade da matéria e na repercussão geral, sem incluir argumentos vagos ou irrelevantes.\n"
             f"- Finalize o documento com espaço para o nome do advogado, OAB e data de forma apropriada.\n"
             f"- O documento deve ser claro e objetivo, com robustez jurídica, fluidez e, no mínimo, 2000 palavras.\n"
-            f"- O conteúdo deve ser todo em HTML puro, sem usar ```html ou outra marcação de código.\n"
+            f"- O conteúdo deve ser todo em HTML puro, sem usar ```html ou outra marcação de código. Refoço, não use ```html e nem nada semelhante à isso.\n"
             f"- As jurisprudências devem ser reais e verificáveis. Em hipótese alguma crie ou invente jurisprudências. Use apenas jurisprudências reais, citando-as de maneira completa e exata, incluindo o número do processo, tribunal, data do julgamento, e outras informações relevantes da decisão. Certifique-se de que as jurisprudências sejam formatadas conforme o padrão jurídico e estejam adequadamente inseridas na peça jurídica."
             f"- As jurisprudências reais encontradas na web são as seguintes (use apenas as pertinentes):\n"
         )
@@ -1118,6 +1118,7 @@ def gerar_conteudo_agravo_instrumento(dados_preenchimento):
             f"- As jurisprudências relevantes devem ser reais e formatadas em HTML, sem links.\n"
             f"- Insira a fundamentação legal apropriada, como o Código de Processo Civil e outras legislações.\n"
             f"- O documento deve conter ao menos 2000 palavras.\n\n"
+            f"- Não se esqueça de incluir ao final do documento o campo para assinatuta e OAB do advogado.\n\n"
         )
 
         # Inclusão de jurisprudências reais

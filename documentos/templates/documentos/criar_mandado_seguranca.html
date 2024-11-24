@@ -12,7 +12,7 @@
 <div class="container mt-5">
     <h2 class="text-center">Criar Mandado de Segurança</h2>
     <br>
-    <form method="post" action="{% url 'criar_mandado_seguranca' %}" enctype="multipart/form-data">
+    <form method="post" action="{% url 'criar_mandado_seguranca' %}" enctype="multipart/form-data" id="documento-form">
         {% csrf_token %}
 
         <div class="form-group">
@@ -63,5 +63,34 @@
         <div class="alert alert-danger mt-3">{{ error_message }}</div>
     {% endif %}
 </div>
+
+<script src="{% static 'js/vanilla-masker.min.js' %}"></script>
+<script>
+     //////////////////////////////////////////////////////////////////////////////////////////
+
+     document.addEventListener('DOMContentLoaded', function () {
+        //Aplicando a máscara
+        var valorCausaInput = document.getElementById('valor_causa');
+        VMasker(valorCausaInput).maskMoney({
+            precision: 2,
+            separator: ',',
+            delimiter: '.',
+            unit: 'R$ ',
+            zeroCents: false
+        });
+
+         // Remove a máscara antes de submeter o formulário
+         document.getElementById('documento-form').addEventListener('submit', function (event) {
+            // Remove a máscara e converte para formato numérico
+            var valorCausaRaw = valorCausaInput.value.replace(/[R$\s.]/g, '').replace(',', '.');
+            valorCausaInput.value = valorCausaRaw;
+
+            console.log('Valor da Causa Formatado:', valorCausaRaw); // Verifica no console
+        });
+
+
+    });
+
+</script>
 
 {% endblock %}

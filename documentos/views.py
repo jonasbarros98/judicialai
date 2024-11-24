@@ -64,7 +64,9 @@ def exportar_documento_word(request, documento_id):
 
 @login_required(login_url='/index/')
 def criar_documento(request):
+    print('Entrou na criar_documento')
     if request.method == 'POST':
+        print('Entrou no POST')
         try:
             # Captura os dados do formulário
             tipo = request.POST.get('tipo')
@@ -77,9 +79,13 @@ def criar_documento(request):
             justica_gratis = 'justica_gratis' in request.POST
 
             # Converte o valor_causa em Decimal
+            print('Tentou converter 1')
             try:
+                print('Tentou converter 2: ' + str(valor_causa))
                 valor_causa = Decimal(valor_causa)
+                print('Tentou converter 3')
             except (InvalidOperation, ValueError, TypeError):
+                print('Tentou converter 4')
                 return render(request, 'documentos/criar_documento.html', {
                     'error_message': 'O valor da causa deve ser um número válido.',
                     'tipo': tipo,

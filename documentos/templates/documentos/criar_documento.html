@@ -92,6 +92,7 @@
 
     <!-- Scripts para a máscara e o loader -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/vanilla-masker.min.js' %}"></script>
 
     <script>
       // Função para iniciar o streaming
@@ -135,6 +136,38 @@
                     }, 500);  // Pausa de 500ms para garantir que o loader aparece
                 });
             });
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        //Aplicando a máscara
+        var valorCausaInput = document.getElementById('valor_causa');
+        VMasker(valorCausaInput).maskMoney({
+            precision: 2,
+            separator: ',',
+            delimiter: '.',
+            unit: 'R$ ',
+            zeroCents: false
+        });
+
+         // Remove a máscara antes de submeter o formulário
+         document.getElementById('documento-form').addEventListener('submit', function (event) {
+            // Remove a máscara e converte para formato numérico
+            var valorCausaRaw = valorCausaInput.value.replace(/[R$\s.]/g, '').replace(',', '.');
+            valorCausaInput.value = valorCausaRaw;
+
+            console.log('Valor da Causa Formatado:', valorCausaRaw); // Verifica no console
+        });
+
+
+    });
+
+    
+
+        
+
+
 
 
     </script>

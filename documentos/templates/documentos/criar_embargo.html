@@ -67,7 +67,10 @@
     </form>
 </div>
 
+
+
 <!-- Funções JavaScript -->
+<script src="{% static 'js/vanilla-masker.min.js' %}"></script>
 <script>
     function togglePartesEnvolvidas() {
         var partesEnvolvidas = document.getElementById('partes-envolvidas');
@@ -77,5 +80,37 @@
             partesEnvolvidas.style.display = 'none';
         }
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        //Aplicando a máscara
+        var valorCausaInput = document.getElementById('valor_causa');
+        VMasker(valorCausaInput).maskMoney({
+            precision: 2,
+            separator: ',',
+            delimiter: '.',
+            unit: 'R$ ',
+            zeroCents: false
+        });
+
+         // Remove a máscara antes de submeter o formulário
+         document.getElementById('documento-form').addEventListener('submit', function (event) {
+            // Remove a máscara e converte para formato numérico
+            var valorCausaRaw = valorCausaInput.value.replace(/[R$\s.]/g, '').replace(',', '.');
+            valorCausaInput.value = valorCausaRaw;
+
+            console.log('Valor da Causa Formatado:', valorCausaRaw); // Verifica no console
+        });
+
+
+    });
+
+
+
+
+
+
 </script>
 {% endblock %}
